@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A critical analysis of mandatory online age verification via EUDI Wallet, examining technical risks, societal consequences, and alternative regulatory approaches.">
+  <title>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</title>
+  <style>
+    :root {
+      --bg: #fffff8;
+      --fg: #111;
+      --fg-secondary: #444;
+      --border: #ccc;
+      --border-light: #ddd;
+      --accent: #8b0000;
+      --link: #1a0dab;
+      --link-visited: #4b0082;
+      --blockquote-bg: #f9f9f6;
+      --blockquote-border: #8b0000;
+      --table-alt: #f5f5f0;
+      --table-head-bg: #eee;
+      --footnote-bg: #fafaf7;
+      --code-bg: #f0f0ec;
+      --hr: #ccc;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --fg: #d8d8d8;
+        --fg-secondary: #aaa;
+        --border: #444;
+        --border-light: #333;
+        --accent: #e07070;
+        --link: #7cacf8;
+        --link-visited: #b89ae0;
+        --blockquote-bg: #222;
+        --blockquote-border: #e07070;
+        --table-alt: #242424;
+        --table-head-bg: #2a2a2a;
+        --footnote-bg: #1e1e1e;
+        --code-bg: #2a2a2a;
+        --hr: #444;
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      line-height: 1.7;
+      color: var(--fg);
+      background-color: var(--bg);
+      margin: 0;
+      padding: 2rem 1rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    article {
+      max-width: 48em;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      line-height: 1.3;
+      margin: 0 0 0.5rem 0;
+      color: var(--fg);
+    }
+
+    header .subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--fg-secondary);
+      margin: 0.5rem 0;
+    }
+
+    header .meta {
+      font-size: 0.85rem;
+      color: var(--fg-secondary);
+      margin-top: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--fg);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--fg);
+    }
+
+    h4 {
+      font-size: 1.0rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--fg);
+    }
+
+    p {
+      margin: 0 0 1rem 0;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: var(--link-visited);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--blockquote-border);
+      margin: 1.5rem 0;
+      padding: 0.75rem 1.25rem;
+      background-color: var(--blockquote-bg);
+      font-style: italic;
+    }
+
+    blockquote p {
+      margin: 0 0 0.5rem 0;
+    }
+
+    blockquote p:last-child {
+      margin-bottom: 0;
+    }
+
+    blockquote cite, blockquote .source {
+      display: block;
+      font-style: normal;
+      font-size: 0.9rem;
+      color: var(--fg-secondary);
+      margin-top: 0.5rem;
+    }
+
+    ul, ol {
+      margin: 0 0 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9em;
+      background-color: var(--code-bg);
+      padding: 0.15em 0.35em;
+      border-radius: 3px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    thead th {
+      background-color: var(--table-head-bg);
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 2px solid var(--border);
+      font-weight: 700;
+    }
+
+    tbody td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--table-alt);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--hr);
+      margin: 2.5rem 0;
+    }
+
+    sup a {
+      text-decoration: none;
+      font-size: 0.75em;
+      color: var(--accent);
+    }
+
+    sup a:hover {
+      text-decoration: underline;
+    }
+
+    nav#toc {
+      background-color: var(--blockquote-bg);
+      border: 1px solid var(--border-light);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    nav#toc h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem 0;
+      padding: 0;
+      border: none;
+    }
+
+    nav#toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      list-style-type: none;
+      counter-reset: toc;
+    }
+
+    nav#toc > ol > li {
+      counter-increment: toc;
+      margin-bottom: 0.3rem;
+    }
+
+    nav#toc ol ol {
+      padding-left: 1.25rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    nav#toc a {
+      color: var(--fg);
+    }
+
+    nav#toc a:hover {
+      color: var(--link);
+    }
+
+    section#abstract {
+      background-color: var(--blockquote-bg);
+      border: 1px solid var(--border-light);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    section#abstract h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem 0;
+      padding: 0;
+      border: none;
+    }
+
+    section.footnotes {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      background-color: var(--footnote-bg);
+      padding: 1.5rem;
+    }
+
+    section.footnotes h2 {
+      font-size: 1.1rem;
+      margin-top: 0;
+    }
+
+    section.footnotes ol {
+      padding-left: 1.5rem;
+    }
+
+    section.footnotes li {
+      margin-bottom: 0.75rem;
+    }
+
+    section.footnotes li a.fn-back {
+      margin-left: 0.3em;
+      font-size: 0.85em;
+    }
+
+    section#references {
+      margin-top: 2.5rem;
+    }
+
+    section#references h3 {
+      font-size: 1.05rem;
+      margin-top: 1.5rem;
+    }
+
+    section#references ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    section#references li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0.75rem;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      h2 { font-size: 1.25rem; }
+      h3 { font-size: 1.05rem; }
+
+      table {
+        font-size: 0.82rem;
+      }
+
+      thead th, tbody td {
+        padding: 0.4rem 0.5rem;
+      }
+
+      blockquote {
+        padding: 0.5rem 0.75rem;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+        font-size: 11pt;
+        padding: 0;
+      }
+
+      article {
+        max-width: none;
+      }
+
+      a {
+        color: black;
+        text-decoration: underline;
+      }
+
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #555;
+      }
+
+      nav#toc a[href]::after,
+      sup a[href]::after,
+      .fn-back::after {
+        content: "";
+      }
+
+      blockquote {
+        background: none;
+        border-left: 2px solid #999;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      thead th {
+        background: none;
+        border-bottom: 2px solid #000;
+      }
+
+      tbody tr:nth-child(even) {
+        background: none;
+      }
+
+      section.footnotes {
+        background: none;
+      }
+
+      nav#toc, section#abstract {
+        background: none;
+        border: 1px solid #ccc;
+      }
+
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+
+      section {
+        page-break-before: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <header>
+      <h1>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</h1>
+      <p class="subtitle">A Critical Analysis of the Proposed Mandatory Online Identification</p>
+      <p class="meta">Compiled from academic sources, court rulings, and official EU documents. As of: March 2026.<br>
+      <em>Compiled March 2026.</em></p>
+    </header>
+
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>In February 2026, senior SPD politicians published a policy paper calling for a social media ban for children under 14, a "youth version" for 14&ndash;15-year-olds, and comprehensive age verification via EUDI Wallet &mdash; including for adults. This analysis examines three questions:</p>
+      <ol>
+        <li>Does the proposed technology deliver on its promises?</li>
+        <li>What risks arise from mandatory digital identification?</li>
+        <li>Are there more effective regulatory approaches that address root causes?</li>
+      </ol>
+      <p>This analysis does not argue against child protection &mdash; protecting minors from algorithmic manipulation, addictive design patterns, and harmful content is a legitimate and urgent concern (cf. Art.&nbsp;24 EU Charter of Fundamental Rights). It argues that the proposed measures fail to achieve this objective while creating disproportionate risks. It advocates for a regulatory approach that targets the business models of platforms rather than the identity of users.</p>
+      <p><strong>Keywords:</strong> age verification, EUDI Wallet, platform governance, surveillance, chilling effects, design regulation, digital identity, contextual integrity, fundamental rights</p>
+    </section>
+
+    <nav id="toc">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#part-1">Part 1: Technical Analysis of the EUDI Wallet Architecture</a>
+          <ol>
+            <li><a href="#s1-1">1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</a></li>
+            <li><a href="#s1-2">1.2 Zero-Knowledge Proofs Are Not Mandatory</a></li>
+            <li><a href="#s1-3">1.3 Lack of Protection Against Tracking by Wallet Providers</a></li>
+            <li><a href="#s1-4">1.4 The Pseudonym Provider &mdash; A Central De-Anonymization Risk</a></li>
+            <li><a href="#s1-5">1.5 Article 45 &mdash; Mandatory Trust in State Certification Authorities</a></li>
+            <li><a href="#s1-6">1.6 Google&rsquo;s Role in the German Prototype Development</a></li>
+          </ol>
+        </li>
+        <li><a href="#part-2">Part 2: Societal and Fundamental Rights Implications</a>
+          <ol>
+            <li><a href="#s2-1">2.1 Experiences with Real-Name Policies: The Case of South Korea</a></li>
+            <li><a href="#s2-2">2.2 Mandatory Identification as an Instrument of Political Persecution</a></li>
+            <li><a href="#s2-3">2.3 Chilling Effects &mdash; Empirical Evidence</a></li>
+            <li><a href="#s2-4">2.4 Behavioral Scoring Systems &mdash; Existing Implementations</a></li>
+            <li><a href="#s2-5">2.5 Function Creep &mdash; Recurring Patterns</a></li>
+            <li><a href="#s2-6">2.6 AI-Powered Surveillance Technologies &mdash; Current Use Cases</a></li>
+            <li><a href="#s2-7">2.7 Fundamental Rights Classification</a></li>
+            <li><a href="#s2-8">2.8 eIDAS 2.0: Internal Contradictions</a></li>
+          </ol>
+        </li>
+        <li><a href="#interim">Interim Consideration: Balancing Against Child Protection</a></li>
+        <li><a href="#part-2b">Part 2b: The Case For Age Verification &mdash; A Fair Assessment</a>
+          <ol>
+            <li><a href="#s2b-1">The Scale of Online Child Exploitation</a></li>
+            <li><a href="#s2b-2">The Mental Health Debate: Neither Settled Nor Dismissible</a></li>
+            <li><a href="#s2b-3">Digital Identity Systems That Have Not Been Abused</a></li>
+            <li><a href="#s2b-4">Privacy-Preserving Age Verification: A Technically Feasible Alternative?</a></li>
+            <li><a href="#s2b-5">The Bootstrapping Problem of Design Regulation</a></li>
+          </ol>
+        </li>
+        <li><a href="#part-3">Part 3: Root Cause Analysis and Alternative Regulatory Approaches</a>
+          <ol>
+            <li><a href="#s3-1">3.1 The Causal Chain</a></li>
+            <li><a href="#s3-2">3.2 Algorithmic Amplification &mdash; The Evidence</a></li>
+            <li><a href="#s3-3">3.3 Internal Research Findings from Meta</a></li>
+            <li><a href="#s3-4">3.4 Dark Patterns and Addictive Design</a></li>
+            <li><a href="#s3-5">3.5 97% Advertising Revenue &mdash; The Structural Incentive Problem</a></li>
+            <li><a href="#s3-6">3.6 Regulatory Approaches That Address Root Causes</a></li>
+          </ol>
+        </li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#footnotes-section">Footnotes</a></li>
+        <li><a href="#references">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- THEORETICAL FRAMEWORK & METHOD -->
+    <section id="framework">
+      <h2>Theoretical Framework &amp; Method</h2>
+
+      <h3>Theoretical Framework</h3>
+
+      <p>This analysis draws on three intersecting frameworks:</p>
+
+      <p>First, <strong>Contextual Integrity</strong> (Nissenbaum, 2010): Age verification via EUDI Wallet transmits identity data from one informational context (government identification) to another (social media use), violating the context-relative informational norms governing both. The &ldquo;function creep&rdquo; documented in Section 2.5 represents systematic context collapse.</p>
+      <blockquote>
+        <p>Nissenbaum, H. (2010). <em>Privacy in Context: Technology, Policy, and the Integrity of Social Life.</em> Stanford University Press.</p>
+      </blockquote>
+
+      <p>Second, <strong>Platform Governance Theory</strong> (Gillespie, 2018; Van Dijck et al., 2018; Helberger et al., 2018): Platforms are not neutral intermediaries but actively shape public discourse through design choices. Age verification regulates <em>who accesses</em> the platform; design regulation changes <em>what the platform does</em> &mdash; a distinction that maps onto Lessig&rsquo;s (2006) four modalities of regulation (law, norms, market, architecture/code).<sup><a href="#fn-36" id="fnref-36">36</a></sup></p>
+      <blockquote>
+        <p>Gillespie, T. (2018). <em>Custodians of the Internet: Platforms, Content Moderation, and the Hidden Decisions That Shape Social Media.</em> Yale University Press.</p>
+        <p>Van Dijck, J., Poell, T. &amp; de Waal, M. (2018). <em>The Platform Society: Public Values in a Connective World.</em> Oxford University Press.</p>
+        <p>Helberger, N., Pierson, J. &amp; Poell, T. (2018). &ldquo;Governing online platforms: From contested to cooperative responsibility.&rdquo; <em>The Information Society</em>, 34(1), 1&ndash;14. DOI: 10.1080/01972243.2017.1391913.</p>
+        <p>Lessig, L. (2006). <em>Code: Version 2.0.</em> Basic Books.</p>
+      </blockquote>
+
+      <p>Third, <strong>Surveillance Studies</strong> (Lyon, 2018; Zuboff, 2019): Mandatory identification normalizes surveillance as a condition for participation in digital public life. Lyon&rsquo;s concept of &ldquo;surveillance culture&rdquo; &mdash; where surveillance becomes an accepted, even participatory, practice &mdash; describes the risk that age verification habituates citizens to presenting identity credentials as a routine precondition for online activity.<sup><a href="#fn-37" id="fnref-37">37</a></sup></p>
+      <blockquote>
+        <p>Lyon, D. (2018). <em>The Culture of Surveillance: Watching as a Way of Life.</em> Polity Press.</p>
+      </blockquote>
+
+      <h3>Method</h3>
+
+      <p>This paper employs a critical policy analysis methodology (cf. Fischer, 2003) combining: (1) technical analysis of the EUDI Architecture Reference Framework, drawing on published cryptographic assessments; (2) comparative case analysis of prior identification mandates (South Korea, EU COVID Certificate, India&rsquo;s Aadhaar); (3) fundamental rights assessment under EU, ECHR, and German constitutional law; and (4) regulatory alternatives assessment.<sup><a href="#fn-38" id="fnref-38">38</a></sup></p>
+
+      <p><em>Limitations:</em> The analysis does not conduct original empirical research or independent cryptographic audit. Case studies were selected for their relevance and documentation quality, which may introduce selection bias toward negative outcomes. The regulatory landscape is rapidly evolving (the Digital Fairness Act has not yet been proposed). The paper&rsquo;s normative position &mdash; that mandatory age verification is disproportionate &mdash; is stated upfront; readers should evaluate the evidence independently.</p>
+      <blockquote>
+        <p>Fischer, F. (2003). <em>Reframing Public Policy: Discursive Politics and Deliberative Practices.</em> Oxford University Press.</p>
+      </blockquote>
+    </section>
+
+    <!-- PART 1 -->
+    <section id="part-1">
+      <h2>Part 1: Technical Analysis of the EUDI Wallet Architecture</h2>
+
+      <section id="s1-1">
+        <h3>1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</h3>
+        <p>The SPD calls for age verification via EUDI Wallet and promises &ldquo;no restriction of anonymity.&rdquo; The technical reality fundamentally contradicts this promise.</p>
+
+        <h4>The Problem: Signed Credentials</h4>
+        <p>Germany relies on the so-called <em>signed credentials</em> model: identity data is cryptographically signed &mdash; i.e., digitally certified &mdash; by a government authority and then transmitted to the respective recipient. Since the signature retains its validity permanently, any recipient can pass the signed data on to third parties unchanged &mdash; it remains verifiable without the holder being able to detect or prevent this. The Federal Commissioner for Data Protection and Freedom of Information (Bundesbeauftragter f&uuml;r den Datenschutz und die Informationsfreiheit, BfDI) explicitly warns against this model.</p>
+        <blockquote>
+          <p>&ldquo;An issue with any digital credential is that it can easily be copied and thus illegally distributed.&rdquo;</p>
+          <cite>&mdash; Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo;<sup><a href="#fn-1" id="fnref-1">1</a></sup></cite>
+        </blockquote>
+
+        <h4>Unlinkability (<em>Nichtverkettbarkeit</em>) Is Not Guaranteed in the Current Design</h4>
+        <p>Both data formats specified in the Architecture Reference Framework (ARF) &mdash; SD-JWT and ISO 18013-5/mdoc &mdash; use static, issuer-generated digital signatures over the (hashed) identity attributes of the user. This signature functions as a persistent identifier &mdash; it remains identical with each presentation. Any two service providers (so-called Relying Parties) can therefore link transactions of the same user with minimal effort.</p>
+        <blockquote>
+          <p>&ldquo;the signature as well as (h<sub>1</sub>,...,h<sub>n</sub>) are always revealed and thus can be trivially linked by any RP.&rdquo;</p>
+          <cite>&mdash; Slamanig, D. (2025).<sup><a href="#fn-1" id="fnref-1b">1</a></sup> Keynote, 19th IFIP Summer School on Privacy and Identity Management.</cite>
+        </blockquote>
+
+        <h4>Joint Statement by International Cryptographers</h4>
+        <p>In June 2024, 16 internationally renowned cryptographers published a joint statement documenting the fundamental deficiencies of the ARF.<sup><a href="#fn-2" id="fnref-2">2</a></sup> Signatories include, among others:</p>
+        <ul>
+          <li><strong>Anna Lysyanskaya</strong> (Brown University) &mdash; co-inventor of CL signatures (Camenisch-Lysyanskaya, CRYPTO 2004)</li>
+          <li><strong>Jan Camenisch</strong> (Dfinity) &mdash; co-inventor of CL signatures, IBM Idemix</li>
+          <li><strong>Bart Preneel</strong> (KU Leuven) &mdash; one of the most cited cryptographers worldwide</li>
+          <li><strong>Carmela Troncoso</strong> (EPFL) &mdash; led the DP-3T protocol for COVID contact tracing</li>
+          <li><strong>Anja Lehmann</strong> (Hasso Plattner Institute, University of Potsdam)</li>
+          <li><strong>Daniel Slamanig</strong> (Universit&auml;t der Bundeswehr M&uuml;nchen)</li>
+        </ul>
+        <p>Their core criticism: The technology to ensure anonymity has existed for over 20 years (BBS+ signatures, CL signatures, U-Prove). The ARF architects deliberately chose against it. BBS+ enables <em>signature randomization</em> (each presentation generates a cryptographically fresh, unlinkable proof) and <em>zero-knowledge selective disclosure</em>. The current ARF architecture cannot do this.</p>
+
+        <h4>Batch Issuance: A Proposed but Insufficient Workaround</h4>
+        <p>The ARF acknowledges the linkability problem and proposes <em>batch issuance</em> as a mitigation: the issuer provides the holder with multiple copies of the same credential, each bearing a distinct signature. The holder uses a different copy per presentation, preventing cross-verifier correlation. However, cryptographers consider this an inadequate substitute for proper unlinkable proof schemes: the number of unlinkable presentations is bounded by batch size, re-issuance creates new tracking vectors, and revocation checking can re-link batched credentials. Notably, several EU-funded research projects (OLYMPUS, IMPULSE) have developed and tested privacy-preserving credential systems &mdash; yet their results were not integrated into the ARF.<sup><a href="#fn-39" id="fnref-39">39</a></sup></p>
+
+        <p><strong>Additional Hardware Problem:</strong> Anonymous credentials require pairing-friendly elliptic curves (BN-462, BLS12-381), but existing secure elements in smartphones only support ECDSA on P-256 &mdash; the wrong curves.<sup><a href="#fn-3" id="fnref-3">3</a></sup></p>
+      </section>
+
+      <section id="s1-2">
+        <h3>1.2 Zero-Knowledge Proofs Are Not Mandatory</h3>
+        <p>Zero-knowledge proofs (ZKP) are mentioned in the eIDAS 2.0 Regulation (Regulation (EU) 2024/1183) only in the recitals &mdash; <em>not</em> as a binding requirement in the implementing acts. The European Commission has systematically ignored the relevant data protection provisions in the technical implementing specifications.</p>
+        <blockquote>
+          <p>&ldquo;The ARF simply ignores this paragraph completely.&rdquo;</p>
+          <cite>&mdash; epicenter.works (2024). Data Protection Analysis: eIDAS Architecture Reference Framework 1.4.<sup><a href="#fn-4" id="fnref-4">4</a></sup></cite>
+        </blockquote>
+      </section>
+
+      <section id="s1-3">
+        <h3>1.3 Lack of Protection Against Tracking by Wallet Providers</h3>
+        <p>The ARF contains no safeguards whatsoever against tracking by wallet providers. Every transaction is visible to the provider.</p>
+        <blockquote>
+          <p>&ldquo;Every use of the wallet could be monitored by the state.&rdquo;</p>
+          <cite>&mdash; Thomas Lohninger, epicenter.works.<sup><a href="#fn-5" id="fnref-5">5</a></sup></cite>
+        </blockquote>
+      </section>
+
+      <section id="s1-4">
+        <h3>1.4 The Pseudonym Provider &mdash; A Central De-Anonymization Risk</h3>
+        <p>The ARF introduces a &ldquo;Pseudonym Provider&rdquo; &mdash; a centralized entity that:</p>
+        <ol>
+          <li>verifies the user&rsquo;s real identity,</li>
+          <li>issues pseudonyms,</li>
+          <li>maintains a mapping table,</li>
+          <li>discloses the true identity upon request from law enforcement authorities.</li>
+        </ol>
+        <p>This entity is <em>not provided for</em> in the eIDAS Regulation. The Regulation envisions local pseudonym generation on the end device &mdash; not a centralized de-anonymization service.</p>
+        <blockquote>
+          <p>&ldquo;The eID Wallet risks becoming a tool of surveillance and control rather than a tool that empowers users.&rdquo;</p>
+          <cite>&mdash; EDRi, &ldquo;The eID Wallet still doesn&rsquo;t deserve your full trust&rdquo;, 10.03.2026.<sup><a href="#fn-6" id="fnref-6">6</a></sup></cite>
+        </blockquote>
+      </section>
+
+      <section id="s1-5">
+        <h3>1.5 Article 45 &mdash; Mandatory Trust in State Certification Authorities</h3>
+        <p>Article 45 of the eIDAS 2.0 Regulation requires browser manufacturers (Mozilla, Google, Apple) to trust Qualified Website Authentication Certificates (QWACs) issued by EU member states &mdash; without being permitted to apply the usual security standards (CA/Browser Forum Baseline Requirements). Over 500 cybersecurity researchers warned in an open letter (November 2023):<sup><a href="#fn-7" id="fnref-7">7</a></sup></p>
+        <blockquote>
+          <p>&ldquo;The current proposal radically expands the ability of governments to surveil both their own citizens and residents across the EU by providing them with the technical means to intercept encrypted web traffic.&rdquo;</p>
+          <cite>&mdash; <a href="https://eidas-open-letter.org">eidas-open-letter.org</a> (over 500 signatories, including EFF, EDRi, Internet Society, Mozilla, Linux Foundation)</cite>
+        </blockquote>
+        <h4>Partial Mitigation Through Certificate Transparency</h4>
+        <p>The EU implementing acts (Commission Implementing Regulations (EU) 2024/3144 and 2024/3145, December 2024) require QWACs to be logged in publicly accessible Certificate Transparency (CT) logs. This significantly raises the bar for covert, large-scale TLS interception &mdash; a rogue certificate for gmail.com would appear in public logs and could be detected within hours. However, targeted, short-duration interception (e.g., of a specific journalist&rsquo;s traffic) remains possible before CT monitors flag the anomaly. The structural concern &mdash; that Article 45 undermines browser vendors&rsquo; ability to enforce their own security standards &mdash; remains valid regardless of CT mitigations.<sup><a href="#fn-40" id="fnref-40">40</a></sup></p>
+
+        <p>Reference: Wazan, A.S. et al. (2024). &ldquo;Article 45 of the eIDAS Directive Unveils the need to implement the X.509 4-cornered trust model for the WebPKI.&rdquo; ARES&nbsp;&rsquo;24.<sup><a href="#fn-8" id="fnref-8">8</a></sup></p>
+      </section>
+
+      <section id="s1-6">
+        <h3>1.6 Google&rsquo;s Role in the German Prototype Development</h3>
+        <p>In the SPRIND &ldquo;Funke&rdquo; competition, Google was admitted to the German wallet prototype development &mdash; despite data protection concerns within the jury. Google developed the &ldquo;Android German EUDI Open Source Wallet Prototype&rdquo; (GitHub: google/funke-eudi-wallet-prototype, since archived). The involvement of a US technology corporation in a European sovereignty infrastructure raises questions &mdash; particularly since Google&rsquo;s production stack (Android Credential Manager) remains proprietary.</p>
+      </section>
+    </section>
+
+    <!-- PART 2 -->
+    <section id="part-2">
+      <h2>Part 2: Societal and Fundamental Rights Implications</h2>
+
+      <section id="s2-1">
+        <h3>2.1 Experiences with Real-Name Policies: The Case of South Korea</h3>
+        <p>South Korea&rsquo;s real-name policy (<em>Klarnamenpflicht</em>, 2004&ndash;2012) represents the most comprehensive natural experiment to date on the effects of mandatory online identification.</p>
+        <ul>
+          <li>A government study by the Korea Communications Commission (KCC) found a decline in malicious comments of merely <strong>0.9 percentage points</strong> (from 13.9% to 13.0%) &mdash; despite significant interference with fundamental rights.</li>
+          <li>Cho &amp; Kwon (2015) showed that statutory identification requirements actually <strong>increased</strong> flaming: <em>&ldquo;Whereas policy-driven regulation does not reduce, and even increases, flaming, the voluntary approach significantly decreases it.&rdquo;</em><sup><a href="#fn-9" id="fnref-9">9</a></sup></li>
+          <li>August 2011: Hackers obtained the registration data of <strong>35 million people</strong> &mdash; the system itself became the security vulnerability.</li>
+          <li>August 2012: The Constitutional Court declared the system <strong>unanimously</strong> unconstitutional (Case No. 2010Hun-Ma47) &mdash; for violating freedom of expression and the right to informational self-determination (<em>Recht auf informationelle Selbstbestimmung</em>).</li>
+        </ul>
+        <blockquote>
+          <p>Park, W.-I. &amp; Greenleaf, G. (2012). &ldquo;Korea Rolls Back &lsquo;Real Name&rsquo; and ID Number Surveillance.&rdquo; <em>Privacy Laws &amp; Business International Report</em>, 119, 20&ndash;21.<sup><a href="#fn-10" id="fnref-10">10</a></sup></p>
+          <p>Leitner, J.M. (2015). &ldquo;Anonymity, Privacy, and Expressive Equality.&rdquo; <em>Journal of Korean Law</em>, 14(2), 167&ndash;212.<sup><a href="#fn-11" id="fnref-11">11</a></sup></p>
+        </blockquote>
+      </section>
+
+      <section id="s2-2">
+        <h3>2.2 Mandatory Identification as an Instrument of Political Persecution</h3>
+        <p>The following examples do not suggest that the EU will necessarily follow the same path &mdash; the EU has stronger institutional safeguards (independent judiciary, Charter of Fundamental Rights, data protection authorities). They do, however, demonstrate that the <em>technical infrastructure</em> for identification, once built, can be repurposed under changed political conditions. The question is not whether the current government would abuse this infrastructure, but whether the architecture is robust against future political changes &mdash; including in light of democratic backsliding in EU member states such as Hungary and Poland.</p>
+
+        <p><strong>China:</strong> Real-name policy since 2012/2017 (Cybersecurity Law, Art. 24). King, Pan &amp; Roberts (2013) showed: It is not criticism of the state that is censored, but content that enables <em>collective action</em> &mdash; regardless of tone.<sup><a href="#fn-12" id="fnref-12">12</a></sup></p>
+
+        <p><strong>Turkey:</strong> Law No. 7418, Art. 217/A (2022) &mdash; 4,590 investigations against 4,590 individuals, 33 arrests, 66 journalists affected. Nearly half of the proceedings concerned reporting on the earthquake in February 2023.<sup><a href="#fn-13" id="fnref-13">13</a></sup></p>
+
+        <p><strong>Russia:</strong> Blogger registration requirement since November 2024 (Law No. 647048-8). Roskomnadzor has maintained an 11-member OSINT unit since February 2025 that creates &ldquo;behavioral portraits&rdquo; from open sources and classifies content as &ldquo;pro-government,&rdquo; &ldquo;anti-government,&rdquo; or &ldquo;apolitical.&rdquo;<sup><a href="#fn-14" id="fnref-14">14</a></sup></p>
+      </section>
+
+      <section id="s2-3">
+        <h3>2.3 Chilling Effects (<em>Abschreckungswirkungen</em>) &mdash; Empirical Evidence</h3>
+
+        <p><strong>Penney (2016):</strong> Wikipedia traffic to DHS-categorized &ldquo;sensitive&rdquo; articles dropped by <strong>20%</strong> after the Snowden revelations &mdash; from 3.0 million to 2.2 million views/month. The decline was persistent.<sup><a href="#fn-15" id="fnref-15">15</a></sup></p>
+
+        <p><strong>Stoycheff (2016):</strong> Experimental study (n=255): Participants who were informed about surveillance and held a minority opinion expressed it <strong>significantly less frequently</strong>. Even surveillance supporters adjusted their behavior.<sup><a href="#fn-16" id="fnref-16">16</a></sup></p>
+
+        <p><strong>B&uuml;chi, Festic &amp; Latzer (2022):</strong> Perceived data surveillance leads to restricted digital communication &mdash; mediated by awareness, perceived intrusiveness, and resignation.<sup><a href="#fn-17" id="fnref-17">17</a></sup></p>
+
+        <h4>Connection to Democratic Theory</h4>
+        <p>Chilling effects matter not merely as individual privacy harms but as structural threats to democratic deliberation. Democratic legitimacy depends on the inclusion of diverse viewpoints, including dissenting and minority opinions (Habermas, 2006; Sunstein, 2017). Stoycheff&rsquo;s (2016) finding that surveillance awareness suppresses minority opinion expression is an empirical instantiation of the &ldquo;spiral of silence&rdquo; (Noelle-Neumann, 1974) &mdash; intensified by the permanence and traceability of digital identity. Mandatory identification does not merely chill individual expression; it structurally degrades the epistemic conditions for democratic self-governance.<sup><a href="#fn-41" id="fnref-41">41</a></sup></p>
+        <blockquote>
+          <p>Habermas, J. (2006). &ldquo;Political Communication in Media Society.&rdquo; <em>Communication Theory</em>, 16(4), 411&ndash;426. DOI: 10.1111/j.1468-2885.2006.00280.x.</p>
+          <p>Sunstein, C.R. (2017). <em>#Republic: Divided Democracy in the Age of Social Media.</em> Princeton University Press.</p>
+        </blockquote>
+
+        <p><strong>Caveat:</strong> These studies document chilling effects under conditions of general surveillance perception (post-Snowden), not specifically under age verification. The mechanism &mdash; awareness of identifiability alters behavior &mdash; is, however, the same.</p>
+      </section>
+
+      <section id="s2-4">
+        <h3>2.4 Behavioral Scoring Systems &mdash; Existing Implementations</h3>
+
+        <p><strong>Bologna, Italy:</strong> &ldquo;Smart Citizen Wallet&rdquo; &mdash; points for behaviors such as waste sorting and public transit use, redeemable for benefits. The system is voluntary and involves no sanctions. The Garante Privacy (Italian DPA) opened three formal investigations on 8 June 2022 (Docweb 9778361). The status is unclear &mdash; the system differs structurally from the Chinese social credit system but illustrates the trend toward infrastructural behavioral governance.</p>
+
+        <p><strong>Dutch SyRI Ruling:</strong> Rechtbank Den Haag, 5 February 2020 (ECLI:NL:RBDHA:2020:1878). SyRI linked 17 data categories (tax, social benefits, immigration) and was deployed exclusively in low-income, immigrant-majority neighborhoods. The court declared the system incompatible with Art. 8 ECHR.<sup><a href="#fn-18" id="fnref-18">18</a></sup></p>
+
+        <p><strong>Austrian AMS Algorithm:</strong> Categorized job seekers into three groups &mdash; women with children were negatively weighted, men with children were not. The VwGH (Administrative Court, 21.12.2023, Ro 2021/04/0010-11) ruled, with reference to the CJEU SCHUFA case (C-634/21), that algorithmic scoring can constitute automated decision-making within the meaning of Art. 22 GDPR under certain conditions &mdash; namely, when the calculated score substantially determines the allocation and has legal effects. The court remanded the case for further review.</p>
+
+        <p><strong>EU AI Act, Art. 5(1)(c):</strong> Prohibits social scoring &mdash; but with significant gaps. Credit scoring, insurance scoring, fraud prevention, and law enforcement are exempted. All conditions must be cumulatively met. To date, <strong>not a single enforcement action</strong> (as of March 2026).<sup><a href="#fn-19" id="fnref-19">19</a></sup></p>
+      </section>
+
+      <section id="s2-5">
+        <h3>2.5 Function Creep (<em>Zweckentfremdung</em>) &mdash; Recurring Patterns</h3>
+
+        <blockquote>
+          <p>&ldquo;Function creep is an imperceptibly transformative and therewith contestable change in a data-processing system&rsquo;s proper activity.&rdquo;</p>
+          <cite>&mdash; Koops, B.-J. (2021). &ldquo;The concept of function creep.&rdquo; <em>Law, Innovation and Technology</em>, 13(1), 29&ndash;56.<sup><a href="#fn-20" id="fnref-20">20</a></sup></cite>
+        </blockquote>
+
+        <p>Function creep is not inevitable &mdash; but it is structurally favored by institutional incentives (bureaucratic expansion, political pressure during crises, exploitation of sunk costs). The burden of proof should lie with proponents of new identification infrastructure: What structural safeguards prevent the function creep that has regularly occurred in comparable systems?</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>System</th>
+              <th>Original Purpose</th>
+              <th>Documented Expansion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EU COVID Certificate (Regulation (EU) 2021/953)</td>
+              <td>Cross-border travel</td>
+              <td>Restaurants, sports, workplaces; in Italy, workplace access withdrawn for unvaccinated persons over 50</td>
+            </tr>
+            <tr>
+              <td>Schengen Information System</td>
+              <td>Information exchange</td>
+              <td>Supranational identification and investigation tool</td>
+            </tr>
+            <tr>
+              <td>India&rsquo;s Aadhaar</td>
+              <td>Social benefits</td>
+              <td>Bank accounts, SIM cards, taxes; biometric error rate 49% in Jharkhand<sup><a href="#fn-21" id="fnref-21">21</a></sup></td>
+            </tr>
+            <tr>
+              <td>EU Interoperability Framework (Regulations 2019/817, 2019/818)</td>
+              <td>Border/migration management</td>
+              <td>Police access to EES, VIS, ETIAS, Eurodac via &ldquo;hit/no-hit&rdquo; mechanism</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <blockquote>
+          <p>Blasi Casagran, C. (2021). &ldquo;Fundamental Rights Implications of Interconnecting Migration and Policing Databases in the EU.&rdquo; <em>Human Rights Law Review</em>, 21(2), 433&ndash;457.<sup><a href="#fn-22" id="fnref-22">22</a></sup></p>
+        </blockquote>
+      </section>
+
+      <section id="s2-6">
+        <h3>2.6 AI-Powered Surveillance Technologies &mdash; Current Use Cases</h3>
+
+        <p><strong>Zignal Labs / ICE:</strong> 5-year contract, $5.7 million (October 2025). Processes &gt;8 billion social media posts/day in 100+ languages using ML, computer vision, and OCR.<sup><a href="#fn-23" id="fnref-23">23</a></sup></p>
+
+        <p><strong>Palantir in Europe:</strong></p>
+        <ul>
+          <li><strong>Germany:</strong> HessenData (since 2017, ~2,000 users, 15,000 queries/year), VeRA (Bavaria, since 2024), DAR (NRW, since 2019/20), Baden-W&uuml;rttemberg (EUR 25 million, 2025)</li>
+          <li><strong>UK:</strong> NHS Federated Data Platform (GBP 330 million, 7 years); at least 34 contracts totaling GBP 900+ million</li>
+          <li><strong>France:</strong> DGSI contract renewed December 2025</li>
+        </ul>
+        <blockquote>
+          <p>Ulbricht &amp; Egbert (2024). &ldquo;In Palantir we trust? Regulation of data analysis platforms in public security.&rdquo; <em>Big Data &amp; Society</em>.<sup><a href="#fn-24" id="fnref-24">24</a></sup></p>
+        </blockquote>
+
+        <p><strong>Clearview AI:</strong> Billions of facial images collected without consent. Sanctions: NL EUR 30.5 million (2024), FR EUR 20 million + EUR 5.2 million (2022/23), UK GBP 7.5 million (2022). Nevertheless: Largest US federal contract ($10 million with ICE, 2025).</p>
+
+        <p><strong>BVerfG on Automated Data Analysis (16.02.2023, 1 BvR 1547/19):</strong> Automated data analysis that generates new insights constitutes an <em>independent interference with fundamental rights</em> that goes beyond the original data collection. Where the threat assessment is &ldquo;conducted by machine in the sense of predictive policing,&rdquo; this has a <em>particularly aggravating effect</em>.</p>
+      </section>
+
+      <section id="s2-7">
+        <h3>2.7 Fundamental Rights Classification</h3>
+
+        <p><strong>CJEU, Digital Rights Ireland (C-293/12, C-594/12, 08.04.2014):</strong> The CJEU annulled the Data Retention Directive &mdash; due to <em>indiscriminate, generalized</em> collection of all persons without cause. A blanket identification requirement for <em>all</em> social media users &mdash; including adults &mdash; exhibits structural parallels: it indiscriminately captures the entire user base in order to enforce a norm that applies only to a subset (minors).</p>
+
+        <p><strong>CJEU, Tele2 Sverige / Watson (C-203/15, C-698/15, 21.12.2016):</strong> The CJEU held that national measures requiring general and indiscriminate retention of traffic and location data are incompatible with Art. 15(1) of the e-Privacy Directive read in light of Arts. 7, 8, 11, and 52(1) of the Charter. General, indiscriminate measures may only be justified for the fight against <em>serious crime</em> or <em>threats to national security</em> &mdash; child protection, while legitimate, has not been classified at this severity level in CJEU jurisprudence (para. 103).<sup><a href="#fn-42" id="fnref-42">42</a></sup></p>
+
+        <p><strong>CJEU, Opinion 1/15 (PNR Agreement, 26.07.2017):</strong> The CJEU required that even legitimate bulk data collection be strictly purpose-limited and accompanied by precise criteria limiting subsequent processing (paras. 187, 204&ndash;209). The analogy is direct: mandatory age verification collects identity data from <em>all users</em> to protect a <em>subset</em> (minors).<sup><a href="#fn-43" id="fnref-43">43</a></sup></p>
+
+        <p><strong>ECtHR, S. and Marper v. United Kingdom [GC], Nos. 30562/04, 30566/04, 04.12.2008:</strong> Blanket retention of biometric data of unconvicted persons violated Art. 8 ECHR due to its &ldquo;blanket and indiscriminate nature&rdquo; (para. 125). This case is arguably more directly relevant than Art. 10 cases because mandatory identification interferes with informational privacy regardless of whether the user speaks.<sup><a href="#fn-44" id="fnref-44">44</a></sup></p>
+
+        <p><strong>EDPB Statement 1/2025 on Age Assurance (15 January 2025):</strong> Europe&rsquo;s data protection authorities explicitly state that age verification mechanisms must comply with the data minimisation principle (Art. 5(1)(c) GDPR) and should not lead to &ldquo;excessive processing of personal data of all users, including adults.&rdquo; The EDPB distinguishes between age <em>verification</em> (precise age determination) and age <em>assurance</em> (reasonable confidence about age group), recommending the latter where possible.<sup><a href="#fn-45" id="fnref-45">45</a></sup></p>
+
+        <p><strong>BVerfGE 65, 1 &mdash; Census Ruling (<em>Volkszahlungsurteil</em>, 15.12.1983):</strong> Those who do not know what information about their behavior is being stored will preemptively adjust their behavior. This panoptic effect is incompatible with a free democratic order. A blanket identification requirement without specific cause (<em>Anlassbezogenheit</em>) raises significant constitutional concerns under this doctrine.</p>
+
+        <p><strong>BVerfGE 120, 274 &mdash; IT Fundamental Right (<em>IT-Grundrecht</em>, 27.02.2008):</strong> The fundamental right to the confidentiality and integrity of information technology systems (<em>Grundrecht auf Vertraulichkeit und Integrit&auml;t informationstechnischer Systeme</em>) protects against the state compromising IT systems on which citizens depend. The EUDI Wallet on a smartphone is such a system.</p>
+
+        <p><strong>UN Special Rapporteur David Kaye, A/HRC/29/32 (2015):</strong></p>
+        <blockquote>
+          <p>&ldquo;Encryption and anonymity, separately or together, create a zone of privacy to protect opinion and belief.&rdquo; (Para. 12)</p>
+          <p>&ldquo;States should not restrict encryption and anonymity, which facilitate and often enable the rights to freedom of opinion and expression. Blanket prohibitions fail to be necessary and proportionate.&rdquo; (Para. 60)</p>
+        </blockquote>
+
+        <p><strong>ECtHR, Standard Verlagsgesellschaft v. Austria (No. 3), No. 39378/15, 07.12.2021:</strong> Violation of Art. 10 ECHR when Austrian courts ordered the disclosure of anonymous commenters without adequately weighing anonymity interests. The ECtHR emphasized the function of anonymity as a means of avoiding reprisals and unwanted attention.</p>
+
+        <p><strong>Council of Europe, Declaration of 28.05.2003, Principle 7:</strong> <em>&ldquo;Member states should respect the will of users of the Internet not to disclose their identity.&rdquo;</em></p>
+      </section>
+
+      <section id="s2-8">
+        <h3>2.8 eIDAS 2.0: Internal Contradictions</h3>
+        <p>The eIDAS 2.0 Regulation itself contains provisions that tension with mandatory wallet-based age verification:<sup><a href="#fn-46" id="fnref-46">46</a></sup></p>
+        <ul>
+          <li><strong>Art. 5a(1):</strong> &ldquo;The use of European Digital Identity Wallets shall be voluntary.&rdquo; If social media access is contingent on EUDI Wallet-based age verification, this effectively compels wallet adoption &mdash; converting a voluntary tool into a mandatory one.</li>
+          <li><strong>Art. 5a(16):</strong> &ldquo;The use of European Digital Identity Wallets shall not be a precondition for accessing public or private services.&rdquo; Social media platforms are private services.</li>
+          <li><strong>Art. 5b(3):</strong> Relying parties &ldquo;shall not request users to provide any personal data beyond what is strictly necessary for the purpose of the online service.&rdquo; Platforms requesting full identity credentials when age attestation alone suffices would violate this provision.</li>
+          <li><strong>Art. 5a(4)(e) and Recital (11c):</strong> Pseudonyms should be &ldquo;generated and used locally&rdquo; by the wallet &mdash; directly contradicting the ARF&rsquo;s centralized Pseudonym Provider (Section 1.4).</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- INTERIM -->
+    <section id="interim">
+      <h2>Interim Consideration: Balancing Against Child Protection</h2>
+
+      <p>Before discussing alternative regulatory approaches, an explicit balancing exercise is necessary. The documented harms to minors from social media are real: Meta&rsquo;s own internal research (Haugen documents, 2021) found that 13.5% of British teen girls reported more frequent suicidal thoughts due to Instagram, 17% reported worsened eating disorders, and 32% reported a deterioration in body image. Over 60% of users who joined extremist groups did so because of Facebook&rsquo;s recommendation algorithm.</p>
+
+      <p>These findings establish an urgent need for action. The question is not <em>whether</em> to regulate, but <em>how</em>. Two evaluative criteria:</p>
+
+      <p><strong>Expected Effectiveness of Age Verification:</strong> South Korea&rsquo;s experience (0.9 percentage points fewer harmful comments alongside 35 million compromised data records) and the Australian experience (circumvention via VPN already documented) argue against high effectiveness. Even a technically cleaner age verification system (e.g., using zero-knowledge proofs) would not address the <em>harms</em> caused by algorithmic amplification and addictive design &mdash; it would merely regulate access, not the system that causes the harm.</p>
+
+      <p><strong>Costs of Age Verification:</strong> Mass identity capture (Part 1), documented chilling effects (2.3), function creep risks (2.5), and the creation of an infrastructure that can be used for surveillance under changed political conditions (2.2, 2.6).</p>
+
+      <p>The cost-benefit ratio argues against comprehensive age verification via identity documents and in favor of approaches that address the root causes of harm.</p>
+
+      <h4>Youth Voice and Agency</h4>
+      <p>The paper&rsquo;s argument for child protection should not be made exclusively by adults. Research consistently shows that young people are not passive victims but active agents who develop strategies for navigating online risks (Livingstone &amp; Third, 2017). The UN Committee on the Rights of the Child, in General Comment No. 25 (2021), emphasizes that age verification measures &ldquo;should not compromise children&rsquo;s rights&rdquo; to privacy (para. 69) and that &ldquo;digital inclusion is essential for realizing the full range of children&rsquo;s rights&rdquo; (para. 12). Excluding under-14s from social media entirely &mdash; as the SPD proposes &mdash; restricts not only access but participation, expression, and social connection.<sup><a href="#fn-48" id="fnref-48">48</a></sup></p>
+      <blockquote>
+        <p>Livingstone, S. &amp; Third, A. (2017). &ldquo;Children and young people&rsquo;s rights in the digital age.&rdquo; <em>New Media &amp; Society</em>, 19(5), 657&ndash;670. DOI: 10.1177/1461444816686318.</p>
+      </blockquote>
+
+      <h4>Existing German Youth Protection Law (JMStV)</h4>
+      <p>Germany already requires age verification for specific categories of demonstrably harmful content (pornography, extreme violence) under the Jugendmedienschutz-Staatsvertrag (JMStV), &sect;&sect; 4&ndash;5. The SPD proposal&rsquo;s extension to <em>all social media use</em> for <em>all content</em> represents a qualitative leap from targeted content restriction to general identification &mdash; fundamentally altering the proportionality calculus. The current targeted regime is proportionate precisely because it is targeted; the proposed universal regime fails the same test because it is not.<sup><a href="#fn-49" id="fnref-49">49</a></sup></p>
+
+      <p><strong>Could one not do both &mdash; design regulation <em>and</em> age verification?</strong> In theory, yes. In practice, there is a risk of a <em>moral licensing</em> effect: once platforms have implemented an age gate, they can argue that they have fulfilled their duty of care &mdash; which weakens political pressure for deeper structural reforms of business models. This moral licensing effect &mdash; where performing one &ldquo;virtuous&rdquo; act reduces motivation for subsequent effort &mdash; is well-documented in social psychology (Monin &amp; Miller, 2001; Mazar &amp; Zhong, 2010). In a regulatory context, Tiefenbeck et al. (2013) showed that adoption of one &ldquo;green&rdquo; behavior led to reduced effort on others. The cookie consent analogy is supported by empirical research: Nouwens et al. (2020) found that only 11.8% of cookie consent implementations meet GDPR minimum requirements, while Santos et al. (2021) documented systematic non-compliance &mdash; a textbook case of formal compliance displacing substantive regulation.<sup><a href="#fn-47" id="fnref-47">47</a></sup> The experience with cookie consent banners illustrates how formal compliance can displace substantive regulation. Moreover, age verification would be subject to the same enforcement problems as DSA regulation (who audits? who sanctions?) &mdash; it therefore does not solve the institutional capacity problem.</p>
+    </section>
+
+    <!-- PART 2b -->
+    <section id="part-2b">
+      <h2>Part 2b: The Case For Age Verification &mdash; A Fair Assessment</h2>
+
+      <p>The preceding sections have documented substantial risks of mandatory age verification via EUDI Wallet. Intellectual honesty requires that the strongest arguments <em>for</em> age verification be presented with equal rigor. This section steel-mans the pro-verification position before identifying where it is contested. The aim is not to dismiss these arguments but to engage them seriously and locate the genuine points of disagreement.</p>
+
+      <section id="s2b-1">
+        <h3>The Scale of Online Child Exploitation</h3>
+
+        <p>The harms that age verification proponents seek to address are not hypothetical. The Internet Watch Foundation (IWF) confirmed 275,652 URLs containing child sexual abuse imagery in 2023 alone, with 92% being self-generated material &mdash; children coerced into producing images through direct social media contact.<sup><a href="#fn-51" id="fnref-51">51</a></sup> Thorn reports that CSAM reports rose from 450,000 in 2004 to over 61 million in 2024. Financial sextortion reports to the CyberTipline tripled between 2021 and 2023, with one in six reports mentioning self-harm or suicide.</p>
+
+        <p>These harms occur through the <em>basic functionality</em> of user accounts and direct messaging &mdash; not through algorithmic amplification. A determined adult can contact a child if both have accounts on the same platform, regardless of how the recommendation algorithm is configured. This is the strongest argument against relying exclusively on design regulation: design changes cannot prevent grooming if both parties have access to the same platform.</p>
+
+        <blockquote>
+          <p>Sources: IWF Annual Report 2023; Thorn, &ldquo;Child Sexual Exploitation and Technology.&rdquo;</p>
+        </blockquote>
+      </section>
+
+      <section id="s2b-2">
+        <h3>The Mental Health Debate: Neither Settled Nor Dismissible</h3>
+
+        <p>The scientific evidence on social media&rsquo;s impact on youth mental health is genuinely contested. This analysis must be transparent about the state of the debate rather than selectively citing one side.</p>
+
+        <p><strong>The alarm position</strong> (Haidt, 2024; Twenge, 2017): A synchronized international rise in adolescent anxiety, depression, and self-harm beginning around 2012&ndash;2013 coincides with smartphone and social media saturation. Haidt reports correlations of <em>r</em>&nbsp;=&nbsp;.15&ndash;.20 for girls specifically, and cites quasi-experimental evidence that high-speed internet rollout produced 90% increases in mental health diagnoses for girls in Spain. The US Surgeon General issued a formal advisory in 2023 stating there is &ldquo;not enough evidence to determine that social media is sufficiently safe for children.&rdquo;<sup><a href="#fn-52" id="fnref-52">52</a></sup></p>
+
+        <p><strong>The skeptical position</strong> (Orben &amp; Przybylski, 2019): Specification curve analysis across 355,358 adolescents found digital technology use explained at most 0.4% of variance in well-being &mdash; comparable to the effect of wearing glasses or eating potatoes. Their core methodological point: analytical flexibility allows researchers to produce dramatically different results from the same data.<sup><a href="#fn-53" id="fnref-53">53</a></sup></p>
+
+        <p><strong>The middle ground</strong> (Valkenburg et al., 2022; Beyens et al., 2020): The differential susceptibility model shows that the <em>average</em> effect is near zero, but this masks enormous individual variation. Some adolescents are meaningfully harmed, some benefit, and most show no measurable effect. The field lacks consensus, and interpretation depends on one&rsquo;s threshold for what constitutes a meaningful effect.<sup><a href="#fn-54" id="fnref-54">54</a></sup></p>
+
+        <p><strong>The honest assessment:</strong> Neither side is clearly right. Social media likely has a real but modest average effect that is substantially larger for specific subgroups (girls, pre-existing vulnerability, heavy users, younger adolescents). The mechanisms are more complex than simple dose-response. The APA&rsquo;s 2023 advisory took a nuanced position: social media is &ldquo;not inherently beneficial or harmful&rdquo; but &ldquo;poses risks&rdquo; that depend on individual characteristics.</p>
+
+        <blockquote>
+          <p>Haidt, J. (2024). <em>The Anxious Generation.</em> Penguin Press.</p>
+          <p>Orben, A. &amp; Przybylski, A.K. (2019). <em>Nature Human Behaviour</em>, 3, 173&ndash;182. DOI: 10.1038/s41562-018-0506-1.</p>
+          <p>Valkenburg, P.M., Meier, A. &amp; Beyens, I. (2022). <em>Current Opinion in Psychology</em>, 44, 58&ndash;68. DOI: 10.1016/j.copsyc.2021.08.017.</p>
+          <p>Beyens, I. et al. (2020). <em>Scientific Reports</em>, 10, 10763. DOI: 10.1038/s41598-020-67727-7.</p>
+          <p>Allcott, H. et al. (2020). <em>American Economic Review</em>, 110(3), 629&ndash;676. DOI: 10.1257/aer.20190658.</p>
+        </blockquote>
+      </section>
+
+      <section id="s2b-3">
+        <h3>Digital Identity Systems That Have Not Been Abused</h3>
+
+        <p>The analysis in Part 2 draws heavily on negative precedents (South Korea, China, Turkey, Russia). Fairness requires acknowledging that not all digital identity systems have been misused:</p>
+
+        <p><strong>Estonia&rsquo;s e-ID</strong> has operated for over 20 years with ~99% population coverage and no documented case of systematic surveillance abuse. Citizens can see who accessed their data and when &mdash; a transparency mechanism that has led to prosecution of unauthorized access. The 2017 ROCA vulnerability (~800,000 affected cards) was discovered through proactive security research and resolved through certificate suspension and renewal, demonstrating the system&rsquo;s self-correcting capacity.<sup><a href="#fn-55" id="fnref-55">55</a></sup></p>
+
+        <p><strong>Norway&rsquo;s BankID</strong> reaches ~85% of the population and has been used for age verification (including at Vinmonopolet, the state alcohol monopoly) since 2024. No systematic privacy abuse has been documented in 20 years of operation, though academic research has identified protocol-level vulnerabilities and the system reveals full identity rather than enabling selective disclosure.<sup><a href="#fn-56" id="fnref-56">56</a></sup></p>
+
+        <p><strong>India&rsquo;s Aadhaar</strong> presents the most complex picture. On the positive side: 1.4 billion enrollments, bank account ownership rising from 35% to 80% of adults, and an estimated $33 billion saved through elimination of ghost beneficiaries (World Bank). On the negative side: biometric authentication failures of 49% in Jharkhand excluding the most vulnerable populations from welfare, and multiple data breaches including one where database access was purchasable for ~$6.<sup><a href="#fn-57" id="fnref-57">57</a></sup></p>
+
+        <p><strong>The key distinction:</strong> Estonia&rsquo;s success rests on a decentralized architecture (no central database), citizen-visible access logs, open-source infrastructure, and 28 years of incremental trust-building. The EUDI Wallet faces a hard 2026 deadline across 27 member states with heterogeneous institutional cultures &mdash; including states with documented democratic backsliding. The question is not whether digital identity <em>can</em> work (Estonia proves it can) but whether the specific architecture and political context of the EUDI Wallet provide adequate safeguards.</p>
+      </section>
+
+      <section id="s2b-4">
+        <h3>Privacy-Preserving Age Verification: A Technically Feasible Alternative?</h3>
+
+        <p>The analysis in Part 1 demonstrates that the <em>current</em> EUDI Wallet architecture fails to provide anonymity. But proponents argue that privacy-preserving age verification is technically feasible:</p>
+
+        <p><strong>The CNIL &ldquo;double anonymity&rdquo; model</strong> (France): A three-party architecture where the age issuer knows the user&rsquo;s identity but not which site they visit; an intermediary knows the site but not the user&rsquo;s identity; and the platform knows only that the age requirement is met. Zero-knowledge proofs ensure no party holds both identity and usage data.<sup><a href="#fn-58" id="fnref-58">58</a></sup></p>
+
+        <p><strong>On-device age estimation:</strong> Neural networks running entirely on the user&rsquo;s device estimate age from a selfie; the result (over/under threshold) is cryptographically attested and sent to the platform. No image or biometric data leaves the device.</p>
+
+        <p><strong>The critical question this analysis must address:</strong> If a technically well-implemented, privacy-preserving age verification system existed &mdash; one using ZKP-based selective disclosure with no linkability, no data retention, and no centralized de-anonymization &mdash; would the democratic and fundamental rights objections in Part 2 still hold?</p>
+
+        <p>The answer is: <em>partially.</em> Even a technically perfect system creates an <em>infrastructure of verification</em> that did not previously exist. The function creep risk (Section 2.5) applies to the infrastructure, not the specific implementation. A system built for age verification today can be extended to verify other attributes tomorrow &mdash; political affiliation, health status, immigration status &mdash; through the same institutional channels. Moreover, on-device age estimation still requires the <em>norm</em> that accessing public digital spaces requires proving something about oneself &mdash; a norm that, once established, is difficult to constrain. But the degree of concern is substantially lower for a well-designed ZKP system than for the current EUDI Wallet architecture. The analysis&rsquo;s critique is strongest against the <em>specific proposal</em> (EUDI Wallet with signed credentials), not against the abstract concept of privacy-preserving age attestation.</p>
+      </section>
+
+      <section id="s2b-5">
+        <h3>The Bootstrapping Problem of Design Regulation</h3>
+
+        <p>Proponents of age verification raise a structural objection to this paper&rsquo;s preferred alternative (design regulation): <strong>design regulation cannot protect children it cannot identify.</strong> The UK Children&rsquo;s Code sets privacy defaults to &ldquo;high&rdquo; for users the platform <em>knows</em> are children. But a child who lies about their age at signup &mdash; claiming to be 18 &mdash; receives no AADC protections whatsoever. The Code does not require age verification; it assumes platforms already know which users are children.<sup><a href="#fn-59" id="fnref-59">59</a></sup></p>
+
+        <p>This is a genuine weakness in the design-regulation-only approach. The rebuttal must be honest: design regulation works best for <em>systemic</em> design features (disabling algorithmic amplification for all users, removing infinite scroll by default, requiring opt-in to personalized feeds) that protect everyone regardless of age. It works less well for <em>age-differentiated</em> protections (restricting DMs, hiding certain content categories) that require knowing the user&rsquo;s age.</p>
+
+        <p>The optimal regulatory mix may therefore include <em>some</em> form of age assurance &mdash; but the proportionality principle demands that it be the least invasive form possible, and the current EUDI Wallet proposal does not meet that standard.<sup><a href="#fn-60" id="fnref-60">60</a></sup></p>
+      </section>
+    </section>
+
+    <!-- PART 3 -->
+    <section id="part-3">
+      <h2>Part 3: Root Cause Analysis and Alternative Regulatory Approaches</h2>
+
+      <section id="s3-1">
+        <h3>3.1 The Causal Chain</h3>
+        <p>The business model of platforms is the root cause of the harms that age verification is supposed to combat:</p>
+        <p><strong>Surveillance advertising model</strong> (Zuboff, 2019)<sup><a href="#fn-25" id="fnref-25">25</a></sup> &rarr; <strong>Engagement maximization</strong> &rarr; <strong>Algorithmic amplification</strong> of outrage and polarization &rarr; <strong>Addictive design</strong> &rarr; <strong>Harms to all users, especially minors</strong></p>
+        <p>Age verification intervenes at the <em>endpoint</em> (who is allowed to use the platform) rather than at the <em>root cause</em> (how the platform is designed and what business model drives it).</p>
+      </section>
+
+      <section id="s3-2">
+        <h3>3.2 Algorithmic Amplification &mdash; The Evidence</h3>
+
+        <p><strong>Brady et al. (2017):</strong> Each additional moral-emotional word in a social media post increased its diffusion by <strong>20%</strong>. Engagement algorithms reward emotionally charged content.<sup><a href="#fn-26" id="fnref-26">26</a></sup></p>
+
+        <p><strong>Bail et al. (2018):</strong> Republicans who followed a liberal Twitter bot became <em>substantially more conservative</em>. Platform architecture actively polarizes.<sup><a href="#fn-27" id="fnref-27">27</a></sup></p>
+
+        <p><strong>Ribeiro et al. (2020):</strong> YouTube recommendation algorithms create a radicalization pipeline from milder to more extreme content.<sup><a href="#fn-28" id="fnref-28">28</a></sup></p>
+
+        <p><strong>Milli et al. (2025):</strong> Engagement algorithms amplify partisan content (+0.24 SD), anger (+0.47 SD), and anxiety (+0.23 SD) &mdash; while users actually <em>prefer</em> chronological feeds.<sup><a href="#fn-29" id="fnref-29">29</a></sup></p>
+      </section>
+
+      <section id="s3-3">
+        <h3>3.3 Internal Research Findings from Meta</h3>
+        <p>Frances Haugen (Facebook whistleblower, 2021) disclosed internal research documents showing, among other things, that Facebook&rsquo;s Responsible AI team was structurally prevented from addressing the algorithmic amplification of disinformation &mdash; because it would have impacted growth metrics.<sup><a href="#fn-30" id="fnref-30">30</a></sup></p>
+      </section>
+
+      <section id="s3-4">
+        <h3>3.4 Dark Patterns and Addictive Design</h3>
+        <p><strong>Schull, N.D. (2012).</strong> <em>Addiction by Design: Machine Gambling in Las Vegas</em>. Princeton UP.<sup><a href="#fn-31" id="fnref-31">31</a></sup></p>
+        <p>Schull documents how slot machines are optimized for maximum &ldquo;time on device&rdquo;: variable reinforcement schedules, dissociative flow states, ergonomic design. Social media replicates these mechanisms: infinite scroll, pull-to-refresh (variable reinforcement), autoplay, notification systems.</p>
+        <p><strong>European Parliament, Resolution on Addictive Design (12.12.2023, TA-9-2023-0459):</strong> The European Parliament called by an overwhelming majority for regulatory measures against infinite scrolling, autoplay, and dark patterns as exploitation of psychological vulnerabilities &mdash; and a &ldquo;digital right not to be disturbed.&rdquo;</p>
+      </section>
+
+      <section id="s3-5">
+        <h3>3.5 97% Advertising Revenue &mdash; The Structural Incentive Problem</h3>
+        <p>Meta generates <strong>97.3%</strong> of its revenue from advertising, Google approximately <strong>77%</strong>. The surveillance advertising model creates a structural incentive for every downstream harm: the more engagement, the more data, the more advertising revenue.</p>
+        <blockquote>
+          <p>Forbrukerr&aring;det / Norwegian Consumer Council (2021). <em>Time to Ban Surveillance-Based Advertising</em>. Supported by a coalition of 60+ organizations.<sup><a href="#fn-32" id="fnref-32">32</a></sup></p>
+        </blockquote>
+        <p>When users are given a choice, <strong>90&ndash;96%</strong> reject personalized tracking (Apple ATT results). The model functions only under conditions of limited transparency and manipulative consent designs.</p>
+      </section>
+
+      <section id="s3-6">
+        <h3>3.6 Regulatory Approaches That Address Root Causes</h3>
+
+        <h4>Design Regulation Instead of Identity Regulation</h4>
+        <p>This distinction maps onto Lessig&rsquo;s (2006) four modalities of regulation: age verification is regulation by <em>law</em> (commanding identification); design regulation is regulation by <em>architecture</em> (changing what the system does). In regulatory theory terms, design codes represent a lower rung on the &ldquo;enforcement pyramid&rdquo; (Ayres &amp; Braithwaite, 1992) &mdash; less coercive, more responsive, and demonstrably effective (as the UK AADC shows) before escalation to identity-based measures becomes necessary.<sup><a href="#fn-50" id="fnref-50">50</a></sup></p>
+        <blockquote>
+          <p>Ayres, I. &amp; Braithwaite, J. (1992). <em>Responsive Regulation: Transcending the Deregulation Debate.</em> Oxford University Press.</p>
+        </blockquote>
+        <p>The fundamental difference: Age verification regulates <em>who</em> may use a platform. Design regulation changes <em>what the platform does to all users</em>. The former leaves the business model intact. The latter addresses the root cause.</p>
+        <blockquote>
+          <p>&ldquo;The systemic design choices at platform level are the root cause for these harms, affecting children and adults alike.&rdquo; Age-based exclusion, EDRi argues, does not solve these root causes but merely delays exposure to harm.</p>
+          <cite>&mdash; EDRi (2025). &ldquo;Age Verification Gains Traction: The EU Risks Failing to Address the Root Causes of Online Harm.&rdquo;<sup><a href="#fn-33" id="fnref-33">33</a></sup></cite>
+        </blockquote>
+
+        <h4>UK Age Appropriate Design Code &mdash; Demonstrable Effectiveness</h4>
+        <p>The British Children&rsquo;s Code (15 standards, in effect since September 2021) regulates <em>the design of the service</em>, not the <em>identity of the user</em>. Result: <strong>91 significant design changes</strong> on major platforms (5Rights Foundation / Children and Screens, 2024):</p>
+        <ul>
+          <li>Instagram set all under-16 accounts to private (July 2021)</li>
+          <li>TikTok stopped nighttime push notifications for all under-18s</li>
+          <li>YouTube disabled video autoplay for children and introduced break/bedtime reminders</li>
+          <li>Google made SafeSearch the default for all children</li>
+        </ul>
+        <p>ICO Interim Impact Review (November 2025): Improvements affect over 3 million children. The Code has already been adopted in Indonesia, Vermont, and Nebraska.</p>
+        <blockquote>
+          <p>&ldquo;Always says the digital world, not social media, and always says by design not don&rsquo;t do this and don&rsquo;t do that.&rdquo;</p>
+          <cite>&mdash; Baroness Beeban Kidron, 5Rights Foundation.</cite>
+        </blockquote>
+
+        <h4>DSA &mdash; Better Enforcement of Existing Tools</h4>
+        <p>The Digital Services Act (Regulation (EU) 2022/2065) already contains a comprehensive toolkit:</p>
+        <ul>
+          <li><strong>Art. 25:</strong> Prohibition of dark patterns</li>
+          <li><strong>Art. 27:</strong> Algorithmic transparency &mdash; users must be able to modify recommendation parameters</li>
+          <li><strong>Art. 28(2):</strong> Prohibition of profile-based advertising for known minors</li>
+          <li><strong>Art. 34/35:</strong> Systemic risk assessments and mitigation measures for VLOPs</li>
+          <li><strong>Art. 28(3):</strong> Platforms should <em>not</em> be incentivized to collect additional personal data in order to determine whether a user is a minor</li>
+        </ul>
+        <p>The problem is less a regulatory deficit than an enforcement deficit. The appropriate response is better enforcement (more resources, stronger sanctions, standing to sue for affected parties) &mdash; not the introduction of an additional, more invasive instrument that would be subject to the same enforcement problems.</p>
+
+        <h4>Digital Markets Act &mdash; Addressing Market Power</h4>
+        <p>The DMA (Regulation (EU) 2022/1925) addresses the monopoly structure: interoperability requirements for messaging (Art. 7), prohibition of cross-service data combination without consent (Art. 5(2)), data portability (Art. 6(9)). First fines: EUR 500 million (Apple) and EUR 200 million (Meta), April 2025.<sup><a href="#fn-34" id="fnref-34">34</a></sup></p>
+
+        <h4>Restricting Surveillance Advertising</h4>
+        <p>Norway banned Meta&rsquo;s behavioral advertising in 2023; the EDPB extended the ban EU-wide. Context-based advertising (based on the content of the page, not the user&rsquo;s profile) is demonstrably <strong>comparable or more efficient</strong> in cost-per-click metrics.<sup><a href="#fn-35" id="fnref-35">35</a></sup></p>
+
+        <h4>Digital Fairness Act &mdash; The Next Step</h4>
+        <p>Expected legislative proposal Q3 2026. Intended to address: manipulative interface design, addictive design, misleading influencer marketing, unfair personalization practices, special protection for minors. This would be design regulation &mdash; an approach that addresses causes rather than symptoms.</p>
+      </section>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section id="conclusion">
+      <h2>Conclusion</h2>
+      <p>The proposed mandatory online identification is problematic for three reasons:</p>
+      <ol>
+        <li><strong>The proposed technology does not deliver on its promises.</strong> The EUDI Wallet in its current architecture is neither anonymous nor pseudonymous in any meaningful sense. International cryptographers, the BfDI, the EDPS, EDRi, and the CCC consistently document structural data protection deficiencies. Privacy-preserving alternatives (BBS+, CL signatures) exist but have not been implemented.</li>
+        <li><strong>The associated risks are documented.</strong> Every comparable historical example &mdash; South Korea, COVID certificate, Aadhaar, Schengen Information System &mdash; shows expansion beyond the original purpose. The combination of mandatory identification and AI-powered content analysis creates a surveillance infrastructure whose potential for abuse depends not on the current political climate but on the technical architecture.</li>
+        <li><strong>More effective alternatives exist and demonstrably work.</strong> The harms that &ldquo;youth protection&rdquo; aims to address &mdash; algorithmic radicalization, addictive design, polarization &mdash; are direct consequences of the surveillance advertising model. The UK Children&rsquo;s Code demonstrates that design regulation can achieve measurable improvements without requiring an identification infrastructure. The DSA, DMA, and the planned Digital Fairness Act provide the right regulatory framework &mdash; they need to be consistently enforced.</li>
+      </ol>
+      <blockquote>
+        <p>&ldquo;A real-name policy is not effective but authoritarian, wrong, and extremely dangerous for multiple fundamental rights at once.&rdquo; [translated from German]</p>
+        <cite>&mdash; Reuter, M. &ldquo;Authoritarian Instrument: A Real-Name Policy Harms Democracy.&rdquo; netzpolitik.org, 19.02.2026.</cite>
+      </blockquote>
+    </section>
+
+    <!-- FOOTNOTES -->
+    <section class="footnotes" id="footnotes-section">
+      <h2>Footnotes</h2>
+      <ol>
+        <li id="fn-1">Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo; <a href="https://arxiv.org/abs/2501.07209">arXiv:2501.07209</a>. <a href="#fnref-1" class="fn-back">&uarr;</a></li>
+        <li id="fn-2">Joint statement by 16 cryptographers. <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/issues/200">GitHub Issue #200</a>, eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework. Publication page: <a href="https://mayrhofer.eu.org/publication/eudiw-cryptographers-statement-2024/">mayrhofer.eu.org</a>. <a href="#fnref-2" class="fn-back">&uarr;</a></li>
+        <li id="fn-3">&ldquo;Privacy evaluation of the European Digital Identity Wallet&rsquo;s Architecture and Reference Framework.&rdquo; <em>Computers &amp; Security</em> (Elsevier), 2025. <a href="https://doi.org/10.1016/j.cose.2025.104707">DOI: 10.1016/j.cose.2025.104707</a>. <a href="#fnref-3" class="fn-back">&uarr;</a></li>
+        <li id="fn-4">epicenter.works (2024). <a href="https://epicenter.works/fileadmin/medienspiegel/user_upload/epicenter.works_-_ARF1.4.pdf">Data Protection Analysis: eIDAS Architecture Reference Framework 1.4</a> [PDF]. <a href="#fnref-4" class="fn-back">&uarr;</a></li>
+        <li id="fn-5">Thomas Lohninger, epicenter.works. Cited in: Leisegang, D. &ldquo;EUDI Wallet: A wallet full of loopholes.&rdquo; <a href="https://netzpolitik.org">netzpolitik.org</a>, 26.06.2024. <a href="#fnref-5" class="fn-back">&uarr;</a></li>
+        <li id="fn-6">EDRi, &ldquo;The eID Wallet still doesn&rsquo;t deserve your full trust&rdquo;, 10.03.2026. <a href="#fnref-6" class="fn-back">&uarr;</a></li>
+        <li id="fn-7"><a href="https://eidas-open-letter.org">eidas-open-letter.org</a> (over 500 signatories, including EFF, EDRi, Internet Society, Mozilla, Linux Foundation). <a href="#fnref-7" class="fn-back">&uarr;</a></li>
+        <li id="fn-8">Wazan, A.S. et al. (2024). &ldquo;Article 45 of the eIDAS Directive Unveils the need to implement the X.509 4-cornered trust model for the WebPKI.&rdquo; ARES&nbsp;&rsquo;24. <a href="https://doi.org/10.1145/3664476.3670900">DOI: 10.1145/3664476.3670900</a>. <a href="#fnref-8" class="fn-back">&uarr;</a></li>
+        <li id="fn-9">Cho, D. &amp; Kwon, K.H. (2015). <em>Computers in Human Behavior</em>, 51. <a href="https://doi.org/10.1016/j.chb.2015.04.046">DOI: 10.1016/j.chb.2015.04.046</a>. <a href="#fnref-9" class="fn-back">&uarr;</a></li>
+        <li id="fn-10">Park, W.-I. &amp; Greenleaf, G. (2012). &ldquo;Korea Rolls Back &lsquo;Real Name&rsquo; and ID Number Surveillance.&rdquo; <em>Privacy Laws &amp; Business International Report</em>, 119, 20&ndash;21. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2187232">SSRN: 2187232</a>. <a href="#fnref-10" class="fn-back">&uarr;</a></li>
+        <li id="fn-11">Leitner, J.M. (2015). &ldquo;Anonymity, Privacy, and Expressive Equality.&rdquo; <em>Journal of Korean Law</em>, 14(2), 167&ndash;212. <a href="https://doi.org/10.23110/jkl.2015.14.2.002">DOI: 10.23110/jkl.2015.14.2.002</a>. <a href="#fnref-11" class="fn-back">&uarr;</a></li>
+        <li id="fn-12">King, G., Pan, J. &amp; Roberts, M.E. (2013). <em>American Political Science Review</em>, 107(2), 1&ndash;18. <a href="https://doi.org/10.1017/S0003055413000014">DOI: 10.1017/S0003055413000014</a>. <a href="#fnref-12" class="fn-back">&uarr;</a></li>
+        <li id="fn-13">Media and Law Studies Association (MLSA) Turkey, October 2024. <a href="#fnref-13" class="fn-back">&uarr;</a></li>
+        <li id="fn-14">Council on Foreign Relations, &ldquo;Russia&rsquo;s Internet Censor is Also a Surveillance Machine.&rdquo; <a href="#fnref-14" class="fn-back">&uarr;</a></li>
+        <li id="fn-15">Penney, J.W. (2016). <em>Berkeley Technology Law Journal</em>, 31(1). <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2769645">SSRN: 2769645</a>. <a href="#fnref-15" class="fn-back">&uarr;</a></li>
+        <li id="fn-16">Stoycheff, E. (2016). <em>Journalism &amp; Mass Communication Quarterly</em>. <a href="#fnref-16" class="fn-back">&uarr;</a></li>
+        <li id="fn-17">B&uuml;chi, M., Festic, N. &amp; Latzer, M. (2022). <em>Big Data &amp; Society</em>. <a href="https://doi.org/10.1177/20539517211065368">DOI: 10.1177/20539517211065368</a>. <a href="#fnref-17" class="fn-back">&uarr;</a></li>
+        <li id="fn-18">Van Bekkum, M. &amp; Zuiderveen Borgesius, F. (2021). &ldquo;Digital welfare fraud detection and the Dutch SyRI judgment.&rdquo; <em>European Journal of Social Security</em>, 23(4), 323&ndash;340. <a href="https://doi.org/10.1177/13882627211031257">DOI: 10.1177/13882627211031257</a>. <a href="#fnref-18" class="fn-back">&uarr;</a></li>
+        <li id="fn-19">Human Rights Watch, La Quadrature Du Net &amp; EDRi, &ldquo;EU: Artificial Intelligence Regulation Should Ban Social Scoring&rdquo;, 09.10.2023. <a href="#fnref-19" class="fn-back">&uarr;</a></li>
+        <li id="fn-20">Koops, B.-J. (2021). &ldquo;The concept of function creep.&rdquo; <em>Law, Innovation and Technology</em>, 13(1), 29&ndash;56. <a href="https://doi.org/10.1080/17579961.2021.1898299">DOI: 10.1080/17579961.2021.1898299</a>. <a href="#fnref-20" class="fn-back">&uarr;</a></li>
+        <li id="fn-21">Dixon, P. (2017). <em>Health and Technology</em>, 7(4). <a href="https://doi.org/10.1007/s12553-017-0202-6">DOI: 10.1007/s12553-017-0202-6</a>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5741784/">PMC 5741784</a>. <a href="#fnref-21" class="fn-back">&uarr;</a></li>
+        <li id="fn-22">Blasi Casagran, C. (2021). &ldquo;Fundamental Rights Implications of Interconnecting Migration and Policing Databases in the EU.&rdquo; <em>Human Rights Law Review</em>, 21(2), 433&ndash;457. <a href="https://doi.org/10.1093/hrlr/ngaa057">DOI: 10.1093/hrlr/ngaa057</a>. <a href="#fnref-22" class="fn-back">&uarr;</a></li>
+        <li id="fn-23">Schwenk, K. &ldquo;ICE Just Bought A Social Media Surveillance Bot.&rdquo; The Lever, 23.10.2025. <a href="#fnref-23" class="fn-back">&uarr;</a></li>
+        <li id="fn-24">Ulbricht &amp; Egbert (2024). &ldquo;In Palantir we trust? Regulation of data analysis platforms in public security.&rdquo; <em>Big Data &amp; Society</em>. <a href="https://doi.org/10.1177/20539517241255108">DOI: 10.1177/20539517241255108</a>. <a href="#fnref-24" class="fn-back">&uarr;</a></li>
+        <li id="fn-25">Zuboff, S. (2019). <em>The Age of Surveillance Capitalism</em>. PublicAffairs. ISBN 978-1-61039-569-4. <a href="#fnref-25" class="fn-back">&uarr;</a></li>
+        <li id="fn-26">Brady, W.J. et al. (2017). <em>PNAS</em>, 114(28), 7313&ndash;7318. <a href="https://doi.org/10.1073/pnas.1618923114">DOI: 10.1073/pnas.1618923114</a>. <a href="#fnref-26" class="fn-back">&uarr;</a></li>
+        <li id="fn-27">Bail, C.A. et al. (2018). <em>PNAS</em>, 115(37), 9216&ndash;9221. <a href="https://doi.org/10.1073/pnas.1804840115">DOI: 10.1073/pnas.1804840115</a>. <a href="#fnref-27" class="fn-back">&uarr;</a></li>
+        <li id="fn-28">Ribeiro, M.H. et al. (2020). FAT*&nbsp;&rsquo;20. <a href="https://doi.org/10.1145/3351095.3372879">DOI: 10.1145/3351095.3372879</a>. <a href="#fnref-28" class="fn-back">&uarr;</a></li>
+        <li id="fn-29">Milli, S. et al. (2025). <em>PNAS Nexus</em>, 4(3). <a href="https://doi.org/10.1093/pnasnexus/pgaf062">DOI: 10.1093/pnasnexus/pgaf062</a>. <a href="#fnref-29" class="fn-back">&uarr;</a></li>
+        <li id="fn-30">Haugen, F. (2021). Testimony before Senate Commerce Subcommittee, 05.10.2021. See also: Hao, K. (2021). <a href="https://www.technologyreview.com/2021/03/11/1020600/facebook-responsible-ai-misinformation/">&ldquo;How Facebook Got Addicted to Spreading Misinformation.&rdquo;</a> MIT Technology Review, 11.03.2021. <a href="#fnref-30" class="fn-back">&uarr;</a></li>
+        <li id="fn-31">Schull, N.D. (2012). <em>Addiction by Design: Machine Gambling in Las Vegas</em>. Princeton UP. ISBN 978-0-691-16088-7. <a href="#fnref-31" class="fn-back">&uarr;</a></li>
+        <li id="fn-32">Forbrukerr&aring;det / Norwegian Consumer Council (2021). <em>Time to Ban Surveillance-Based Advertising</em>. Supported by a coalition of 60+ organizations. <a href="#fnref-32" class="fn-back">&uarr;</a></li>
+        <li id="fn-33">EDRi (2025). &ldquo;Age Verification Gains Traction: The EU Risks Failing to Address the Root Causes of Online Harm.&rdquo; <a href="#fnref-33" class="fn-back">&uarr;</a></li>
+        <li id="fn-34">Khan, L. (2017). &ldquo;Amazon&rsquo;s Antitrust Paradox.&rdquo; <em>Yale Law Journal</em>, 126(3), 710&ndash;805. See also: Cremer, J., de Montjoye, Y.-A. &amp; Schweitzer, H. (2019). <em>Competition Policy for the Digital Era</em>. EU Commission Report. <a href="#fnref-34" class="fn-back">&uarr;</a></li>
+        <li id="fn-35">Forbrukerr&aring;det (2020). <a href="https://www.forbrukerradet.no/undersokelse/no-undersokelsekategori/report-out-of-control/"><em>Out of Control</em></a>. forbrukerradet.no. <a href="#fnref-35" class="fn-back">&uarr;</a></li>
+        <li id="fn-36">Lessig, L. (2006). <em>Code: Version 2.0.</em> Basic Books. Lessig identifies law, norms, market, and architecture (code) as four modalities of regulation. <a href="#fnref-36" class="fn-back">&uarr;</a></li>
+        <li id="fn-37">Lyon, D. (2018). <em>The Culture of Surveillance: Watching as a Way of Life.</em> Polity Press. Lyon argues that surveillance has moved from institutional practice to cultural phenomenon, where citizens participate in and normalize their own monitoring. <a href="#fnref-37" class="fn-back">&uarr;</a></li>
+        <li id="fn-38">Fischer, F. (2003). <em>Reframing Public Policy: Discursive Politics and Deliberative Practices.</em> Oxford University Press. Critical policy analysis examines not only the instrumental effectiveness of policy measures but also the discursive frameworks, power relations, and normative assumptions that shape policy choices. <a href="#fnref-38" class="fn-back">&uarr;</a></li>
+        <li id="fn-39">The OLYMPUS project (H2020, 2018&ndash;2021) developed privacy-preserving attribute-based credential systems; IMPULSE (H2020, 2021&ndash;2023) piloted self-sovereign identity with selective disclosure. Both demonstrated technical feasibility of unlinkable credentials &mdash; yet neither&rsquo;s results were incorporated into the ARF. On batch issuance limitations, see Slamanig (2025), Section 4.2. <a href="#fnref-39" class="fn-back">&uarr;</a></li>
+        <li id="fn-40">Commission Implementing Regulation (EU) 2024/3144 of 17 December 2024 laying down technical specifications and formats relating to qualified certificates; Commission Implementing Regulation (EU) 2024/3145 of 17 December 2024 on technical specifications and procedures for ensuring QWACs. On CT limitations for targeted interception, see also: Scheitle, Q. et al. (2018). &ldquo;The Rise of Certificate Transparency and Its Implications on the Internet Ecosystem.&rdquo; <em>IMC &rsquo;18</em>. <a href="#fnref-40" class="fn-back">&uarr;</a></li>
+        <li id="fn-41">Noelle-Neumann, E. (1974). &ldquo;The Spiral of Silence: A Theory of Public Opinion.&rdquo; <em>Journal of Communication</em>, 24(2), 43&ndash;51. The original spiral of silence theory posits that individuals who perceive their opinion as being in the minority will suppress their expression. Digital identification intensifies this mechanism by removing the possibility of anonymous dissent. <a href="#fnref-41" class="fn-back">&uarr;</a></li>
+        <li id="fn-42">CJEU, Joined Cases C-203/15 and C-698/15, <em>Tele2 Sverige AB v. Post- och telestyre and Secretary of State for the Home Department v. Tom Watson and Others</em>, 21 December 2016, ECLI:EU:C:2016:970. <a href="#fnref-42" class="fn-back">&uarr;</a></li>
+        <li id="fn-43">CJEU, Opinion 1/15 (EU-Canada PNR Agreement), 26 July 2017, ECLI:EU:C:2017:592. <a href="#fnref-43" class="fn-back">&uarr;</a></li>
+        <li id="fn-44">ECtHR [GC], <em>S. and Marper v. United Kingdom</em>, App. Nos. 30562/04 and 30566/04, 4 December 2008. <a href="#fnref-44" class="fn-back">&uarr;</a></li>
+        <li id="fn-45">EDPB, Statement 1/2025 on Age Assurance, adopted 15 January 2025. Available at: <a href="https://www.edpb.europa.eu">edpb.europa.eu</a>. <a href="#fnref-45" class="fn-back">&uarr;</a></li>
+        <li id="fn-46">Regulation (EU) 2024/1183, as amended. The internal contradictions noted here are between the Regulation&rsquo;s normative provisions and the practical consequences of mandatory wallet-based age verification as proposed in the SPD policy paper. <a href="#fnref-46" class="fn-back">&uarr;</a></li>
+        <li id="fn-47">Nouwens, M. et al. (2020). &ldquo;Dark Patterns After the GDPR.&rdquo; <em>CHI 2020</em>. DOI: 10.1145/3313831.3376321. Santos, C. et al. (2021). &ldquo;Cookie Banners, What&rsquo;s the Purpose?&rdquo; <em>Proceedings on Privacy Enhancing Technologies</em>, 2021(4). On moral licensing generally: Monin, B. &amp; Miller, D.T. (2001). &ldquo;Moral Credentials and the Expression of Prejudice.&rdquo; <em>Journal of Personality and Social Psychology</em>, 81(1), 33&ndash;43; Mazar, N. &amp; Zhong, C.-B. (2010). &ldquo;Do Green Products Make Us Better People?&rdquo; <em>Psychological Science</em>, 21(4), 494&ndash;498. <a href="#fnref-47" class="fn-back">&uarr;</a></li>
+        <li id="fn-48">Livingstone, S. &amp; Third, A. (2017). &ldquo;Children and young people&rsquo;s rights in the digital age.&rdquo; <em>New Media &amp; Society</em>, 19(5), 657&ndash;670. DOI: 10.1177/1461444816686318. UN Committee on the Rights of the Child, General Comment No. 25 (2021) on children&rsquo;s rights in relation to the digital environment, CRC/C/GC/25. <a href="#fnref-48" class="fn-back">&uarr;</a></li>
+        <li id="fn-49">Jugendmedienschutz-Staatsvertrag (JMStV), in the version of the Twentieth Amending Interstate Treaty. The JMStV requires age verification for content that is &ldquo;obviously seriously endangering to minors&rdquo; (&sect; 4(2)) and &ldquo;developmentally impairing&rdquo; (&sect; 5) &mdash; a targeted, content-specific approach fundamentally different from blanket platform access control. <a href="#fnref-49" class="fn-back">&uarr;</a></li>
+        <li id="fn-50">Ayres, I. &amp; Braithwaite, J. (1992). <em>Responsive Regulation: Transcending the Deregulation Debate.</em> Oxford University Press. The enforcement pyramid model suggests that regulators should begin with the least coercive measure and escalate only when lower-level interventions fail. <a href="#fnref-50" class="fn-back">&uarr;</a></li>
+        <li id="fn-51">Internet Watch Foundation (2024). <em>Annual Report 2023.</em> The 92% self-generated material figure refers to imagery produced by children themselves under coercion or manipulation, typically via direct messaging on social media platforms. Thorn (2024). &ldquo;Child Sexual Exploitation and Technology.&rdquo; CyberTipline data via NCMEC. <a href="#fnref-51" class="fn-back">&uarr;</a></li>
+        <li id="fn-52">Haidt, J. (2024). <em>The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness.</em> Penguin Press. The quasi-experimental Spanish evidence is from Arenas-Arroyo, E., Fernandez-Kranz, D. &amp; Nollenberger, N. (2022). &ldquo;High Speed Internet and the Widening Gender Gap in Adolescent Mental Health.&rdquo; <em>IZA Discussion Paper</em> No. 15728. US Surgeon General&rsquo;s Advisory (2023): &ldquo;Social Media and Youth Mental Health.&rdquo; <a href="#fnref-52" class="fn-back">&uarr;</a></li>
+        <li id="fn-53">Orben, A. &amp; Przybylski, A.K. (2019). &ldquo;The association between adolescent well-being and digital technology use.&rdquo; <em>Nature Human Behaviour</em>, 3, 173&ndash;182. <a href="https://doi.org/10.1038/s41562-018-0506-1">DOI: 10.1038/s41562-018-0506-1</a>. The 0.4% variance figure (R&sup2; &lt; 0.004) emerged from specification curve analysis testing all defensible analytical choices on three large-scale datasets. <a href="#fnref-53" class="fn-back">&uarr;</a></li>
+        <li id="fn-54">Valkenburg, P.M., Meier, A. &amp; Beyens, I. (2022). &ldquo;Social media use and its impact on adolescent mental health: An umbrella review of the evidence.&rdquo; <em>Current Opinion in Psychology</em>, 44, 58&ndash;68. <a href="https://doi.org/10.1016/j.copsyc.2021.08.017">DOI: 10.1016/j.copsyc.2021.08.017</a>. Beyens, I. et al. (2020). &ldquo;The effect of social media on well-being differs from adolescent to adolescent.&rdquo; <em>Scientific Reports</em>, 10, 10763. <a href="https://doi.org/10.1038/s41598-020-67727-7">DOI: 10.1038/s41598-020-67727-7</a>. American Psychological Association (2023). &ldquo;Health Advisory on Social Media Use in Adolescence.&rdquo; <a href="#fnref-54" class="fn-back">&uarr;</a></li>
+        <li id="fn-55">Priisalu, J. &amp; Ottis, R. (2017). &ldquo;Personal control of privacy and data: Estonian experience.&rdquo; <em>Health and Technology</em>, 7, 441&ndash;451. <a href="https://doi.org/10.1007/s12553-017-0195-1">DOI: 10.1007/s12553-017-0195-1</a>. On the ROCA vulnerability: Parsovs, A. (2020). &ldquo;Estonian Electronic Identity Card: Security Flaws in Key Management.&rdquo; <em>29th USENIX Security Symposium</em>. <a href="#fnref-55" class="fn-back">&uarr;</a></li>
+        <li id="fn-56">Kjorven, M.E., Gj&oslash;steen, K. &amp; W&aelig;rstad, T.L. (2026). &ldquo;Safe and Inclusive or Unsafe and Discriminatory?&rdquo; <em>Computer Law &amp; Security Review</em>. <a href="https://doi.org/10.1016/j.clsr.2025.106235">DOI: 10.1016/j.clsr.2025.106235</a>. Norway&rsquo;s BankID reveals full identity (name and national ID number) rather than enabling selective attribute disclosure, which represents a structural privacy limitation even in the absence of documented abuse. <a href="#fnref-56" class="fn-back">&uarr;</a></li>
+        <li id="fn-57">On Aadhaar&rsquo;s positive impact: World Bank (2016). &ldquo;Identification for Development (ID4D).&rdquo; Muralidharan, K., Niehaus, P. &amp; Sukhtankar, S. (2016). &ldquo;Building State Capacity: Evidence from Biometric Smartcards in India.&rdquo; <em>American Economic Review</em>, 106(10), 2895&ndash;2929. On failures: Dixon, P. (2017). <em>Health and Technology</em>, 7(4). <a href="https://doi.org/10.1007/s12553-017-0202-6">DOI: 10.1007/s12553-017-0202-6</a>. The 49% biometric failure rate in Jharkhand is documented in Dreze, J. et al. (2017). &ldquo;Pain Without Gain? Aadhaar and Food Security in Jharkhand.&rdquo; <em>Economic and Political Weekly</em>, 52(50). <a href="#fnref-57" class="fn-back">&uarr;</a></li>
+        <li id="fn-58">CNIL (2022). &ldquo;Online Age Verification: Balancing Privacy and the Protection of Minors.&rdquo; The CNIL model proposes a separation of knowledge such that no single entity can link identity to usage, enforced through cryptographic protocols rather than institutional trust alone. <a href="#fnref-58" class="fn-back">&uarr;</a></li>
+        <li id="fn-59">The UK Age Appropriate Design Code (Children&rsquo;s Code) applies to &ldquo;information society services likely to be accessed by children&rdquo; (Standard 1) but relies on platforms&rsquo; existing knowledge of user age. A child registering with a false birth date bypasses all 15 standards &mdash; a structural gap that age assurance proponents rightly identify. See: ICO (2021). <em>Age Appropriate Design: A Code of Practice for Online Services.</em> <a href="#fnref-59" class="fn-back">&uarr;</a></li>
+        <li id="fn-60">The EDPB&rsquo;s distinction between age <em>verification</em> (precise determination) and age <em>assurance</em> (reasonable confidence) is relevant here: a proportionate approach might employ low-friction age estimation rather than identity-document-based verification. The proportionality principle (Art. 52(1) EU Charter) requires that the chosen measure be both suitable and necessary &mdash; the least restrictive means that achieves the legitimate objective. See: EDPB Statement 1/2025 on Age Assurance, adopted 15 January 2025. <a href="#fnref-60" class="fn-back">&uarr;</a></li>
+      </ol>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="references">
+      <h2>References (Selection &mdash; Academic Primary Sources)</h2>
+
+      <h3>Cryptography &amp; EUDI Wallet</h3>
+      <ul>
+        <li>Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo; <a href="https://arxiv.org/abs/2501.07209">arXiv:2501.07209</a>.</li>
+        <li>&ldquo;Making BBS Anonymous Credentials eIDAS 2.0 Compliant.&rdquo; <a href="https://eprint.iacr.org/2025/619">IACR ePrint 2025/619</a>.</li>
+        <li>Lysyanskaya, A. (2024). &ldquo;Anonymous Credentials and the EUDI Wallet.&rdquo; NIST WPEC 2024.</li>
+        <li>epicenter.works (2024). <a href="https://epicenter.works/fileadmin/medienspiegel/user_upload/epicenter.works_-_ARF1.4.pdf">Data Protection Analysis: eIDAS ARF 1.4</a> [PDF].</li>
+        <li>&ldquo;Privacy evaluation of the European Digital Identity Wallet&rsquo;s ARF.&rdquo; <em>Computers &amp; Security</em> (Elsevier), 2025. <a href="https://doi.org/10.1016/j.cose.2025.104707">DOI: 10.1016/j.cose.2025.104707</a>.</li>
+        <li>Kjorven, M.E., Gj&oslash;steen, K. &amp; W&aelig;rstad, T.L. (2026). &ldquo;Safe and Inclusive or Unsafe and Discriminatory?&rdquo; <em>Computer Law &amp; Security Review</em>. <a href="https://doi.org/10.1016/j.clsr.2025.106235">DOI: 10.1016/j.clsr.2025.106235</a>.</li>
+        <li>Wazan, A.S. et al. (2024). ARES&nbsp;&rsquo;24. <a href="https://doi.org/10.1145/3664476.3670900">DOI: 10.1145/3664476.3670900</a>.</li>
+      </ul>
+
+      <h3>Real-Name Policies &mdash; Empirical Evidence</h3>
+      <ul>
+        <li>Cho, D. &amp; Kim, S.D. (2012). &ldquo;Empirical Analysis of Online Anonymity and User Behaviors: The Impact of Real Name Policy.&rdquo; <em>Proceedings of the 45th Hawaii International Conference on System Sciences (HICSS)</em>. IEEE.</li>
+        <li>Cho, D. &amp; Kwon, K.H. (2015). <em>Computers in Human Behavior</em>, 51. <a href="https://doi.org/10.1016/j.chb.2015.04.046">DOI: 10.1016/j.chb.2015.04.046</a>.</li>
+        <li>King, G., Pan, J. &amp; Roberts, M.E. (2013). <em>APSR</em>, 107(2). <a href="https://doi.org/10.1017/S0003055413000014">DOI: 10.1017/S0003055413000014</a>.</li>
+        <li>Leitner, J.M. (2015). <em>Journal of Korean Law</em>, 14(2). <a href="https://doi.org/10.23110/jkl.2015.14.2.002">DOI: 10.23110/jkl.2015.14.2.002</a>.</li>
+      </ul>
+
+      <h3>Function Creep &amp; Surveillance</h3>
+      <ul>
+        <li>Koops, B.-J. (2021). <em>Law, Innovation and Technology</em>, 13(1). <a href="https://doi.org/10.1080/17579961.2021.1898299">DOI: 10.1080/17579961.2021.1898299</a>.</li>
+        <li>Blasi Casagran, C. (2021). <em>Human Rights Law Review</em>, 21(2). <a href="https://doi.org/10.1093/hrlr/ngaa057">DOI: 10.1093/hrlr/ngaa057</a>.</li>
+        <li>Penney, J.W. (2016). <em>Berkeley Technology Law Journal</em>, 31(1). <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2769645">SSRN: 2769645</a>.</li>
+        <li>B&uuml;chi, M., Festic, N. &amp; Latzer, M. (2022). <em>Big Data &amp; Society</em>. <a href="https://doi.org/10.1177/20539517211065368">DOI: 10.1177/20539517211065368</a>.</li>
+        <li>Ulbricht &amp; Egbert (2024). <em>Big Data &amp; Society</em>. <a href="https://doi.org/10.1177/20539517241255108">DOI: 10.1177/20539517241255108</a>.</li>
+        <li>Dixon, P. (2017). <em>Health and Technology</em>, 7(4). <a href="https://doi.org/10.1007/s12553-017-0202-6">DOI: 10.1007/s12553-017-0202-6</a>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5741784/">PMC 5741784</a>.</li>
+      </ul>
+
+      <h3>Scoring Systems</h3>
+      <ul>
+        <li>Van Bekkum, M. &amp; Zuiderveen Borgesius, F. (2021). <em>EJSS</em>, 23(4). <a href="https://doi.org/10.1177/13882627211031257">DOI: 10.1177/13882627211031257</a>.</li>
+        <li>Kostka, G. (2019). <em>New Media &amp; Society</em>, 21(7). <a href="https://doi.org/10.1177/1461444819826402">DOI: 10.1177/1461444819826402</a>.</li>
+        <li>Creemers, R. (2018). &ldquo;China&rsquo;s Social Credit System.&rdquo; <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3175792">SSRN: 3175792</a>.</li>
+      </ul>
+
+      <h3>Fundamental Rights &amp; Constitutional Law</h3>
+      <ul>
+        <li>BVerfGE 65, 1 (Census Ruling / <em>Volkszahlungsurteil</em>, 15.12.1983)</li>
+        <li>BVerfGE 120, 274 (IT Fundamental Right / <em>IT-Grundrecht</em>, 27.02.2008)</li>
+        <li>BVerfG 1 BvR 1547/19 (Automated Data Analysis, 16.02.2023)</li>
+        <li>CJEU C-293/12, C-594/12 (Digital Rights Ireland, 08.04.2014)</li>
+        <li>CJEU C-203/15, C-698/15 (Tele2 Sverige / Watson, 21.12.2016)</li>
+        <li>CJEU Opinion 1/15 (PNR Agreement, 26.07.2017)</li>
+        <li>ECtHR [GC], S. and Marper v. United Kingdom, Nos. 30562/04, 30566/04, 04.12.2008</li>
+        <li>ECtHR No. 39378/15 (Standard Verlagsgesellschaft v. Austria, 07.12.2021)</li>
+        <li>EDPB Statement 1/2025 on Age Assurance (15 January 2025)</li>
+        <li>UN A/HRC/29/32 (Kaye, Encryption and Anonymity, 2015)</li>
+        <li>UN Committee on the Rights of the Child, General Comment No. 25 (2021), CRC/C/GC/25.</li>
+        <li>Council of Europe, Declaration on Freedom of Communication on the Internet, 28.05.2003, Principle 7.</li>
+        <li>Hornung, G. (2008). <em>Computer und Recht</em>, 24(5). <a href="https://doi.org/10.9785/ovs-cr-2008-299">DOI: 10.9785/ovs-cr-2008-299</a>.</li>
+        <li>Stummer, S. (2024). &ldquo;A Right to Anonymity in the Digital Age.&rdquo; <em>Verfassungsblog</em>, 02.12.2024.</li>
+      </ul>
+
+      <h3>Algorithmic Amplification &amp; Platform Business Model</h3>
+      <ul>
+        <li>Brady, W.J. et al. (2017). <em>PNAS</em>, 114(28). <a href="https://doi.org/10.1073/pnas.1618923114">DOI: 10.1073/pnas.1618923114</a>.</li>
+        <li>Bail, C.A. et al. (2018). <em>PNAS</em>, 115(37). <a href="https://doi.org/10.1073/pnas.1804840115">DOI: 10.1073/pnas.1804840115</a>.</li>
+        <li>Ribeiro, M.H. et al. (2020). FAT*&nbsp;&rsquo;20. <a href="https://doi.org/10.1145/3351095.3372879">DOI: 10.1145/3351095.3372879</a>.</li>
+        <li>Milli, S. et al. (2025). <em>PNAS Nexus</em>, 4(3). <a href="https://doi.org/10.1093/pnasnexus/pgaf062">DOI: 10.1093/pnasnexus/pgaf062</a>.</li>
+        <li>Zuboff, S. (2019). <em>The Age of Surveillance Capitalism</em>. PublicAffairs.</li>
+        <li>Schull, N.D. (2012). <em>Addiction by Design</em>. Princeton UP.</li>
+        <li>Khan, L. (2017). <em>Yale Law Journal</em>, 126(3), 710&ndash;805.</li>
+        <li>Cremer, J., de Montjoye, Y.-A. &amp; Schweitzer, H. (2019). <em>Competition Policy for the Digital Era</em>. EU Commission.</li>
+      </ul>
+
+      <h3>Theoretical Frameworks &amp; Method</h3>
+      <ul>
+        <li>Nissenbaum, H. (2010). <em>Privacy in Context: Technology, Policy, and the Integrity of Social Life.</em> Stanford University Press.</li>
+        <li>Gillespie, T. (2018). <em>Custodians of the Internet: Platforms, Content Moderation, and the Hidden Decisions That Shape Social Media.</em> Yale University Press.</li>
+        <li>Van Dijck, J., Poell, T. &amp; de Waal, M. (2018). <em>The Platform Society: Public Values in a Connective World.</em> Oxford University Press.</li>
+        <li>Helberger, N., Pierson, J. &amp; Poell, T. (2018). &ldquo;Governing online platforms.&rdquo; <em>The Information Society</em>, 34(1), 1&ndash;14. <a href="https://doi.org/10.1080/01972243.2017.1391913">DOI: 10.1080/01972243.2017.1391913</a>.</li>
+        <li>Lessig, L. (2006). <em>Code: Version 2.0.</em> Basic Books.</li>
+        <li>Lyon, D. (2018). <em>The Culture of Surveillance: Watching as a Way of Life.</em> Polity Press.</li>
+        <li>Fischer, F. (2003). <em>Reframing Public Policy: Discursive Politics and Deliberative Practices.</em> Oxford University Press.</li>
+        <li>Habermas, J. (2006). &ldquo;Political Communication in Media Society.&rdquo; <em>Communication Theory</em>, 16(4), 411&ndash;426. <a href="https://doi.org/10.1111/j.1468-2885.2006.00280.x">DOI: 10.1111/j.1468-2885.2006.00280.x</a>.</li>
+        <li>Sunstein, C.R. (2017). <em>#Republic: Divided Democracy in the Age of Social Media.</em> Princeton University Press.</li>
+        <li>Noelle-Neumann, E. (1974). &ldquo;The Spiral of Silence.&rdquo; <em>Journal of Communication</em>, 24(2), 43&ndash;51.</li>
+        <li>Ayres, I. &amp; Braithwaite, J. (1992). <em>Responsive Regulation: Transcending the Deregulation Debate.</em> Oxford University Press.</li>
+      </ul>
+
+      <h3>Chilling Effects &amp; Democratic Theory</h3>
+      <ul>
+        <li>Monin, B. &amp; Miller, D.T. (2001). &ldquo;Moral Credentials and the Expression of Prejudice.&rdquo; <em>Journal of Personality and Social Psychology</em>, 81(1), 33&ndash;43.</li>
+        <li>Mazar, N. &amp; Zhong, C.-B. (2010). &ldquo;Do Green Products Make Us Better People?&rdquo; <em>Psychological Science</em>, 21(4), 494&ndash;498.</li>
+        <li>Nouwens, M. et al. (2020). &ldquo;Dark Patterns After the GDPR.&rdquo; <em>CHI 2020</em>. <a href="https://doi.org/10.1145/3313831.3376321">DOI: 10.1145/3313831.3376321</a>.</li>
+        <li>Santos, C. et al. (2021). &ldquo;Cookie Banners, What&rsquo;s the Purpose?&rdquo; <em>Proceedings on Privacy Enhancing Technologies</em>, 2021(4).</li>
+        <li>Livingstone, S. &amp; Third, A. (2017). &ldquo;Children and young people&rsquo;s rights in the digital age.&rdquo; <em>New Media &amp; Society</em>, 19(5), 657&ndash;670. <a href="https://doi.org/10.1177/1461444816686318">DOI: 10.1177/1461444816686318</a>.</li>
+      </ul>
+
+      <h3>Age Verification &mdash; Pro-Arguments &amp; Mental Health</h3>
+      <ul>
+        <li>Haidt, J. (2024). <em>The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness.</em> Penguin Press.</li>
+        <li>Orben, A. &amp; Przybylski, A.K. (2019). <em>Nature Human Behaviour</em>, 3, 173&ndash;182. <a href="https://doi.org/10.1038/s41562-018-0506-1">DOI: 10.1038/s41562-018-0506-1</a>.</li>
+        <li>Valkenburg, P.M., Meier, A. &amp; Beyens, I. (2022). <em>Current Opinion in Psychology</em>, 44, 58&ndash;68. <a href="https://doi.org/10.1016/j.copsyc.2021.08.017">DOI: 10.1016/j.copsyc.2021.08.017</a>.</li>
+        <li>Beyens, I. et al. (2020). <em>Scientific Reports</em>, 10, 10763. <a href="https://doi.org/10.1038/s41598-020-67727-7">DOI: 10.1038/s41598-020-67727-7</a>.</li>
+        <li>Allcott, H. et al. (2020). <em>American Economic Review</em>, 110(3), 629&ndash;676. <a href="https://doi.org/10.1257/aer.20190658">DOI: 10.1257/aer.20190658</a>.</li>
+        <li>Internet Watch Foundation (2024). <em>Annual Report 2023.</em></li>
+        <li>Thorn (2024). &ldquo;Child Sexual Exploitation and Technology.&rdquo;</li>
+        <li>Priisalu, J. &amp; Ottis, R. (2017). <em>Health and Technology</em>, 7, 441&ndash;451. <a href="https://doi.org/10.1007/s12553-017-0195-1">DOI: 10.1007/s12553-017-0195-1</a>.</li>
+        <li>Parsovs, A. (2020). &ldquo;Estonian Electronic Identity Card: Security Flaws in Key Management.&rdquo; <em>29th USENIX Security Symposium.</em></li>
+        <li>Muralidharan, K., Niehaus, P. &amp; Sukhtankar, S. (2016). <em>American Economic Review</em>, 106(10), 2895&ndash;2929.</li>
+        <li>CNIL (2022). &ldquo;Online Age Verification: Balancing Privacy and the Protection of Minors.&rdquo;</li>
+        <li>American Psychological Association (2023). &ldquo;Health Advisory on Social Media Use in Adolescence.&rdquo;</li>
+        <li>US Surgeon General (2023). &ldquo;Social Media and Youth Mental Health.&rdquo; Advisory.</li>
+      </ul>
+
+      <h3>Regulatory Alternatives</h3>
+      <ul>
+        <li>UK ICO (2021/2025). Age Appropriate Design Code + Interim Impact Review.</li>
+        <li>5Rights Foundation / Children and Screens (2024). AADC Impact Assessment.</li>
+        <li>Forbrukerr&aring;det (2021). <em>Time to Ban Surveillance-Based Advertising</em>.</li>
+        <li>Forbrukerr&aring;det (2020). <a href="https://www.forbrukerradet.no/undersokelse/no-undersokelsekategori/report-out-of-control/"><em>Out of Control</em></a>.</li>
+        <li>EDRi (2025). &ldquo;Age Verification Gains Traction.&rdquo;</li>
+        <li>EFF (2025). <em>Age Verification Won&rsquo;t &ldquo;Protect the Children&rdquo;</em>.</li>
+        <li>European Parliament (2023). Resolution TA-9-2023-0459 (Addictive Design).</li>
+      </ul>
+
+      <h3>EU Regulations</h3>
+      <ul>
+        <li>Regulation (EU) 2024/1183 (eIDAS 2.0)</li>
+        <li>Regulation (EU) 2024/1689 (AI Act)</li>
+        <li>Regulation (EU) 2022/2065 (DSA)</li>
+        <li>Regulation (EU) 2022/1925 (DMA)</li>
+        <li>Regulation (EU) 2021/953 (COVID Certificate)</li>
+      </ul>
+    </section>
+
+    <footer>
+      <hr>
+      <p style="font-size: 0.85rem; color: var(--fg-secondary); text-align: center; margin-top: 2rem;">
+        This document was compiled from academic sources, court rulings, and official EU documents. March 2026.
+      </p>
+    </footer>
+  </article>
+</body>
+</html>
