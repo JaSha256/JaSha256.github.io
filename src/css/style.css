@@ -431,35 +431,199 @@ section#references li {
   margin-bottom: 0;
 }
 
-/* Theme Toggle */
-.theme-toggle {
+/* Reading Progress Bar */
+.reading-progress {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1000;
+  background: transparent;
 }
 
-.theme-toggle button {
+.reading-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.1s linear;
+}
+
+/* Reading Time */
+.reading-time {
+  font-size: 0.85rem;
+  color: var(--fg-secondary);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+/* Toolbar */
+.toolbar {
+  position: fixed;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.toolbar-btn {
   background: var(--bg);
   color: var(--fg);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 0.35rem 0.6rem;
+  padding: 0.3rem 0.5rem;
   cursor: pointer;
   font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: border-color 0.2s;
+  line-height: 1;
 }
 
-.theme-toggle button:hover {
+.toolbar-btn:hover {
   border-color: var(--accent);
 }
 
-.theme-label {
+/* Search */
+.search-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.35rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.search-input {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
+  width: 180px;
+  font-family: inherit;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+.search-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.search-count {
   font-size: 0.75rem;
+  color: var(--fg-secondary);
+}
+
+.search-nav {
+  background: none;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  color: var(--fg);
+  font-size: 0.9rem;
+}
+
+.search-nav:hover {
+  border-color: var(--accent);
+}
+
+mark.search-highlight {
+  background: rgba(255, 220, 0, 0.35);
+  color: inherit;
+  padding: 0.05em 0;
+  border-radius: 2px;
+}
+
+mark.search-current {
+  background: rgba(255, 160, 0, 0.55);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Glossary Panel */
+.glossary-panel-wrapper {
+  max-width: 48em;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.glossary-panel {
+  background: var(--blockquote-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+}
+
+.glossary-panel h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+}
+
+.glossary-subtitle {
+  font-weight: 400;
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+}
+
+.glossary-panel dl {
+  margin: 0;
+}
+
+.glossary-entry {
+  display: flex;
+  gap: 1rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.glossary-entry:last-child {
+  border-bottom: none;
+}
+
+.glossary-entry dt {
+  font-style: italic;
+  min-width: 40%;
+  color: var(--fg);
+}
+
+.glossary-entry dd {
+  margin: 0;
+  color: var(--fg-secondary);
+}
+
+/* Language Tooltip */
+.lang-tooltip {
+  position: absolute;
+  z-index: 300;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  transform: translateY(-100%);
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* Mobile TOC Sidebar */
@@ -724,10 +888,14 @@ nav#toc a.toc-active {
     page-break-before: auto;
   }
 
-  .theme-toggle,
+  .reading-progress,
+  .toolbar,
   .toc-sidebar-wrapper,
   .back-to-top,
   .fn-tooltip,
+  .lang-tooltip,
+  .glossary-panel,
+  .search-panel,
   .collapse-icon {
     display: none !important;
   }

@@ -5,17 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="A critical analysis of mandatory online age verification via EUDI Wallet, examining technical risks, societal consequences, and alternative regulatory approaches.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; connect-src 'self';">
   <title>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body x-data="scrollSpy">
 
-  <!-- Theme Toggle -->
-  <div class="theme-toggle" x-data="themeToggle">
-    <button @click="cycle" :aria-label="'Theme: ' + label">
-      <span x-text="icon"></span>
-      <span class="theme-label" x-text="label"></span>
-    </button>
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" x-data="readingProgress">
+    <div class="reading-progress-bar" :style="`width: ${progress}%`"></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <!-- Theme Toggle -->
+    <div x-data="themeToggle">
+      <button class="toolbar-btn" @click="cycle" :aria-label="'Theme: ' + label">
+        <span x-text="icon"></span>
+      </button>
+    </div>
+    <!-- Search Toggle -->
+    <div x-data="search" @keydown.ctrl.f.window.prevent="toggle" @keydown.meta.f.window.prevent="toggle">
+      <button class="toolbar-btn" @click="toggle" aria-label="Search">&#x2315;</button>
+      <div class="search-panel" x-show="open" x-transition.opacity @click.outside="open && toggle()">
+        <input x-ref="searchInput" type="text" x-model="query" @keydown="handleKey" placeholder="Search..." class="search-input">
+        <button class="search-btn" @click="doSearch">Go</button>
+        <span class="search-count" x-show="totalMatches > 0" x-text="`${currentIdx + 1}/${totalMatches}`"></span>
+        <button class="search-nav" x-show="totalMatches > 0" @click="prev" aria-label="Previous">&lsaquo;</button>
+        <button class="search-nav" x-show="totalMatches > 0" @click="next" aria-label="Next">&rsaquo;</button>
+      </div>
+    </div>
+    <!-- Glossary Toggle -->
+    <div x-data="{ showGlossary: false }">
+      <button class="toolbar-btn" @click="showGlossary = !showGlossary; $dispatch('toggle-glossary')" aria-label="DE/EN Glossary">DE</button>
+    </div>
   </div>
 
   <!-- Mobile TOC Sidebar -->
@@ -41,7 +65,30 @@
     </nav>
   </div>
 
+  <!-- Language Toggle -->
+  <div x-data="langToggle" @toggle-glossary.window="toggleGlossary">
+    <div class="glossary-panel-wrapper">
+      <div class="glossary-panel" x-show="showGlossary" x-transition.opacity>
+        <h3>German Legal Terms <span class="glossary-subtitle">DE &rarr; EN</span></h3>
+        <dl>
+          <template x-for="[de, en] in glossaryEntries" :key="de">
+            <div class="glossary-entry">
+              <dt x-text="de"></dt>
+              <dd x-text="en"></dd>
+            </div>
+          </template>
+        </dl>
+      </div>
+    </div>
+    <div class="lang-tooltip" x-show="tooltipVisible" x-transition.opacity :style="`left: ${tooltipX}px; top: ${tooltipY}px;`" x-text="tooltipText"></div>
+  </div>
+
   <article x-data="footnoteTooltip">
+    <!-- Reading Time -->
+    <div x-data="readingTime" class="reading-time" x-show="minutes > 0">
+      <span x-text="`~${minutes} min read`"></span>
+    </div>
+
     {{> header}}
     {{> abstract}}
     {{> toc}}

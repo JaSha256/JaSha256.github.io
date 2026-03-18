@@ -183,6 +183,198 @@ Alpine.data('themeToggle', () => ({
   }
 }));
 
+Alpine.data('readingProgress', () => ({
+  progress: 0,
+
+  init() {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      this.progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+    }, { passive: true });
+  }
+}));
+
+Alpine.data('readingTime', () => ({
+  minutes: 0,
+
+  init() {
+    const article = document.querySelector('article');
+    if (!article) return;
+    const text = article.textContent || '';
+    const words = text.trim().split(/\s+/).length;
+    this.minutes = Math.ceil(words / 225);
+  }
+}));
+
+Alpine.data('search', () => ({
+  open: false,
+  query: '',
+  results: [],
+  currentIdx: -1,
+  totalMatches: 0,
+  highlights: [],
+
+  toggle() {
+    this.open = !this.open;
+    if (this.open) {
+      this.$nextTick(() => this.$refs.searchInput?.focus());
+    } else {
+      this.clearHighlights();
+      this.query = '';
+      this.results = [];
+      this.currentIdx = -1;
+      this.totalMatches = 0;
+    }
+  },
+
+  doSearch() {
+    this.clearHighlights();
+    this.results = [];
+    this.currentIdx = -1;
+    this.totalMatches = 0;
+
+    const q = this.query.trim();
+    if (q.length < 2) return;
+
+    const article = document.querySelector('article');
+    if (!article) return;
+
+    const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+    const matches = [];
+    const qLower = q.toLowerCase();
+
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const parent = node.parentElement;
+      if (!parent || parent.closest('.fn-tooltip, .search-panel, script, style')) continue;
+
+      const text = node.textContent;
+      const textLower = text.toLowerCase();
+      let idx = 0;
+
+      while ((idx = textLower.indexOf(qLower, idx)) !== -1) {
+        matches.push({ node, offset: idx, length: q.length });
+        idx += q.length;
+      }
+    }
+
+    this.totalMatches = matches.length;
+
+    for (let i = matches.length - 1; i >= 0; i--) {
+      const { node, offset, length } = matches[i];
+      const range = document.createRange();
+      range.setStart(node, offset);
+      range.setEnd(node, offset + length);
+
+      const mark = document.createElement('mark');
+      mark.className = 'search-highlight';
+      mark.dataset.searchIdx = String(i);
+      range.surroundContents(mark);
+      this.highlights.unshift(mark);
+    }
+
+    if (this.totalMatches > 0) {
+      this.currentIdx = 0;
+      this.scrollToCurrent();
+    }
+  },
+
+  next() {
+    if (this.totalMatches === 0) return;
+    this.currentIdx = (this.currentIdx + 1) % this.totalMatches;
+    this.scrollToCurrent();
+  },
+
+  prev() {
+    if (this.totalMatches === 0) return;
+    this.currentIdx = (this.currentIdx - 1 + this.totalMatches) % this.totalMatches;
+    this.scrollToCurrent();
+  },
+
+  scrollToCurrent() {
+    this.highlights.forEach((m, i) => {
+      m.classList.toggle('search-current', i === this.currentIdx);
+    });
+    const current = this.highlights[this.currentIdx];
+    if (current) {
+      current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  },
+
+  clearHighlights() {
+    for (const mark of this.highlights) {
+      const parent = mark.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      }
+    }
+    this.highlights = [];
+  },
+
+  handleKey(e) {
+    if (e.key === 'Enter') {
+      if (e.shiftKey) this.prev();
+      else if (this.totalMatches > 0) this.next();
+      else this.doSearch();
+    } else if (e.key === 'Escape') {
+      this.toggle();
+    }
+  }
+}));
+
+Alpine.data('langToggle', () => ({
+  glossary: {
+    'Klarnamenpflicht': 'real-name requirement',
+    'Volkszahlungsurteil': 'Census Ruling',
+    'Recht auf informationelle Selbstbestimmung': 'right to informational self-determination',
+    'Nichtverkettbarkeit': 'unlinkability',
+    'Anlassbezogenheit': 'requirement of specific cause',
+    'IT-Grundrecht': 'IT fundamental right',
+    'Grundrecht auf Vertraulichkeit und Integrität informationstechnischer Systeme': 'fundamental right to confidentiality and integrity of IT systems',
+    'Jugendmedienschutz-Staatsvertrag': 'Interstate Treaty on the Protection of Minors in the Media',
+  },
+  showGlossary: false,
+  tooltipText: '',
+  tooltipX: 0,
+  tooltipY: 0,
+  tooltipVisible: false,
+
+  init() {
+    const article = document.querySelector('article');
+    if (!article) return;
+
+    article.addEventListener('mouseover', (e) => {
+      const em = e.target.closest('em');
+      if (!em) return;
+      const text = em.textContent.trim();
+      const translation = this.glossary[text];
+      if (!translation) return;
+
+      const rect = em.getBoundingClientRect();
+      this.tooltipText = translation;
+      this.tooltipX = rect.left + window.scrollX;
+      this.tooltipY = rect.top + window.scrollY - 8;
+      this.tooltipVisible = true;
+    });
+
+    article.addEventListener('mouseout', (e) => {
+      if (e.target.closest('em')) {
+        this.tooltipVisible = false;
+      }
+    });
+  },
+
+  toggleGlossary() {
+    this.showGlossary = !this.showGlossary;
+  },
+
+  get glossaryEntries() {
+    return Object.entries(this.glossary).sort((a, b) => a[0].localeCompare(b[0], 'de'));
+  }
+}));
+
 Alpine.data('backToTop', () => ({
   visible: false,
 

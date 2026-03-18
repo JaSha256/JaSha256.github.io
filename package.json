@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && cp dist/* . 2>/dev/null; cp -r dist/assets . 2>/dev/null; true",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "node scripts/check-footnotes.js"
   },
   "keywords": [],
   "author": "",
