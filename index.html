@@ -932,86 +932,19 @@
             <td>Initial publication. Single-file HTML document.</td>
           </tr>
           <tr>
-            <td>2026-03-17</td>
+            <td>2026-03-18</td>
             <td>2.0</td>
             <td>
-              <strong>Structural revision following peer review.</strong> Major changes:
+              <strong>Comprehensive revision: structural overhaul, peer review integration, gap analysis, proportionality framework, and fact-check corrections.</strong>
               <ul style="margin-top: 0.4rem; margin-bottom: 0;">
-                <li><strong>Restructured argument order:</strong> Part 2b (steel-man case for age verification) repositioned before the Interim balancing section to reduce rhetorical asymmetry and ensure pro-verification arguments are encountered before the cost-benefit assessment.</li>
-                <li><strong>New Section 3.4 (Cambridge Analytica):</strong> Added case study documenting the trajectory from surveillance advertising data infrastructure to political weaponization (Cadwalladr &amp; Graham-Harrison, 2018; Isaak &amp; Hanna, 2018; FTC $5 billion settlement). Demonstrates that identity-based regulation would not have prevented the documented harm.</li>
-                <li><strong>New Section 3.6 (Broader Harms):</strong> Expanded root cause analysis to cover democratic integrity (Myanmar genocide, Capitol attack, fake news distribution), public health (COVID infodemic; Loomba et al., 2021), and epistemic integrity (Benkler, Faris &amp; Roberts, 2018). Documents that platform harms are systemic and age-independent, strengthening the case against age-based intervention.</li>
-                <li><strong>Expanded Section 3.8 (Enforcement Reality):</strong> Added structural analysis of the DSA enforcement deficit (resource asymmetry, technical opacity, political economy, jurisdictional bottlenecks), addressing the criticism that &ldquo;better enforcement&rdquo; is insufficiently concrete as a policy recommendation.</li>
-                <li><strong>Qualified Section 2.1 (South Korea):</strong> Added &ldquo;Limits of the Analogy&rdquo; subsection distinguishing full real-name policy from selective attribute attestation. Clarified that the analogy is strongest for function creep and data breach risks, weaker for direct chilling effects.</li>
-                <li><strong>Strengthened Section 2.3 (Chilling Effects):</strong> Expanded applicability caveat into explicit hypothesis formulation, acknowledging that no direct empirical test of chilling effects from age verification systems exists.</li>
-                <li><strong>Revised Section 1.6 (Google/Funke):</strong> Replaced vague &ldquo;raises questions&rdquo; with three documented concerns (proprietary production stack, opaque StrongBox trust anchor, structural conflict of interest as simultaneous Relying Party and infrastructure provider).</li>
-                <li><strong>Restructured Interim section:</strong> Moral licensing argument broken into separate paragraphs (theoretical basis, regulatory evidence, cookie consent analogy) for clarity.</li>
-                <li><strong>Added 8 new footnotes</strong> (fn-61 through fn-68) with academic primary sources.</li>
-                <li><strong>Technical migration:</strong> Monolithic HTML document split into modular partials using Vite + Handlebars build system. CSS extracted to separate stylesheet. No content changes from migration.</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>2026-03-17</td>
-            <td>2.1</td>
-            <td>
-              <strong>Corrections following specialized peer review (cryptography, constitutional law, methodology).</strong> Major changes:
-              <ul style="margin-top: 0.4rem; margin-bottom: 0;">
-                <li><strong>Cryptographic corrections:</strong> CL signatures date corrected to CRYPTO 2001. BBS+ terminology updated to &ldquo;BBS&rdquo; per IETF CFRG standardization. &ldquo;Signature randomization&rdquo; replaced with &ldquo;proof of knowledge of a valid signature.&rdquo; Hardware curve claim corrected: BN-462 replaced with BLS12-381; SE capabilities clarified (support beyond P-256; bottleneck is pairing computation). U-Prove discussed as P-256-compatible alternative. Status List revocation re-linking mechanism explained in detail. Wallet instance attestation added as linking vector. CNIL &ldquo;double anonymity&rdquo; model corrected from ZKP to cryptographic blinding. On-device age estimation attestation trilemma documented. ARF version (1.4) specified throughout.</li>
-                <li><strong>Legal corrections:</strong> La Quadrature du Net (C-511/18 et al., 2020) added as controlling CJEU framework. Digital Rights Ireland analogy qualified (one-time verification vs. continuous retention). Tele2/Watson child protection severity claim restated as inference, not CJEU holding. BVerfGE 120,274 (IT-Grundrecht) doctrinal fit qualified (covert infiltration vs. voluntary app). Standard Verlagsgesellschaft recharacterized as procedural holding. Art. 8 EU Charter and CJEU Prokuratuur (C-746/18) added. ECtHR margin of appreciation doctrine noted. AI Act social scoring &ldquo;exemptions&rdquo; corrected to &ldquo;outside scope by definition.&rdquo; EDPB Statement 1/2025 presented more completely (acknowledges contexts requiring verification). Opinion 1/15 analogy qualified by data volume difference.</li>
-                <li><strong>Empirical corrections:</strong> Wikipedia traffic decline corrected from 20% to ~27%. SK data breach causation clarified (software vulnerability, not identity system itself). Stoycheff (2016) sample limitations noted. Bail et al. (2018) recharacterized (bot experiment, not algorithm test; effect only for Republicans). Ribeiro et al. (2020) YouTube radicalization claim marked as contested (Hosseinmardi et al. 2024, Munger &amp; Phillips 2022). Cambridge Analytica 87M figure qualified as worst-case estimate. Haidt correlations qualified (popular book, not peer-reviewed meta-analyses). Aadhaar 49% clarified as proportion of affected beneficiaries, not per-transaction rate.</li>
-                <li><strong>Structural/balance improvements:</strong> Art. 24 EU Charter (rights of the child) given substantially more weight in Interim section. Proportionality analysis explicitly qualified as policy assessment, not structured legal four-step test. Moral licensing argument acknowledged as cutting both ways. Enforcement deficit self-undermining tension addressed with two-part response. Positive Nordic cases (Denmark NemID/MitID, Sweden BankID) added to Part 2b. Norway BankID centralized correlation point noted. AVMSD existing legal obligations and parental rights acknowledged in Part 2b. Conclusion revised: advocacy quote removed; acknowledged limitations (grooming gap, enforcement symmetry, platform industry alignment) stated explicitly. Fischer (2003) methodological application limitations noted. Paper explicitly characterized as critical policy analysis with argumentative thesis, not neutral survey.</li>
-                <li><strong>Added footnote fn-69</strong> (U-Prove). Expanded fn-68 (EDPB binding decision on Meta).</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>2026-03-17</td>
-            <td>3.0</td>
-            <td>
-              <strong>Gap analysis integration following three specialized agent reviews (cryptographic, legal, empirical).</strong> Major additions:
-              <ul style="margin-top: 0.4rem; margin-bottom: 0;">
-                <li><strong>New: EU CSAM Regulation (&ldquo;Chat Control&rdquo;) analysis</strong> (Section 2.5): New table row and dedicated subsection documenting COM/2022/209 as function creep in real time &mdash; progression from hash-matching known CSAM to AI-based grooming detection within a single proposal. Includes EDPS Opinion 4/2022, German government opposition, EP LIBE position. Connects to policy-ratchet logic.</li>
-                <li><strong>New: E2EE Displacement Problem</strong> (Section 2b.1): Documents the structural limitation that age verification at the platform &ldquo;front door&rdquo; cannot address grooming via end-to-end encrypted messaging (WhatsApp, Signal). Links displacement dynamic to Chat Control proposal.</li>
-                <li><strong>Expanded: Real-world deployment data</strong> (Interim section): Added Australia (Online Safety Amendment 2024, eSafety trial findings), France (Loi SREN + Conseil constitutionnel Decision 2024-866 DC), UK (Online Safety Act, Ofcom implementation guidance). Documents accuracy/privacy/accessibility trilemma across three jurisdictions.</li>
-                <li><strong>New: ARF v1.5 versioning note</strong> (Section 1.1): Explains why v1.4-based analysis remains applicable &mdash; core privacy deficiencies (static signatures, optional BBS, Pseudonym Provider) persist in v1.5.</li>
-                <li><strong>New: Digital Exclusion / Accessibility</strong> (Section 2.7): 850M globally without ID; EU-internal exclusion risks (older adults, persons with disabilities, undocumented). EU Accessibility Act, CRPD Art. 9, EDPB accessibility concerns.</li>
-                <li><strong>New: Post-2022 Mental Health Update</strong> (Section 2b.2): Orben et al. (2024) global replication, Coyne et al. (2024) longitudinal null finding, Surgeon General 2024 warning labels call. Skeptical evidence has strengthened methodologically.</li>
-                <li><strong>New: Design Regulation Failures</strong> (Section 3.8): GDPR Art. 25 under-enforcement, COPPA $400M+ penalties without structural compliance, AADC 91 changes not independently audited. Acknowledges enforcement symmetry honestly.</li>
-                <li><strong>New: UK OSA as &ldquo;do both&rdquo; test case</strong> (Section 2b.5): Documents early evidence of moral licensing / substitution dynamic in UK&rsquo;s combined approach.</li>
-                <li><strong>Expanded: Limitations</strong> (Framework): Political economy gap, ENISA/BfDI positions missing, no falsifiable success metrics, CJEU C-252/21 not integrated.</li>
-                <li><strong>Added 13 new footnotes</strong> (fn-70 through fn-82). Added ~25 new reference entries across three new reference categories.</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>2026-03-18</td>
-            <td>4.0</td>
-            <td>
-              <strong>Major structural revision: proportionality analysis, content cuts, and conclusion rewrite.</strong>
-              <ul style="margin-top: 0.4rem; margin-bottom: 0;">
-                <li><strong>New Part 0:</strong> &ldquo;The SPD Proposal &mdash; Policy Trigger and Analytical Scope.&rdquo; Systematically parses SPD policy paper (under-14 ban, youth version, EUDI Wallet mechanism). Reframes analysis: SPD proposal as policy trigger, EUDI-based age verification examined broadly. Addresses EUDI Wallet as sunk cost &mdash; the danger is normalization of identity credentials for content access, not the infrastructure&rsquo;s creation.</li>
-                <li><strong>Content cuts (~5000 words removed):</strong> Section 2.4 (Behavioral Scoring: Bologna, SyRI, AMS, AI Act) cut entirely; one salvage sentence into Function Creep. Section 2.6 (AI Surveillance: Palantir, Clearview, Zignal) cut entirely; BVerfG automated data analysis ruling integrated inline in Fundamental Rights (Section 2.5). Part 3 sections 3.2&ndash;3.7 (six sections) merged into single &ldquo;3.2 The Surveillance Advertising Model and Its Downstream Harms&rdquo; (~1500 words). Cambridge Analytica compressed to one paragraph. Section 2.2 (Political Persecution) compressed from three country paragraphs to one.</li>
-                <li><strong>Interim section rewrite:</strong> Complete restructure around Art. 52(1) four-step proportionality test (legitimate aim, suitability, necessity, proportionality <em>stricto sensu</em>). Replaces informal cost-benefit balancing with structured legal analysis. Moral licensing repositioned as secondary argument with existing caveats. Finite regulatory resources as primary structural argument. Haugen evidentiary caveat added (&ldquo;not independently peer-reviewed&rdquo;).</li>
-                <li><strong>Conclusion rewrite:</strong> Replaced three-point restatement with five-paragraph synthesis: core contribution (ARF architecture failure), proportionality finding, pro-better-technology positioning, regulatory priority (DSA enforcement, Digital Fairness Act), acknowledged limitations.</li>
-                <li><strong>Abstract revision:</strong> Aligned with revised structure. Reflects proportionality analysis as core contribution. &ldquo;Pro-better-technology&rdquo; positioning.</li>
-                <li><strong>Function creep table:</strong> COVID Certificate entry updated with June 2023 sunset acknowledgment. New paragraph on structural difference between time-limited and permanent infrastructure.</li>
-                <li><strong>Hancock meta-analysis:</strong> Added to Section 2b.2: 226 studies, n &gt; 275,000. Positioned as best available meta-analytic estimate. <em>Corrected v2.2:</em> Effect size updated from erroneous <em>d</em>&nbsp;=&nbsp;&minus;0.10 to actual reported values (<em>r</em>&nbsp;=&nbsp;0.01 overall, n.s.; subdimension-specific <em>r</em> values for depression, anxiety, social well-being).</li>
-                <li><strong>Section renumbering:</strong> Part 2: old 2.5&rarr;2.4, old 2.7&rarr;2.5, old 2.8&rarr;2.6. Part 3: old 3.8&rarr;3.3.</li>
-                <li><strong>Footnote renumbering:</strong> 10 footnotes removed (orphaned by content cuts), 3 added (SPD paper, EUDI timeline, Hancock). Sequential renumbering from 82&rarr;75 total. All cross-references updated.</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>2026-03-18</td>
-            <td>4.1</td>
-            <td>
-              <strong>Fact-check corrections following systematic verification of ~70 empirical claims, legal citations, and policy statistics.</strong>
-              <ul style="margin-top: 0.4rem; margin-bottom: 0;">
-                <li><strong>Hancock meta-analysis corrected</strong> (Section 2b.2, fn-73): Effect size changed from erroneous <em>d</em>&nbsp;=&nbsp;&minus;0.10 to actual reported values: overall <em>r</em>&nbsp;=&nbsp;0.01 (n.s.), with subdimension-specific correlations for depression (<em>r</em>&nbsp;=&nbsp;.12), anxiety (<em>r</em>&nbsp;=&nbsp;.13), social well-being (<em>r</em>&nbsp;=&nbsp;.20). Author list corrected to Hancock, Liu, Luo &amp; Mieczkowski. Full title added.</li>
-                <li><strong>Apple ATT rejection rate corrected</strong> (Section 3.2): Changed from &ldquo;90&ndash;96%&rdquo; to &ldquo;54&ndash;96%&rdquo; with clarification that initial 4% opt-in rose to ~46% globally over time.</li>
-                <li><strong>IWF self-generated percentage corrected</strong> (Section 2b.1, fn-42): Changed from 92% to 93% per IWF Annual Report 2023.</li>
-                <li><strong>NCMEC/Thorn statistics corrected</strong> (Section 2b.1): Replaced unverifiable &ldquo;450,000 in 2004 to over 61 million in 2024&rdquo; with verified data: ~100,000 reports in 2010 rising to 36.2 million in 2023 (20.5 million reports in 2024 following methodology change; 63 million individual files).</li>
-                <li><strong>Meta internal research precision improved</strong> (Interim section): Clarified that Instagram statistics refer to teens who already experienced issues (not general population increases). 13.5% rounded to 13% per WSJ source documents.</li>
+                <li><strong>Structural changes:</strong> Part 2b (steel-man case for age verification) repositioned before Interim section. New Part 0 (&ldquo;The SPD Proposal&rdquo;) added as policy trigger. Interim section restructured around Art. 52(1) four-step proportionality test. Conclusion rewritten as five-paragraph synthesis. ~5,000 words cut (behavioral scoring, AI surveillance sections removed; Part 3 sections merged). Technical migration to Vite + Handlebars partials.</li>
+                <li><strong>Cryptographic corrections:</strong> BBS+ terminology updated to BBS per IETF CFRG. Hardware curve claim corrected (BLS12-381, pairing computation bottleneck). U-Prove added as P-256-compatible alternative. CNIL model corrected from ZKP to cryptographic blinding. On-device attestation trilemma documented. ARF versions (1.4, 1.5) specified throughout.</li>
+                <li><strong>Legal corrections:</strong> La Quadrature du Net (2020) added as controlling framework. Digital Rights Ireland analogy qualified. BVerfGE 120,274 doctrinal fit qualified. Art. 8 EU Charter and CJEU Prokuratuur added. ECtHR margin of appreciation noted. EDPB Statement 1/2025 integrated.</li>
+                <li><strong>New content:</strong> EU CSAM Regulation (&ldquo;Chat Control&rdquo;) analysis. E2EE displacement problem. Real-world deployment data (Australia, France, UK). Digital exclusion / accessibility section. Post-2022 mental health update. Design regulation failures. UK OSA as &ldquo;do both&rdquo; test case. DSA enforcement deficit structural analysis. Cambridge Analytica case study.</li>
+                <li><strong>Empirical corrections and qualifications:</strong> Wikipedia traffic decline corrected to ~27%. SK data breach causation clarified. Bail et al. (2018) recharacterized. YouTube radicalization claim marked as contested. Cambridge Analytica 87M qualified as worst-case estimate. Haidt correlations qualified as popular book figures. Aadhaar 49% clarified. South Korea analogy limits added. Chilling effects hypothesis explicitly formulated.</li>
+                <li><strong>Fact-check corrections:</strong> Hancock et al. (2022) meta-analysis effect size corrected from erroneous <em>d</em>&nbsp;=&nbsp;&minus;0.10 to <em>r</em>&nbsp;=&nbsp;0.01 (n.s.) overall, with subdimension correlations (depression <em>r</em>&nbsp;=&nbsp;.12, anxiety <em>r</em>&nbsp;=&nbsp;.13, social well-being <em>r</em>&nbsp;=&nbsp;.20). Apple ATT rejection rate corrected from 90&ndash;96% to 54&ndash;96%. IWF self-generated CSAM corrected from 92% to 93%. NCMEC/Thorn statistics replaced with verified data. Meta internal research precision improved (Instagram statistics clarified as referring to teens with pre-existing issues).</li>
+                <li><strong>Balance improvements:</strong> Art. 24 EU Charter given more weight. Proportionality analysis qualified as policy assessment. Moral licensing acknowledged as cutting both ways. Nordic positive cases added. Enforcement deficit self-undermining tension addressed. Paper explicitly characterized as critical policy analysis with argumentative thesis.</li>
+                <li><strong>Footnotes:</strong> Reorganized from 61 to 75 total (additions, removals, renumbering). ~25 new reference entries across three new categories.</li>
               </ul>
             </td>
           </tr>
