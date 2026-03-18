@@ -5,7 +5,7 @@
   <section id="s1-1">
     <h3>1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</h3>
 
-    <p><strong>Note on ARF versioning:</strong> This analysis is based on the Architecture Reference Framework (ARF) version 1.4 (published February 2024). ARF v1.5 was released in December 2024. While v1.5 introduces editorial clarifications and expanded implementation guidance, it does <em>not</em> resolve the core privacy deficiencies identified below: the credential format remains SD-JWT/mdoc with static issuer signatures; BBS-based unlinkable proofs remain optional, not mandatory; the Pseudonym Provider architecture is retained; and wallet instance attestation continues to function as a potential linking vector. The cryptographers&rsquo; joint statement (June 2024) and the epicenter.works analysis (2024) were directed at v1.4 but their structural criticisms remain applicable to v1.5. Where v1.5 introduces substantive changes relevant to specific points, these are noted inline.<sup><a href="#fn-71" id="fnref-71">71</a></sup></p>
+    <p><strong>Note on ARF versioning:</strong> This analysis was originally based on ARF v1.4 (February 2024). The ARF has since undergone significant revision through v2.8 (February 2025). One major improvement: the centralized Pseudonym Provider criticized in the original analysis has been removed &mdash; pseudonyms are now generated and stored locally on the device (Section 2.5 of ARF v2.8), aligning with Art. 5a(4)(e) eIDAS. However, the core privacy deficiencies persist through v2.8: BBS-based unlinkable proofs remain absent from the specification (not mentioned in the ARF narrative); zero-knowledge proofs are not referenced; the credential formats (SD-JWT, ISO 18013-5/mdoc) continue to use static issuer signatures enabling cross-verifier linkability; and wallet provider tracking protections remain underspecified. The cryptographers&rsquo; joint statement (June 2024) and the epicenter.works analysis (2024) were directed at v1.4, but their structural criticisms regarding unlinkability and credential format remain applicable. Where subsequent ARF versions have addressed specific points, these are noted inline.<sup><a href="#fn-71" id="fnref-71">71</a></sup></p>
 
     <p>The SPD calls for age verification via EUDI Wallet and promises &ldquo;no restriction of anonymity.&rdquo; The technical reality fundamentally contradicts this promise.</p>
 
@@ -17,7 +17,7 @@
     </blockquote>
 
     <h4>Unlinkability (<em>Nichtverkettbarkeit</em>) Is Not Guaranteed in the Current Design</h4>
-    <p>Both data formats specified in the Architecture Reference Framework (ARF, version 1.4, the version analyzed throughout this paper unless otherwise noted) &mdash; SD-JWT and ISO 18013-5/mdoc &mdash; use static, issuer-generated digital signatures over the (hashed) identity attributes of the user. This signature functions as a persistent identifier &mdash; it remains identical with each presentation. Any two service providers (so-called Relying Parties) can therefore link transactions of the same user with minimal effort.</p>
+    <p>Both data formats specified in the Architecture Reference Framework (ARF, through v2.8) &mdash; SD-JWT and ISO 18013-5/mdoc &mdash; use static, issuer-generated digital signatures over the (hashed) identity attributes of the user. This signature functions as a persistent identifier &mdash; it remains identical with each presentation. Any two service providers (so-called Relying Parties) can therefore link transactions of the same user with minimal effort.</p>
     <blockquote>
       <p>&ldquo;the signature as well as (h<sub>1</sub>,...,h<sub>n</sub>) are always revealed and thus can be trivially linked by any RP.&rdquo;</p>
       <cite>&mdash; Slamanig, D. (2025).<sup><a href="#fn-1" id="fnref-1b">1</a></sup> Keynote, 19th IFIP Summer School on Privacy and Identity Management.</cite>
@@ -54,7 +54,7 @@
 
   <section id="s1-3">
     <h3>1.3 Lack of Protection Against Tracking by Wallet Providers</h3>
-    <p>The ARF (v1.4) does not mandate an architecture that prevents wallet providers &mdash; or the underlying OS platform (Android/iOS) &mdash; from observing transaction metadata. Several implementation paths would expose transactions: cloud-based key storage, wallet instance attestation requiring backend communication, and OS-level telemetry that can observe wallet activity independently of the wallet app itself.</p>
+    <p>The ARF (through v2.8) does not mandate an architecture that prevents wallet providers &mdash; or the underlying OS platform (Android/iOS) &mdash; from observing transaction metadata. ARF v2.8 states that the Wallet Provider backend &ldquo;provides support to the User and collect[s] aggregated and User-consented information in a privacy-preserving manner&rdquo; (Section 4.3.2), but does not clarify whether presentation logs &mdash; which Relying Parties the user interacts with &mdash; are visible to the Wallet Provider. Several implementation paths would expose transactions: cloud-based key storage, wallet instance attestation requiring backend communication, and OS-level telemetry that can observe wallet activity independently of the wallet app itself.</p>
     <blockquote>
       <p>&ldquo;Every use of the wallet could be monitored by the state.&rdquo;</p>
       <cite>&mdash; Thomas Lohninger, epicenter.works.<sup><a href="#fn-5" id="fnref-5">5</a></sup></cite>
@@ -62,15 +62,16 @@
   </section>
 
   <section id="s1-4">
-    <h3>1.4 The Pseudonym Provider &mdash; A Central De-Anonymization Risk</h3>
-    <p>The ARF introduces a &ldquo;Pseudonym Provider&rdquo; &mdash; a centralized entity that:</p>
+    <h3>1.4 The Pseudonym Provider &mdash; A Central De-Anonymization Risk <em>(Resolved in ARF v2.8)</em></h3>
+    <p><strong>Update (ARF v2.8):</strong> The centralized Pseudonym Provider described below has been removed from the ARF. As of v2.8, pseudonyms are generated and stored locally on the device (Section 2.5), with the Wallet Unit generating pseudonyms that are &ldquo;specific and unique to that wallet-relying party&rdquo; (CIR 2024/2979). This addresses the core concern of this section. The original analysis is retained below as it documents a risk that was present in ARF v1.4/1.5 and illustrates how critical scrutiny of identity architectures can drive meaningful improvement.</p>
+    <p><em>Original analysis (ARF v1.4/1.5):</em> The ARF introduced a &ldquo;Pseudonym Provider&rdquo; &mdash; a centralized entity that:</p>
     <ol>
       <li>verifies the user&rsquo;s real identity,</li>
       <li>issues pseudonyms,</li>
       <li>maintains a mapping table,</li>
       <li>discloses the true identity upon request from law enforcement authorities.</li>
     </ol>
-    <p>This entity is inconsistent with the eIDAS Regulation&rsquo;s stated intent. Art. 5a(4)(e) and Recital (11c) envision local pseudonym generation on the end device &mdash; not a centralized de-anonymization service. The Regulation does not explicitly prohibit a Pseudonym Provider, but the ARF&rsquo;s interpretation takes a permissive reading where the Regulation envisioned a more restrictive one.</p>
+    <p>This entity was inconsistent with the eIDAS Regulation&rsquo;s stated intent. Art. 5a(4)(e) and Recital (11c) envision local pseudonym generation on the end device &mdash; not a centralized de-anonymization service. The Regulation did not explicitly prohibit a Pseudonym Provider, but the ARF&rsquo;s interpretation took a permissive reading where the Regulation envisioned a more restrictive one. The removal of the centralized Pseudonym Provider in ARF v2.8 vindicates this criticism.</p>
     <blockquote>
       <p>&ldquo;The eID Wallet risks becoming a tool of surveillance and control rather than a tool that empowers users.&rdquo;</p>
       <cite>&mdash; EDRi, &ldquo;The eID Wallet still doesn&rsquo;t deserve your full trust&rdquo;, 10.03.2026.<sup><a href="#fn-6" id="fnref-6">6</a></sup></cite>
