@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="TLDR: Age Verification via EUDI Wallet -- a one-page summary of the full analysis.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; connect-src 'self';">
+  <title>TLDR: Age Verification via EUDI Wallet</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <article>
+    <header>
+      <h1>TLDR: Age Verification via EUDI Wallet</h1>
+      <p class="subtitle">One-page summary of the full analysis</p>
+      <p class="meta"><a href="./index.html">&larr; Full paper</a> &bull; March 2026</p>
+    </header>
+
+    <section>
+      <h2>The Proposal</h2>
+      <p>SPD politicians propose mandatory age verification for <em>all</em> social media users &mdash; including adults &mdash; via the European Digital Identity Wallet (EUDI). Under-14s would be banned entirely; 14&ndash;15-year-olds would get a restricted &ldquo;youth version.&rdquo; The EUDI Wallet is EU-mandated infrastructure (eIDAS 2.0) that will exist regardless &mdash; the question is whether it should become a precondition for accessing public digital spaces.</p>
+    </section>
+
+    <section>
+      <h2>The Technical Problem</h2>
+      <p>The EUDI Wallet architecture (ARF v2.8) uses <strong>SD-JWT and mdoc credentials with static issuer signatures</strong>. The signature is identical each time a credential is presented &mdash; any two platforms can trivially correlate users across services. This is not a bug; it is a deliberate design choice. Technology for anonymous credentials has existed for 20+ years (BBS signatures, CL signatures). <strong>16 internationally renowned cryptographers</strong> published a joint statement (June 2024) documenting this; the recommendation remains unimplemented.</p>
+      <p>The ARF&rsquo;s mitigation &mdash; <strong>batch issuance</strong> (use each credential copy once) &mdash; is acknowledged by the ARF itself as a <em>partial</em> solution. Presentations are bounded by batch size, re-issuance creates new tracking vectors, and revocation status checks can re-correlate users despite mitigations (VCR_17/18).</p>
+      <p><strong>Pseudonyms</strong> are now generated locally on the device (improved from earlier versions), but they do not mask the static credential signature &mdash; they provide relationship pseudonymity without transaction unlinkability.</p>
+    </section>
+
+    <section>
+      <h2>The Proportionality Test (Art. 52(1) EU Charter)</h2>
+
+      <h3>Legitimate Aim &mdash; Conceded</h3>
+      <p>Child protection is a Treaty obligation. The harms are real: 275,652 confirmed CSAM URLs in 2023 (IWF); NCMEC received 63 million files in 2024; sextortion tripled 2021&ndash;2023.</p>
+
+      <h3>Suitability &mdash; Conceded with Reservations</h3>
+      <p>South Korea&rsquo;s real-name policy (2004&ndash;2012) achieved a <strong>0.9 percentage point</strong> decline in malicious comments &mdash; within measurement error. Australia&rsquo;s social media ban (enforced December 2025) led to 4.7M accounts removed, but platforms responded through account deletion rather than age verification technology. A constitutional challenge is pending before the High Court.</p>
+
+      <h3>Necessity &mdash; Fails</h3>
+      <p>Less invasive alternatives exist and work:</p>
+      <ul>
+        <li><strong>UK Age Appropriate Design Code:</strong> 91 significant design changes on major platforms &mdash; without any identification infrastructure. Instagram set under-16 accounts to private; TikTok stopped nighttime push notifications; YouTube disabled autoplay for children.</li>
+        <li><strong>EDPB Statement 1/2025:</strong> Recommends age <em>assurance</em> (reasonable confidence about age group) over age <em>verification</em> (precise identity) for general services.</li>
+        <li><strong>France CNIL &ldquo;double anonymity&rdquo; model:</strong> Architectural role separation ensuring no party holds both identity and usage data. ARCOM enforced a compliant standard by August 2025.</li>
+        <li><strong>DSA (already in force):</strong> Prohibits profile-based advertising for known minors (Art. 28(2)), mandates algorithmic transparency (Art. 27), bans dark patterns (Art. 25). The problem is an enforcement deficit, not a regulatory gap.</li>
+      </ul>
+
+      <h3>Proportionality Stricto Sensu &mdash; Fails</h3>
+      <p>The costs exceed the marginal benefit:</p>
+      <ul>
+        <li><strong>Mass infrastructure:</strong> Permanent identification system for all users to protect a subset (minors), with no sunset clause.</li>
+        <li><strong>Chilling effects:</strong> Wikipedia traffic to &ldquo;sensitive&rdquo; articles dropped 27% post-Snowden (Penney, 2016). Surveillance awareness suppresses minority opinion expression.</li>
+        <li><strong>Function creep:</strong> The EU CSAM Regulation (&ldquo;Chat Control&rdquo;) expanded from CSAM detection to AI-based grooming surveillance of private messages <em>within a single legislative proposal</em>. Mandatory E2EE scanning was later dropped (November 2025) &mdash; but the infrastructure precedent persists.</li>
+        <li><strong>eIDAS contradiction:</strong> Art. 5a(1): Wallet use &ldquo;shall be voluntary.&rdquo; Art. 5a(16): Wallet &ldquo;shall not be a precondition for accessing&rdquo; private services. Age verification for social media would violate both.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>The Root Cause</h2>
+      <p>The surveillance advertising business model &mdash; not user identity &mdash; drives platform harms. Engagement algorithms amplify anger (+0.47 SD), anxiety (+0.23 SD) while users prefer chronological feeds (Milli et al., 2025). Meta generates 97.3% of revenue from ads. 54&ndash;96% of users reject tracking when given the choice (Apple ATT). Age verification addresses <em>who</em> accesses the platform without changing <em>what the platform does</em>.</p>
+    </section>
+
+    <section>
+      <h2>The Position</h2>
+      <p>This analysis is <strong>pro-better-technology, not anti-technology</strong>. It advocates:</p>
+      <ol>
+        <li><strong>Privacy-preserving age assurance</strong> (ZKP-based, not identity-linked) where legally required</li>
+        <li><strong>Design regulation</strong> addressing root causes (algorithmic amplification, addictive design)</li>
+        <li><strong>DSA enforcement</strong> (binding researcher access timelines, dedicated budgets, sanctions for non-compliance)</li>
+        <li><strong>Digital Fairness Act</strong> (expected Q3 2026) targeting manipulative design and special protection for minors</li>
+      </ol>
+      <p>Regulating <em>who</em> accesses a platform without simultaneously addressing <em>what the platform does</em> misallocates regulatory priority.</p>
+    </section>
+
+    <footer>
+      <hr>
+      <p class="footer-text">
+        <a href="./index.html">Read the full analysis &rarr;</a><br>
+        Generated with the assistance of Claude (Anthropic). All sources independently verified.
+      </p>
+    </footer>
+  </article>
+</body>
+</html>
