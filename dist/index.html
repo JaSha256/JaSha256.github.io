@@ -3,12 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="A critical analysis of mandatory online age verification via EUDI Wallet, examining technical risks, societal consequences, and alternative regulatory approaches.">
   <title>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</title>
-  <link rel="stylesheet" crossorigin href="/assets/index-XT31oSs7.css">
+  <script type="module" crossorigin src="./assets/index-BwBA31x2.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DZ2JdBtY.css">
 </head>
-<body>
-  <article>
+<body x-data="scrollSpy">
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" x-data="themeToggle">
+    <button @click="cycle" :aria-label="'Theme: ' + label">
+      <span x-text="icon"></span>
+      <span class="theme-label" x-text="label"></span>
+    </button>
+  </div>
+
+  <!-- Mobile TOC Sidebar -->
+  <div class="toc-sidebar-wrapper" x-data="tocSidebar">
+    <button class="toc-sidebar-toggle" @click="toggle" aria-label="Table of Contents">
+      <span x-show="!open">&#9776;</span>
+      <span x-show="open">&times;</span>
+    </button>
+    <div class="toc-sidebar-overlay" x-show="open" x-transition.opacity @click="close"></div>
+    <nav class="toc-sidebar" x-show="open" x-transition:enter="toc-slide-enter" x-transition:enter-start="toc-slide-start" x-transition:enter-end="toc-slide-end" x-transition:leave="toc-slide-enter" x-transition:leave-start="toc-slide-end" x-transition:leave-end="toc-slide-start" aria-label="Mobile Table of Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a @click.prevent="navigateTo('#part-0')" href="#part-0" :class="{ 'toc-active': activeId === 'part-0' }">Part 0: The SPD Proposal</a></li>
+        <li><a @click.prevent="navigateTo('#part-1')" href="#part-1" :class="{ 'toc-active': activeId === 'part-1' }">Part 1: Technical Analysis</a></li>
+        <li><a @click.prevent="navigateTo('#part-2')" href="#part-2" :class="{ 'toc-active': activeId === 'part-2' }">Part 2: Societal Implications</a></li>
+        <li><a @click.prevent="navigateTo('#part-2b')" href="#part-2b" :class="{ 'toc-active': activeId === 'part-2b' }">Part 2b: Case For AV</a></li>
+        <li><a @click.prevent="navigateTo('#interim')" href="#interim" :class="{ 'toc-active': activeId === 'interim' }">Interim: Proportionality</a></li>
+        <li><a @click.prevent="navigateTo('#part-3')" href="#part-3" :class="{ 'toc-active': activeId === 'part-3' }">Part 3: Alternatives</a></li>
+        <li><a @click.prevent="navigateTo('#conclusion')" href="#conclusion" :class="{ 'toc-active': activeId === 'conclusion' }">Conclusion</a></li>
+        <li><a @click.prevent="navigateTo('#footnotes-section')" href="#footnotes-section" :class="{ 'toc-active': activeId === 'footnotes-section' }">Footnotes</a></li>
+        <li><a @click.prevent="navigateTo('#references')" href="#references" :class="{ 'toc-active': activeId === 'references' }">References</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <article x-data="footnoteTooltip">
     <header>
       <h1>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</h1>
       <p class="subtitle">A Critical Analysis of the Proposed Mandatory Online Identification</p>
@@ -16,21 +50,21 @@
     </header>
     
     <section class="method-box">
-      <h3>How This Analysis Was Created</h3>
+      <h2>How This Analysis Was Created</h2>
       <p>This analysis was generated using <strong>Claude</strong> (Anthropic), a large language model. The author provided the research question and iteratively refined the output through structured prompts covering technical architecture, legal frameworks, societal implications, and regulatory alternatives.</p>
       <p>All referenced sources &mdash; academic papers, EU regulations, court rulings, and institutional reports &mdash; were independently verified by the author. The AI served as a research accelerator and drafting tool; editorial judgment, source validation, and final argumentation remain with the human author.</p>
-      <p style="margin-bottom: 0;"><strong>Tools used:</strong> Claude (Anthropic) for research synthesis and drafting &bull; Manual source verification &bull; Claude Code for formatting and publication.</p>
+      <p class="method-tools"><strong>Tools used:</strong> Claude (Anthropic) for research synthesis and drafting &bull; Manual source verification &bull; Claude Code for formatting and publication.</p>
     </section>
     <section id="abstract">
       <h2>Abstract</h2>
       <p>In February 2026, senior SPD politicians published a policy paper calling for a social media ban for children under 14, a &ldquo;youth version&rdquo; for 14&ndash;15-year-olds, and comprehensive age verification via EUDI Wallet &mdash; including for adults. Using this proposal as a policy trigger, this analysis examines EUDI-based age verification broadly. It demonstrates that the EUDI Wallet architecture (ARF v1.4/1.5) fails to deliver the privacy-preserving age verification that proponents promise, and conducts a structured proportionality analysis under Art.&nbsp;52(1) EU Charter of Fundamental Rights. The analysis finds that universal EUDI-based verification fails the necessity and proportionality <em>stricto sensu</em> tests: less invasive alternatives &mdash; privacy-preserving age assurance, design regulation (UK AADC), DSA enforcement &mdash; achieve the legitimate child protection objective without creating permanent mass identity infrastructure. The paper advocates a pro-better-technology position: privacy-preserving age assurance combined with robust design regulation that targets the surveillance advertising business model driving online harms, rather than the identity of users.</p>
       <p><strong>Keywords:</strong> age verification, EUDI Wallet, platform governance, proportionality analysis, surveillance, chilling effects, design regulation, digital identity, contextual integrity, fundamental rights</p>
     </section>
-    <nav id="toc">
+    <nav id="toc" aria-label="Table of Contents">
       <h2>Table of Contents</h2>
       <ol>
-        <li><a href="#part-0">Part 0: The SPD Proposal &mdash; Policy Trigger and Analytical Scope</a></li>
-        <li><a href="#part-1">Part 1: Technical Analysis of the EUDI Wallet Architecture</a>
+        <li><a href="#part-0" :class="{ 'toc-active': activeId === 'part-0' }">Part 0: The SPD Proposal &mdash; Policy Trigger and Analytical Scope</a></li>
+        <li><a href="#part-1" :class="{ 'toc-active': activeId === 'part-1' }">Part 1: Technical Analysis of the EUDI Wallet Architecture</a>
           <ol>
             <li><a href="#s1-1">1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</a></li>
             <li><a href="#s1-2">1.2 Zero-Knowledge Proofs Are Not Mandatory</a></li>
@@ -40,7 +74,7 @@
             <li><a href="#s1-6">1.6 Google&rsquo;s Role in the German Prototype Development</a></li>
           </ol>
         </li>
-        <li><a href="#part-2">Part 2: Societal and Fundamental Rights Implications</a>
+        <li><a href="#part-2" :class="{ 'toc-active': activeId === 'part-2' }">Part 2: Societal and Fundamental Rights Implications</a>
           <ol>
             <li><a href="#s2-1">2.1 Experiences with Real-Name Policies: The Case of South Korea</a></li>
             <li><a href="#s2-2">2.2 Mandatory Identification as an Instrument of Political Persecution</a></li>
@@ -50,31 +84,32 @@
             <li><a href="#s2-6">2.6 eIDAS 2.0: Internal Contradictions</a></li>
           </ol>
         </li>
-        <li><a href="#part-2b">Part 2b: The Case For Age Verification &mdash; A Fair Assessment</a>
+        <li><a href="#part-2b" :class="{ 'toc-active': activeId === 'part-2b' }">Part 2b: The Case For Age Verification &mdash; A Fair Assessment</a>
           <ol>
-            <li><a href="#s2b-1">The Scale of Online Child Exploitation</a></li>
-            <li><a href="#s2b-2">The Mental Health Debate: Neither Settled Nor Dismissible</a></li>
-            <li><a href="#s2b-3">Digital Identity Systems That Have Not Been Abused</a></li>
-            <li><a href="#s2b-4">Privacy-Preserving Age Verification: A Technically Feasible Alternative?</a></li>
-            <li><a href="#s2b-5">The Bootstrapping Problem of Design Regulation</a></li>
+            <li><a href="#s2b-1">2b.1 The Scale of Online Child Exploitation</a></li>
+            <li><a href="#s2b-2">2b.2 The Mental Health Debate: Neither Settled Nor Dismissible</a></li>
+            <li><a href="#s2b-3">2b.3 Digital Identity Systems That Have Not Been Abused</a></li>
+            <li><a href="#s2b-4">2b.4 Privacy-Preserving Age Verification: A Technically Feasible Alternative?</a></li>
+            <li><a href="#s2b-5">2b.5 The Bootstrapping Problem of Design Regulation</a></li>
           </ol>
         </li>
-        <li><a href="#interim">Interim Consideration: Proportionality Analysis Under Art. 52(1) EU Charter</a></li>
-        <li><a href="#part-3">Part 3: Root Cause Analysis and Alternative Regulatory Approaches</a>
+        <li><a href="#interim" :class="{ 'toc-active': activeId === 'interim' }">Interim Consideration: Proportionality Analysis Under Art. 52(1) EU Charter</a></li>
+        <li><a href="#part-3" :class="{ 'toc-active': activeId === 'part-3' }">Part 3: Root Cause Analysis and Alternative Regulatory Approaches</a>
           <ol>
             <li><a href="#s3-1">3.1 The Causal Chain</a></li>
             <li><a href="#s3-2">3.2 The Surveillance Advertising Model and Its Downstream Harms</a></li>
             <li><a href="#s3-3">3.3 Regulatory Approaches That Address Root Causes</a></li>
           </ol>
         </li>
-        <li><a href="#conclusion">Conclusion</a></li>
-        <li><a href="#footnotes-section">Footnotes</a></li>
-        <li><a href="#references">References</a></li>
-        <li><a href="#revision-history">Revision History</a></li>
+        <li><a href="#conclusion" :class="{ 'toc-active': activeId === 'conclusion' }">Conclusion</a></li>
+        <li><a href="#footnotes-section" :class="{ 'toc-active': activeId === 'footnotes-section' }">Footnotes</a></li>
+        <li><a href="#references" :class="{ 'toc-active': activeId === 'references' }">References</a></li>
+        <li><a href="#revision-history" :class="{ 'toc-active': activeId === 'revision-history' }">Revision History</a></li>
       </ol>
     </nav>
-    <section id="framework">
-      <h2>Theoretical Framework &amp; Method</h2>
+    <section id="framework" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Theoretical Framework &amp; Method <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <h3>Theoretical Framework</h3>
     
@@ -110,9 +145,11 @@
       <blockquote>
         <p>Fischer, F. (2003). <em>Reframing Public Policy: Discursive Politics and Deliberative Practices.</em> Oxford University Press.</p>
       </blockquote>
+      </div>
     </section>
-    <section id="part-0">
-      <h2>Part 0: The SPD Proposal &mdash; Policy Trigger and Analytical Scope</h2>
+    <section id="part-0" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Part 0: The SPD Proposal &mdash; Policy Trigger and Analytical Scope <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <p>In February 2026, senior SPD politicians &mdash; including the party&rsquo;s digital policy spokesperson &mdash; published a policy paper proposing a comprehensive framework for social media age verification. The proposal contains three core elements:<sup><a href="#fn-74" id="fnref-74">74</a></sup></p>
     
@@ -139,9 +176,11 @@
       <p>A critical reframing is necessary regarding the EUDI Wallet itself. The Wallet is mandated by Regulation (EU) 2024/1183 (eIDAS 2.0) regardless of whether it is used for age verification. Member states must offer EUDI Wallets to all citizens by 2026. The infrastructure will exist whether or not the SPD proposal is adopted. The danger identified in this analysis is therefore not the creation of the EUDI Wallet &mdash; that decision has been made &mdash; but the <em>normalization of identity credentials for content access</em>. Each new use case that requires presenting a Wallet credential lowers the political and psychological threshold for the next. Age verification for social media transforms a voluntary government identity tool into a de facto mandatory precondition for participation in digital public life.<sup><a href="#fn-75" id="fnref-75">75</a></sup></p>
     
       <p>The analysis proceeds as follows: Part 1 examines the technical architecture of the EUDI Wallet and its privacy deficiencies. Part 2 documents the societal and fundamental rights implications of mandatory digital identification. Part 2b presents the strongest case <em>for</em> age verification. The Interim section conducts a structured proportionality analysis under Art. 52(1) EU Charter. Part 3 analyzes the root causes of online harms and evaluates alternative regulatory approaches. The Conclusion synthesizes findings and states the paper&rsquo;s position.</p>
+      </div>
     </section>
-    <section id="part-1">
-      <h2>Part 1: Technical Analysis of the EUDI Wallet Architecture</h2>
+    <section id="part-1" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Part 1: Technical Analysis of the EUDI Wallet Architecture <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <section id="s1-1">
         <h3>1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</h3>
@@ -236,9 +275,11 @@
         <p>In the SPRIND &ldquo;Funke&rdquo; competition, Google was admitted to the German wallet prototype development &mdash; despite documented data protection concerns within the jury. Google developed the &ldquo;Android German EUDI Open Source Wallet Prototype&rdquo; (GitHub: google/funke-eudi-wallet-prototype, since archived).</p>
         <p>The involvement raises specific, documented concerns: (1) Google&rsquo;s production identity stack (Android Credential Manager, Google Identity Services) remains proprietary and closed-source, creating a dependency on a platform whose business model is surveillance advertising; (2) the prototype uses Android&rsquo;s StrongBox secure element for key storage, which is controlled by Google&rsquo;s hardware security module &mdash; an opaque trust anchor for a European sovereignty infrastructure; (3) Google is simultaneously a Relying Party (as a platform that would verify age) and an infrastructure provider (as the wallet developer), creating a structural conflict of interest that the ARF does not address.<sup><a href="#fn-52" id="fnref-52">52</a></sup></p>
       </section>
+      </div>
     </section>
-    <section id="part-2">
-      <h2>Part 2: Societal and Fundamental Rights Implications</h2>
+    <section id="part-2" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Part 2: Societal and Fundamental Rights Implications <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <section id="s2-1">
         <h3>2.1 Experiences with Real-Name Policies: The Case of South Korea</h3>
@@ -304,6 +345,7 @@
               <th>System</th>
               <th>Original Purpose</th>
               <th>Documented Expansion</th>
+              <th>Outcome</th>
             </tr>
           </thead>
           <tbody>
@@ -311,26 +353,31 @@
               <td>EU COVID Certificate (Regulation (EU) 2021/953)</td>
               <td>Cross-border travel</td>
               <td>Restaurants, sports, workplaces; in Italy, workplace access withdrawn for unvaccinated persons over 50. <em>Note:</em> The EU COVID Certificate Regulation expired on 30 June 2023, and the infrastructure was sunset &mdash; a positive precedent for time-limited function creep. The EUDI Wallet, however, is designed as permanent infrastructure without a sunset clause.</td>
+              <td>Sunset June 2023 (positive precedent)</td>
             </tr>
             <tr>
               <td>Schengen Information System</td>
               <td>Information exchange</td>
               <td>Supranational identification and investigation tool</td>
+              <td>Expanded, operational</td>
             </tr>
             <tr>
               <td>India&rsquo;s Aadhaar</td>
               <td>Social benefits</td>
               <td>Bank accounts, SIM cards, taxes; biometric error rate 49% in Jharkhand<sup><a href="#fn-17" id="fnref-17">17</a></sup></td>
+              <td>Expanded despite documented harms</td>
             </tr>
             <tr>
               <td>EU Interoperability Framework (Regulations 2019/817, 2019/818)</td>
               <td>Border/migration management</td>
               <td>Police access to EES, VIS, ETIAS, Eurodac via &ldquo;hit/no-hit&rdquo; mechanism</td>
+              <td>Expanded, operational</td>
             </tr>
             <tr>
               <td>EU CSAM Regulation (COM/2022/209, proposed)</td>
               <td>Detection of child sexual abuse material</td>
               <td>Client-side scanning of private messages; scope expanded from known CSAM to &ldquo;unknown&rdquo; material and grooming detection via AI classification<sup><a href="#fn-60" id="fnref-60">60</a></sup></td>
+              <td>Contested; partially rolled back by EP LIBE</td>
             </tr>
           </tbody>
         </table>
@@ -404,14 +451,16 @@
           <li><strong>Art. 5a(4)(e) and Recital (11c):</strong> Pseudonyms should be &ldquo;generated and used locally&rdquo; by the wallet &mdash; directly contradicting the ARF&rsquo;s centralized Pseudonym Provider (Section 1.4).</li>
         </ul>
       </section>
+      </div>
     </section>
-    <section id="part-2b">
-      <h2>Part 2b: The Case For Age Verification &mdash; A Fair Assessment</h2>
+    <section id="part-2b" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Part 2b: The Case For Age Verification &mdash; A Fair Assessment <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <p>The preceding sections have documented substantial risks of mandatory age verification via EUDI Wallet. Intellectual honesty requires that the strongest arguments <em>for</em> age verification be presented with equal rigor. This section steel-mans the pro-verification position before identifying where it is contested. The aim is not to dismiss these arguments but to engage them seriously and locate the genuine points of disagreement.</p>
     
       <section id="s2b-1">
-        <h3>The Scale of Online Child Exploitation</h3>
+        <h3>2b.1 The Scale of Online Child Exploitation</h3>
     
         <p>The harms that age verification proponents seek to address are not hypothetical. The Internet Watch Foundation (IWF) confirmed 275,652 URLs containing child sexual abuse imagery in 2023 alone, with 93% being self-generated material &mdash; children coerced into producing images through direct social media contact.<sup><a href="#fn-42" id="fnref-42">42</a></sup> NCMEC CyberTipline reports rose from approximately 100,000 in 2010 to 36.2 million in 2023 (20.5 million in 2024 following a reporting methodology change); in 2024 the CyberTipline received nearly 63 million individual files. Financial sextortion reports to the CyberTipline tripled between 2021 and 2023, with one in six reports mentioning self-harm or suicide.</p>
     
@@ -428,7 +477,7 @@
       </section>
     
       <section id="s2b-2">
-        <h3>The Mental Health Debate: Neither Settled Nor Dismissible</h3>
+        <h3>2b.2 The Mental Health Debate: Neither Settled Nor Dismissible</h3>
     
         <p>The scientific evidence on social media&rsquo;s impact on youth mental health is genuinely contested. This analysis must be transparent about the state of the debate rather than selectively citing one side.</p>
     
@@ -454,7 +503,7 @@
       </section>
     
       <section id="s2b-3">
-        <h3>Digital Identity Systems That Have Not Been Abused</h3>
+        <h3>2b.3 Digital Identity Systems That Have Not Been Abused</h3>
     
         <p>The analysis in Part 2 draws heavily on negative precedents (South Korea, China, Turkey, Russia). Fairness requires acknowledging that not all digital identity systems have been misused:</p>
     
@@ -470,7 +519,7 @@
       </section>
     
       <section id="s2b-4">
-        <h3>Privacy-Preserving Age Verification: A Technically Feasible Alternative?</h3>
+        <h3>2b.4 Privacy-Preserving Age Verification: A Technically Feasible Alternative?</h3>
     
         <p>The analysis in Part 1 demonstrates that the <em>current</em> EUDI Wallet architecture fails to provide anonymity. But proponents argue that privacy-preserving age verification is technically feasible:</p>
     
@@ -484,7 +533,7 @@
       </section>
     
       <section id="s2b-5">
-        <h3>The Bootstrapping Problem of Design Regulation</h3>
+        <h3>2b.5 The Bootstrapping Problem of Design Regulation</h3>
     
         <p>Proponents of age verification raise a structural objection to this paper&rsquo;s preferred alternative (design regulation): <strong>design regulation cannot protect children it cannot identify.</strong> The UK Children&rsquo;s Code sets privacy defaults to &ldquo;high&rdquo; for users the platform <em>knows</em> are children. But a child who lies about their age at signup &mdash; claiming to be 18 &mdash; receives no AADC protections whatsoever. The Code does not require age verification; it assumes platforms already know which users are children.<sup><a href="#fn-50" id="fnref-50">50</a></sup></p>
     
@@ -497,9 +546,11 @@
     
         <p><strong>The UK Online Safety Act as a &ldquo;do both&rdquo; test case:</strong> The UK&rsquo;s Online Safety Act 2023 represents the most ambitious attempt to combine design regulation (the AADC) with age verification requirements (Part 5, &sect;&sect;11&ndash;12). Ofcom&rsquo;s draft Codes of Practice (published March 2025) require age assurance for services likely to be accessed by children, alongside continued enforcement of design standards. Early implementation reveals the tensions this paper predicts: platforms have focused compliance resources on age-gating mechanisms rather than on the more costly systemic design changes the AADC requires &mdash; precisely the moral licensing dynamic described in the Interim section. The UK experience will provide the first large-scale empirical test of whether combining both approaches produces additive protection or substitution effects.<sup><a href="#fn-67" id="fnref-67">67</a></sup></p>
       </section>
+      </div>
     </section>
-    <section id="interim">
-      <h2>Interim Consideration: Proportionality Analysis Under Art. 52(1) EU Charter</h2>
+    <section id="interim" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Interim Consideration: Proportionality Analysis Under Art. 52(1) EU Charter <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <p>Having presented both the risks (Part 2) and the strongest arguments for age verification (Part 2b), this section conducts a structured proportionality analysis under Art. 52(1) of the EU Charter of Fundamental Rights. Art. 52(1) requires that any limitation on fundamental rights must (1) pursue a legitimate aim recognized by the Union, (2) be suitable for achieving that aim, (3) be necessary &mdash; i.e., no less restrictive alternative achieves the same objective &mdash; and (4) be proportionate <em>stricto sensu</em> &mdash; i.e., the benefits must not be manifestly disproportionate to the costs. This four-step test structures the analysis that follows.</p>
     
@@ -507,9 +558,9 @@
     
       <p>The protection of minors from online harms is a legitimate aim recognized by the Union. Art. 24(2) of the EU Charter requires that &ldquo;in all actions relating to children, whether taken by public authorities or private institutions, the child&rsquo;s best interests must be a primary consideration.&rdquo; This is a Treaty-level obligation. The documented harms are real: according to Meta&rsquo;s own internal research (disclosed by Haugen, 2021; not independently peer-reviewed), among British teens who already experienced suicidal thoughts, 13% traced them to Instagram; 17% of affected teens reported worsened eating disorders; and 32% of teen girls who felt bad about their bodies reported feeling worse when using Instagram. The IWF confirmed 275,652 URLs containing child sexual abuse imagery in 2023 alone (Section 2b.1). This analysis does not contest the legitimacy of the aim.</p>
     
-      <h3>Step 2: Suitability &mdash; Contested</h3>
+      <h3>Step 2: Suitability &mdash; Conceded with Reservations</h3>
     
-      <p>The suitability test asks whether mandatory EUDI-based age verification is <em>capable</em> of achieving the stated objective. The evidence raises serious doubts:</p>
+      <p>The suitability test asks whether mandatory EUDI-based age verification is <em>capable</em> of achieving the stated objective. Under established CJEU doctrine, this is a low threshold: a measure is suitable if it is capable of contributing to the objective <em>at all</em>. The evidence suggests marginal but non-zero effectiveness:</p>
     
       <ul>
         <li><strong>South Korea</strong> (Section 2.1): The most comprehensive natural experiment yielded a decline in harmful comments of <strong>0.9 percentage points</strong> (from 13.9% to 13.0%) &mdash; alongside 35 million compromised data records.</li>
@@ -520,7 +571,7 @@
     
       <p>The fundamental suitability problem is that age verification addresses <em>access</em>, not <em>harm</em>. The documented harms &mdash; algorithmic amplification, addictive design, engagement-maximizing recommendation systems &mdash; operate on users <em>after</em> they access the platform. An age-verified 16-year-old on the SPD&rsquo;s &ldquo;youth version&rdquo; remains exposed to the same business model dynamics unless the platform&rsquo;s design is separately regulated.</p>
     
-      <p>Suitability is not clearly failed &mdash; age verification does <em>something</em> (it restricts some minors&rsquo; access) &mdash; but its expected marginal effectiveness over design regulation alone is low.</p>
+      <p>The suitability test is met. Age verification does restrict some minors&rsquo; access &mdash; 0.9% is marginal, but not zero, and the juridical threshold requires only that the measure <em>can</em> contribute to the objective. Conceding suitability, however, sharpens the analysis at the subsequent steps: the low marginal effectiveness becomes directly relevant to the necessity assessment (are less invasive alternatives equally or more effective?) and to proportionality <em>stricto sensu</em> (do the costs justify a marginal benefit?).</p>
     
       <h3>Step 3: Necessity &mdash; Fails</h3>
     
@@ -528,7 +579,7 @@
     
       <p><strong>Design regulation as a less invasive alternative:</strong> The UK Age Appropriate Design Code (AADC) achieved <strong>91 significant design changes</strong> on major platforms without requiring any identification infrastructure (Section 3.3). Instagram set all under-16 accounts to private; TikTok stopped nighttime push notifications for under-18s; YouTube disabled autoplay for children. These changes protect children <em>systemically</em> &mdash; regardless of whether the platform knows the precise age of each user &mdash; and they address the <em>mechanisms of harm</em> (algorithmic amplification, addictive features) rather than merely restricting access.</p>
     
-      <p><strong>Privacy-preserving age assurance:</strong> The EDPB&rsquo;s Statement 1/2025 on Age Assurance explicitly distinguishes between age <em>verification</em> (precise age determination via identity documents) and age <em>assurance</em> (reasonable confidence about age group). The EDPB recommends the latter where possible, noting that verification should be reserved for services where access is legally restricted to adults (gambling, pornography). Less invasive age assurance mechanisms include:<sup><a href="#fn-36" id="fnref-36">36</a></sup></p>
+      <p><strong>Privacy-preserving age assurance:</strong> The EDPB&rsquo;s Statement 1/2025 on Age Assurance explicitly distinguishes between age <em>verification</em> (precise age determination via identity documents) and age <em>assurance</em> (reasonable confidence about age group). The EDPB recommends the latter where possible, noting that verification should be reserved for services where access is legally restricted to adults (gambling, pornography). Less invasive age assurance mechanisms include:<sup><a href="#fn-36" id="fnref-36b">36</a></sup></p>
       <ul>
         <li>The CNIL &ldquo;double anonymity&rdquo; model (Section 2b.4): architectural role separation ensuring no party holds both identity and usage data</li>
         <li>On-device age estimation: neural networks running entirely on the user&rsquo;s device, with no biometric data leaving the device</li>
@@ -545,13 +596,17 @@
     
       <p>Even if necessity were satisfied, the balance of costs and benefits fails the proportionality <em>stricto sensu</em> test:</p>
     
-      <p><strong>Costs:</strong></p>
+      <p><strong>Documented costs:</strong></p>
       <ul>
         <li>Mass identity infrastructure linking government credentials to content access for all users, including adults (Part 1)</li>
-        <li>Documented chilling effects on expression, disproportionately affecting minority viewpoints (Section 2.3)</li>
-        <li>Function creep risk inherent in permanent identity infrastructure without sunset clause (Section 2.4)</li>
         <li>Digital exclusion of populations without digital identity or technical capability (Section 2.5)</li>
         <li>Contradiction with eIDAS 2.0&rsquo;s own voluntariness principle, Art. 5a(1) (Section 2.6)</li>
+      </ul>
+    
+      <p><strong>Projected risks (empirically grounded but not directly tested for age verification):</strong></p>
+      <ul>
+        <li>Chilling effects on expression, disproportionately affecting minority viewpoints (Section 2.3) &mdash; empirically predicted from surveillance contexts but untested for age verification specifically; the hypothesis is formulated in Section 2.3 and awaits direct empirical testing</li>
+        <li>Function creep risk inherent in permanent identity infrastructure without sunset clause (Section 2.4) &mdash; structurally favored by institutional incentives but not inevitable, as the COVID Certificate sunset (June 2023) demonstrates</li>
       </ul>
     
       <p><strong>Benefits:</strong> Marginal reduction in minors&rsquo; access to social media platforms, partially offset by circumvention (VPN, false credentials) and displacement to unregulated services. The benefits do not address the root causes of harm (algorithmic amplification, addictive design, surveillance advertising business model) &mdash; these persist regardless of age verification.</p>
@@ -571,14 +626,17 @@
       </blockquote>
     
       <h3>Could One Not Do Both?</h3>
-      <p>The &ldquo;do both&rdquo; response &mdash; implement design regulation <em>and</em> age verification &mdash; is theoretically appealing but practically undermined by the finite resources argument and the UK&rsquo;s early experience. The UK Online Safety Act 2023 represents the most ambitious attempt to combine both approaches; early implementation shows platforms focusing compliance resources on age-gating rather than the more costly systemic design changes the AADC requires &mdash; precisely the substitution effect this analysis predicts (Section 2b.5). Moreover, age verification is subject to the same enforcement constraints as DSA regulation: it does not solve the institutional capacity problem but adds to it.</p>
+      <p>The &ldquo;do both&rdquo; response &mdash; implement design regulation <em>and</em> age verification &mdash; is theoretically appealing and cannot be dismissed categorically. The UK Online Safety Act 2023 represents the most ambitious attempt to combine both approaches; early implementation suggests platforms may focus compliance resources on age-gating rather than the more costly systemic design changes the AADC requires &mdash; but this observation is preliminary, as the OSA&rsquo;s implementation is still in its early stages and definitive conclusions about substitution effects would be premature. The moral licensing concern &mdash; that formal compliance with age verification reduces political pressure for structural reforms &mdash; is plausible but rests on individual-level psychological findings (Monin &amp; Miller, 2001) whose transfer to institutional regulatory dynamics is asserted, not empirically established.</p>
+      <p>&ldquo;Do both&rdquo; remains theoretically possible, and its viability depends on implementation details. The critical constraint is this: if both approaches are pursued simultaneously, age verification must take its <em>least invasive</em> form &mdash; privacy-preserving age assurance rather than identity-linked verification. The EUDI Wallet as currently specified (ARF v1.4/1.5) does not meet this requirement. A &ldquo;do both&rdquo; strategy that pairs design regulation with EUDI-based identification is not complementary but compounding &mdash; it adds the costs of identity infrastructure to those of design enforcement without evidence that the combination produces benefits exceeding either approach alone.</p>
+      </div>
     </section>
-    <section id="part-3">
-      <h2>Part 3: Root Cause Analysis and Alternative Regulatory Approaches</h2>
+    <section id="part-3" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Part 3: Root Cause Analysis and Alternative Regulatory Approaches <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <section id="s3-1">
         <h3>3.1 The Causal Chain</h3>
-        <p>The business model of platforms is the root cause of the harms that age verification is supposed to combat:</p>
+        <p>The business model of platforms is the primary structural driver of the harms that age verification is supposed to combat:</p>
         <p><strong>Surveillance advertising model</strong> (Zuboff, 2019)<sup><a href="#fn-19" id="fnref-19">19</a></sup> &rarr; <strong>Engagement maximization</strong> &rarr; <strong>Algorithmic amplification</strong> of outrage and polarization &rarr; <strong>Addictive design</strong> &rarr; <strong>Harms to all users, especially minors</strong></p>
         <p>Age verification intervenes at the <em>endpoint</em> (who is allowed to use the platform) rather than at the <em>root cause</em> (how the platform is designed and what business model drives it).</p>
       </section>
@@ -596,7 +654,7 @@
     
         <p><strong>Addictive design:</strong> Social media replicates the variable reinforcement mechanisms documented in gambling design (Schull, 2012): infinite scroll, pull-to-refresh, autoplay, notification systems.<sup><a href="#fn-22" id="fnref-22">22</a></sup> The European Parliament&rsquo;s Resolution on Addictive Design (12.12.2023, TA-9-2023-0459) called for regulatory measures against these mechanisms and a &ldquo;digital right not to be disturbed.&rdquo;</p>
     
-        <p><strong>The structural conclusion:</strong> These harms are consequences of the surveillance advertising business model. They affect adults and minors alike. They cannot be addressed by regulating who accesses the platform &mdash; an age-verified Facebook would have been equally vulnerable to every harm documented above. They can only be addressed by regulating what the platform does.</p>
+        <p><strong>The structural conclusion:</strong> These harms are consequences of the surveillance advertising business model. They affect adults and minors alike. They cannot be addressed by regulating who accesses the platform &mdash; an age-verified Facebook would have been equally vulnerable to every harm documented above. They can only be addressed by regulating what the platform does. A fair qualification: the counterfactual &mdash; whether subscription-based platforms without engagement optimization would produce the same harms &mdash; has not been empirically tested. However, Milli et al.&rsquo;s (2025) finding that users prefer chronological feeds over algorithmic recommendations suggests that engagement optimization is model-driven rather than user-driven, strengthening the inference that the business model, not the medium itself, is the primary causal factor.</p>
       </section>
     
       <section id="s3-3">
@@ -621,7 +679,7 @@
           <li>YouTube disabled video autoplay for children and introduced break/bedtime reminders</li>
           <li>Google made SafeSearch the default for all children</li>
         </ul>
-        <p>ICO Interim Impact Review (November 2025): Improvements affect over 3 million children. The Code has already been adopted in Indonesia, Vermont, and Nebraska.</p>
+        <p>ICO Interim Impact Review (November 2025): Improvements affect over 3 million children. The Code has already been adopted in Indonesia, Vermont, and Nebraska. A symmetric evidence standard requires noting that these 91 changes are platform-reported and have not been independently audited for substantive user impact &mdash; just as age verification&rsquo;s measured 0.9% effectiveness in South Korea reflects actual outcomes rather than formal compliance. The comparative case for design regulation rests on plausibility and design logic, not on equivalent outcome evidence.</p>
         <blockquote>
           <p>&ldquo;Always says the digital world, not social media, and always says by design not don&rsquo;t do this and don&rsquo;t do that.&rdquo;</p>
           <cite>&mdash; Baroness Beeban Kidron, 5Rights Foundation.</cite>
@@ -658,25 +716,28 @@
         <h4>Digital Fairness Act &mdash; The Next Step</h4>
         <p>Expected legislative proposal Q3 2026. Intended to address: manipulative interface design, addictive design, misleading influencer marketing, unfair personalization practices, special protection for minors. This would be design regulation &mdash; an approach that addresses causes rather than symptoms.</p>
       </section>
+      </div>
     </section>
-    <section id="conclusion">
-      <h2>Conclusion</h2>
+    <section id="conclusion" x-data="collapsible">
+      <h2 @click="toggle" class="collapsible-heading">Conclusion <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+      <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
     
       <p>This analysis set out to examine whether mandatory age verification via the EUDI Wallet is a proportionate response to the documented harms minors face on social media. Its core finding is that the specific architecture proposed &mdash; the EUDI Wallet as specified in the ARF v1.4/1.5, using signed credentials with static issuer signatures, a centralized Pseudonym Provider, and optional rather than mandatory unlinkable proofs &mdash; fails to deliver even the privacy-preserving age verification that proponents promise. The technology does not match the policy rhetoric.</p>
     
       <p>Applying the four-step proportionality test under Art. 52(1) EU Charter, universal EUDI-based age verification fails on necessity and proportionality <em>stricto sensu</em>. Less invasive alternatives exist and are demonstrably effective: the UK AADC achieved 91 significant design changes without requiring any identification infrastructure; the EDPB recommends age assurance over age verification; privacy-preserving approaches (CNIL model, on-device estimation, ZKP-based attestation) can provide age confidence without linking government identity to content access. The marginal child protection benefit of universal age verification over these alternatives does not justify the creation of permanent mass identity infrastructure with documented chilling effects, function creep risks, and structural tensions with the eIDAS Regulation&rsquo;s own voluntariness principle.</p>
     
-      <p>This paper is pro-better-technology, not anti-technology. It advocates for privacy-preserving age assurance mechanisms that meet the EDPB&rsquo;s verification/assurance distinction &mdash; combined with robust design regulation that addresses the root causes of harm. The surveillance advertising business model, not the identity of users, drives algorithmic amplification, addictive design, and the downstream harms to democratic integrity, public health, and epistemic quality documented in Part 3. Regulating <em>who</em> accesses a platform while leaving <em>what the platform does</em> unchanged is a category error in regulatory design.</p>
+      <p>This paper is pro-better-technology, not anti-technology. It advocates for privacy-preserving age assurance mechanisms that meet the EDPB&rsquo;s verification/assurance distinction &mdash; combined with robust design regulation that addresses the root causes of harm. The surveillance advertising business model, not the identity of users, drives algorithmic amplification, addictive design, and the downstream harms to democratic integrity, public health, and epistemic quality documented in Part 3. Regulating <em>who</em> accesses a platform without simultaneously addressing <em>what the platform does</em> misallocates regulatory priority.</p>
     
       <p>The regulatory priority should be to close the DSA enforcement deficit, advance the Digital Fairness Act, and direct enforcement resources at platform design rather than user identity. Concretely: binding timelines for researcher access under DSA Art. 40, dedicated enforcement budgets commensurate with the scale of regulated platforms, redistribution of enforcement authority away from single national bottlenecks, and sanctions for platform non-compliance with data access requests. Adding new instruments subject to the same enforcement constraints &mdash; the same resource asymmetry, technical opacity, and jurisdictional bottlenecks documented in Section 3.3 &mdash; does not solve the institutional capacity problem. It compounds it.</p>
     
       <h4>Acknowledged Limitations</h4>
       <p>This analysis does not resolve every tension it identifies. Design regulation cannot prevent grooming through basic platform functionality (Section 2b.1) &mdash; a genuine gap that some form of age assurance may need to address. The enforcement deficit affects all regulatory instruments, including this paper&rsquo;s preferred alternative. The proportionality analysis is conducted as a policy assessment, not a binding legal opinion &mdash; it lacks the specific safeguard analysis a court would require. And the paper&rsquo;s conclusion aligns with the position of the surveillance advertising industry itself, which opposes age verification mandates &mdash; an alignment that should prompt reflection on whether the argument inadvertently serves the interests of the platforms it criticizes. The argument is not that no form of age assurance is ever justified, but that the specific proposal &mdash; mandatory EUDI Wallet-based identification for all social media users &mdash; fails the proportionality test against less invasive alternatives that address root causes.</p>
+      </div>
     </section>
-    <section class="footnotes" id="footnotes-section">
+    <section class="footnotes" id="footnotes-section" role="doc-endnotes" aria-label="Footnotes">
       <h2>Footnotes</h2>
       <ol>
-        <li id="fn-1">Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo; <a href="https://arxiv.org/abs/2501.07209">arXiv:2501.07209</a>. <a href="#fnref-1" class="fn-back">&uarr;</a></li>
+        <li id="fn-1">Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo; <a href="https://arxiv.org/abs/2501.07209">arXiv:2501.07209</a>. <a href="#fnref-1" class="fn-back">&uarr;</a> <a href="#fnref-1b" class="fn-back" aria-label="Second reference">&uarr;</a></li>
         <li id="fn-2">Joint statement by 16 cryptographers. <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/issues/200">GitHub Issue #200</a>, eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework. Publication page: <a href="https://mayrhofer.eu.org/publication/eudiw-cryptographers-statement-2024/">mayrhofer.eu.org</a>. <a href="#fnref-2" class="fn-back">&uarr;</a></li>
         <li id="fn-3">&ldquo;Privacy evaluation of the European Digital Identity Wallet&rsquo;s Architecture and Reference Framework.&rdquo; <em>Computers &amp; Security</em> (Elsevier), 2025. <a href="https://doi.org/10.1016/j.cose.2025.104707">DOI: 10.1016/j.cose.2025.104707</a>. <a href="#fnref-3" class="fn-back">&uarr;</a></li>
         <li id="fn-4">epicenter.works (2024). <a href="https://epicenter.works/fileadmin/medienspiegel/user_upload/epicenter.works_-_ARF1.4.pdf">Data Protection Analysis: eIDAS Architecture Reference Framework 1.4</a> [PDF]. <a href="#fnref-4" class="fn-back">&uarr;</a></li>
@@ -913,15 +974,15 @@
         <li>Regulation (EU) 2021/953 (COVID Certificate)</li>
       </ul>
     </section>
-    <section id="revision-history" style="margin-top: 2.5rem;">
+    <section id="revision-history">
       <h2>Revision History</h2>
       <p>In accordance with academic transparency standards, substantive changes to this analysis are documented below. Minor typographical corrections and formatting changes are not listed.</p>
     
       <table>
         <thead>
           <tr>
-            <th style="width: 8em;">Date</th>
-            <th style="width: 6em;">Version</th>
+            <th class="rev-date">Date</th>
+            <th class="rev-version">Version</th>
             <th>Description of Changes</th>
           </tr>
         </thead>
@@ -936,7 +997,7 @@
             <td>2.0</td>
             <td>
               <strong>Comprehensive revision: structural overhaul, peer review integration, gap analysis, proportionality framework, and fact-check corrections.</strong>
-              <ul style="margin-top: 0.4rem; margin-bottom: 0;">
+              <ul class="rev-changes">
                 <li><strong>Structural changes:</strong> Part 2b (steel-man case for age verification) repositioned before Interim section. New Part 0 (&ldquo;The SPD Proposal&rdquo;) added as policy trigger. Interim section restructured around Art. 52(1) four-step proportionality test. Conclusion rewritten as five-paragraph synthesis. ~5,000 words cut (behavioral scoring, AI surveillance sections removed; Part 3 sections merged). Technical migration to Vite + Handlebars partials.</li>
                 <li><strong>Cryptographic corrections:</strong> BBS+ terminology updated to BBS per IETF CFRG. Hardware curve claim corrected (BLS12-381, pairing computation bottleneck). U-Prove added as P-256-compatible alternative. CNIL model corrected from ZKP to cryptographic blinding. On-device attestation trilemma documented. ARF versions (1.4, 1.5) specified throughout.</li>
                 <li><strong>Legal corrections:</strong> La Quadrature du Net (2020) added as controlling framework. Digital Rights Ireland analogy qualified. BVerfGE 120,274 doctrinal fit qualified. Art. 8 EU Charter and CJEU Prokuratuur added. ECtHR margin of appreciation noted. EDPB Statement 1/2025 integrated.</li>
@@ -948,16 +1009,58 @@
               </ul>
             </td>
           </tr>
+          <tr>
+            <td>2026-03-18</td>
+            <td>2.1</td>
+            <td>
+              <strong>Argumentative corrections: logical consistency, symmetric evidence standards, and qualification of unsupported claims.</strong>
+              <ul class="rev-changes">
+                <li><strong>Suitability test:</strong> Reclassified from &ldquo;Contested&rdquo; to &ldquo;Conceded with Reservations&rdquo; &mdash; juridically correct (low threshold met), strengthens credibility of necessity/proportionality arguments.</li>
+                <li><strong>Proportionality costs:</strong> Differentiated into documented costs and projected risks. Chilling effects and function creep qualified as empirically grounded but untested for age verification specifically.</li>
+                <li><strong>&ldquo;Do both&rdquo; objection:</strong> UK OSA evidence qualified as preliminary. Moral licensing transfer to institutional dynamics acknowledged as unestablished. &ldquo;Do both&rdquo; treated as theoretically possible, contingent on least-invasive AV form.</li>
+                <li><strong>Root cause claim:</strong> &ldquo;Root cause&rdquo; replaced with &ldquo;primary structural driver.&rdquo; Counterfactual limitation acknowledged; Milli et al. evidence integrated.</li>
+                <li><strong>Evidence symmetry:</strong> AADC&rsquo;s 91 changes explicitly qualified as platform-reported and unaudited, paralleling SK&rsquo;s measured outcomes.</li>
+                <li><strong>Conclusion:</strong> &ldquo;Category error&rdquo; replaced with &ldquo;misallocates regulatory priority&rdquo; &mdash; avoids false dichotomy.</li>
+                <li><strong>Function creep table:</strong> Added &ldquo;Outcome&rdquo; column showing non-deterministic trajectories (sunset, expansion, judicial rollback).</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>2026-03-18</td>
+            <td>2.2</td>
+            <td>
+              <strong>Peer review fixes and Alpine.js interactive features.</strong>
+              <ul class="rev-changes">
+                <li><strong>Critical fix:</strong> Duplicate <code>id="fnref-36"</code> across part2.html and interim.html resolved.</li>
+                <li><strong>Accessibility:</strong> ARIA attributes added (TOC nav, footnotes section). Heading hierarchy h1&rarr;h3 skip fixed in method-box. Back-link for <code>fnref-1b</code> added.</li>
+                <li><strong>CSS:</strong> Dead code removed (padding override). Inline styles extracted to CSS classes (header, footer, revision-history). <code>color-scheme</code> meta tag added. Smooth scrolling enabled.</li>
+                <li><strong>Build:</strong> <code>base: './'</code> added for portable deployment. Part 2b subsection numbering (2b.1&ndash;2b.5) aligned with Part 1/2/3 convention.</li>
+                <li><strong>Alpine.js integration:</strong> Scroll-spy TOC with active section highlighting. Footnote tooltips (hover/click inline preview). Collapsible sections for all main parts. Dark/light/system theme toggle with localStorage persistence. Back-to-top button. Mobile TOC sidebar with slide-in navigation.</li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </section>
     <footer>
       <hr>
-      <p style="font-size: 0.85rem; color: var(--fg-secondary); text-align: center; margin-top: 2rem;">
+      <p class="footer-text">
         This document was compiled from academic sources, court rulings, and official EU documents. March 2026.<br>
         Generated with the assistance of Claude (Anthropic). All sources independently verified by the author.
       </p>
     </footer>
+
+    <!-- Footnote Tooltip -->
+    <div class="fn-tooltip" x-show="visible" x-transition.opacity :style="`left: ${x}px; top: ${y}px;`" @click.outside="dismiss">
+      <div class="fn-tooltip-content" x-html="content"></div>
+      <button class="fn-tooltip-close" x-show="pinned" @click="dismiss" aria-label="Close">&times;</button>
+    </div>
   </article>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" x-data="backToTop" x-show="visible" x-transition.opacity @click="scrollTop" aria-label="Back to top">
+    &uarr;
+  </button>
+
 </body>
 </html>

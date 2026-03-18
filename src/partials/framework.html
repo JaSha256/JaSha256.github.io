@@ -1,0 +1,40 @@
+<section id="framework" x-data="collapsible">
+  <h2 @click="toggle" class="collapsible-heading">Theoretical Framework &amp; Method <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+  <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
+
+  <h3>Theoretical Framework</h3>
+
+  <p>This analysis draws on three intersecting frameworks:</p>
+
+  <p>First, <strong>Contextual Integrity</strong> (Nissenbaum, 2010): Age verification via EUDI Wallet transmits identity data from one informational context (government identification) to another (social media use), violating the context-relative informational norms governing both. The &ldquo;function creep&rdquo; documented in Section 2.4 represents systematic context collapse.</p>
+  <blockquote>
+    <p>Nissenbaum, H. (2010). <em>Privacy in Context: Technology, Policy, and the Integrity of Social Life.</em> Stanford University Press.</p>
+  </blockquote>
+
+  <p>Second, <strong>Platform Governance Theory</strong> (Gillespie, 2018; Van Dijck et al., 2018; Helberger et al., 2018): Platforms are not neutral intermediaries but actively shape public discourse through design choices. Age verification regulates <em>who accesses</em> the platform; design regulation changes <em>what the platform does</em> &mdash; a distinction that maps onto Lessig&rsquo;s (2006) four modalities of regulation (law, norms, market, architecture/code).<sup><a href="#fn-27" id="fnref-27">27</a></sup></p>
+  <blockquote>
+    <p>Gillespie, T. (2018). <em>Custodians of the Internet: Platforms, Content Moderation, and the Hidden Decisions That Shape Social Media.</em> Yale University Press.</p>
+    <p>Van Dijck, J., Poell, T. &amp; de Waal, M. (2018). <em>The Platform Society: Public Values in a Connective World.</em> Oxford University Press.</p>
+    <p>Helberger, N., Pierson, J. &amp; Poell, T. (2018). &ldquo;Governing online platforms: From contested to cooperative responsibility.&rdquo; <em>The Information Society</em>, 34(1), 1&ndash;14. DOI: 10.1080/01972243.2017.1391913.</p>
+    <p>Lessig, L. (2006). <em>Code: Version 2.0.</em> Basic Books.</p>
+  </blockquote>
+
+  <p>Third, <strong>Surveillance Studies</strong> (Lyon, 2018; Zuboff, 2019): Mandatory identification normalizes surveillance as a condition for participation in digital public life. Lyon&rsquo;s concept of &ldquo;surveillance culture&rdquo; &mdash; where surveillance becomes an accepted, even participatory, practice &mdash; describes the risk that age verification habituates citizens to presenting identity credentials as a routine precondition for online activity.<sup><a href="#fn-28" id="fnref-28">28</a></sup></p>
+  <blockquote>
+    <p>Lyon, D. (2018). <em>The Culture of Surveillance: Watching as a Way of Life.</em> Polity Press.</p>
+  </blockquote>
+
+  <h3>Method</h3>
+
+  <p>This paper employs a critical policy analysis methodology (cf. Fischer, 2003) combining: (1) technical analysis of the EUDI Architecture Reference Framework, drawing on published cryptographic assessments; (2) comparative case analysis of prior identification mandates (South Korea, EU COVID Certificate, India&rsquo;s Aadhaar); (3) fundamental rights assessment under EU, ECHR, and German constitutional law; and (4) regulatory alternatives assessment.<sup><a href="#fn-29" id="fnref-29">29</a></sup></p>
+
+  <p><em>Limitations:</em> The analysis does not conduct original empirical research or independent cryptographic audit. Case studies were selected for their relevance and documentation quality, which may introduce selection bias toward negative outcomes &mdash; the comparison class is weighted toward authoritarian regimes (China, Turkey, Russia) and negative precedents, while democratic states with largely successful digital identity deployments (Estonia, Denmark, Sweden, Finland) receive less attention (though Part 2b addresses this partially). The regulatory landscape is rapidly evolving (the Digital Fairness Act has not yet been proposed; French age verification pilot results are not yet available). The paper&rsquo;s normative position &mdash; that mandatory age verification is disproportionate &mdash; is stated upfront and present in the abstract; this is a critical policy analysis with an argumentative thesis, not a neutral survey. Readers should evaluate the evidence independently.</p>
+
+  <p><em>Additional limitations acknowledged since v2.1:</em> (1) The analysis does not systematically examine the <strong>political economy</strong> of the age verification debate &mdash; specifically, which industry actors benefit from identity-based regulation versus design regulation, and how lobbying dynamics shape the policy discourse. (2) Positions of key institutional actors beyond those cited &mdash; notably <strong>ENISA</strong> (EU Agency for Cybersecurity) on identity infrastructure risks and the <strong>BfDI</strong> (German Federal Data Protection Commissioner) on EUDI Wallet implementation &mdash; are not systematically integrated. (3) The paper does not propose <strong>falsifiable success metrics</strong> for either age verification or design regulation, making it difficult to evaluate either approach empirically after implementation. (4) The CJEU&rsquo;s ruling in <strong>C-252/21 (Meta Platforms, 04.07.2023)</strong> &mdash; which clarified the interaction between GDPR and competition law regarding data processing &mdash; is not integrated into the analysis of platform data practices, though it may be relevant to the enforcement discussion in Section 3.3.</p>
+
+  <p><em>Methodological note on Fischer (2003):</em> This paper applies Fischer&rsquo;s first three levels of evaluation (technical-analytical verification, contextual validation, societal-level vindication) but does not systematically perform the fourth level (ideological discourse analysis) &mdash; i.e., an explicit interrogation of whose discursive frames dominate the debate and why &ldquo;child protection&rdquo; rather than &ldquo;platform accountability&rdquo; or &ldquo;surveillance normalization&rdquo; has become the primary framing. This is a limitation the reader should bear in mind.</p>
+  <blockquote>
+    <p>Fischer, F. (2003). <em>Reframing Public Policy: Discursive Politics and Deliberative Practices.</em> Oxford University Press.</p>
+  </blockquote>
+  </div>
+</section>

@@ -1,0 +1,176 @@
+<section id="part-2" x-data="collapsible">
+  <h2 @click="toggle" class="collapsible-heading">Part 2: Societal and Fundamental Rights Implications <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+  <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
+
+  <section id="s2-1">
+    <h3>2.1 Experiences with Real-Name Policies: The Case of South Korea</h3>
+    <p>South Korea&rsquo;s real-name policy (<em>Klarnamenpflicht</em>, 2004&ndash;2012) represents the most comprehensive natural experiment to date on the effects of mandatory online identification.</p>
+    <ul>
+      <li>A government study by the Korea Communications Commission (KCC) found a decline in malicious comments of merely <strong>0.9 percentage points</strong> (from 13.9% to 13.0%) &mdash; a figure that may fall within measurement error depending on the sampling methodology, which the KCC did not fully disclose &mdash; despite significant interference with fundamental rights.</li>
+      <li>Cho &amp; Kwon (2015) showed that statutory identification requirements actually <strong>increased</strong> flaming: <em>&ldquo;Whereas policy-driven regulation does not reduce, and even increases, flaming, the voluntary approach significantly decreases it.&rdquo;</em><sup><a href="#fn-9" id="fnref-9">9</a></sup></li>
+      <li>August 2011: The SK Communications breach (Nate/Cyworld) compromised registration data of <strong>35 million accounts</strong>. The attack exploited a software vulnerability in SK Communications&rsquo; systems, but the real-name policy had <em>required</em> this data to exist in the first place &mdash; creating the attack surface that made the breach consequential.</li>
+      <li>August 2012: The Constitutional Court declared the system unconstitutional (Case No. 2010Hun-Ma47) &mdash; for violating freedom of expression and the right to informational self-determination (<em>Recht auf informationelle Selbstbestimmung</em>).</li>
+    </ul>
+
+    <h4>Limits of the Analogy</h4>
+    <p>An important qualification: South Korea&rsquo;s system was a <em>full real-name policy</em> requiring disclosure of the user&rsquo;s civil identity for all online content. EUDI-based age verification is, at least in its stated design intent, a <em>selective attribute attestation</em> (&ldquo;over 18: yes/no&rdquo;). The analogy holds at the infrastructural level &mdash; both create a centralized identity verification system that can be extended &mdash; but differs at the disclosure level. The relevance of the South Korean case is strongest for the function creep argument (Section 2.4) and the data breach risk, less so for the direct chilling effects comparison.</p>
+
+    <blockquote>
+      <p>Park, W.-I. &amp; Greenleaf, G. (2012). &ldquo;Korea Rolls Back &lsquo;Real Name&rsquo; and ID Number Surveillance.&rdquo; <em>Privacy Laws &amp; Business International Report</em>, 119, 20&ndash;21.<sup><a href="#fn-10" id="fnref-10">10</a></sup></p>
+      <p>Leitner, J.M. (2015). &ldquo;Anonymity, Privacy, and Expressive Equality.&rdquo; <em>Journal of Korean Law</em>, 14(2), 167&ndash;212.<sup><a href="#fn-11" id="fnref-11">11</a></sup></p>
+    </blockquote>
+  </section>
+
+  <section id="s2-2">
+    <h3>2.2 Mandatory Identification as an Instrument of Political Persecution</h3>
+    <p>The following examples do not suggest that the EU will necessarily follow the same path &mdash; the EU has stronger institutional safeguards (independent judiciary, Charter of Fundamental Rights, data protection authorities). They do, however, demonstrate that the <em>technical infrastructure</em> for identification, once built, can be repurposed under changed political conditions. The question is not whether the current government would abuse this infrastructure, but whether the architecture is robust against future political changes &mdash; including in light of democratic backsliding in EU member states such as Hungary and Poland.</p>
+
+    <p>The pattern is consistent across regimes: China&rsquo;s real-name policy (Cybersecurity Law, Art. 24, 2017) enables not merely content censorship but the targeted suppression of <em>collective action</em> &mdash; King, Pan &amp; Roberts (2013) demonstrated that it is not criticism of the state that triggers censorship, but any content with mobilization potential, regardless of tone.<sup><a href="#fn-12" id="fnref-12">12</a></sup> Turkey&rsquo;s Law No. 7418 (2022) led to 4,590 investigations, 33 arrests, and 66 journalists affected &mdash; with nearly half of proceedings concerning reporting on the February 2023 earthquake. Russia&rsquo;s blogger registration requirement (November 2024) enabled Roskomnadzor to classify content as &ldquo;pro-government,&rdquo; &ldquo;anti-government,&rdquo; or &ldquo;apolitical&rdquo; through systematic behavioral profiling. In each case, the identification infrastructure was introduced with stated objectives other than political repression.</p>
+  </section>
+
+  <section id="s2-3">
+    <h3>2.3 Chilling Effects (<em>Abschreckungswirkungen</em>) &mdash; Empirical Evidence</h3>
+
+    <p><strong>Penney (2016):</strong> Wikipedia traffic to DHS-categorized &ldquo;sensitive&rdquo; articles dropped by approximately <strong>27%</strong> after the Snowden revelations &mdash; from 3.0 million to 2.2 million views/month. The decline was persistent.<sup><a href="#fn-13" id="fnref-13">13</a></sup></p>
+
+    <p><strong>Stoycheff (2016):</strong> Experimental study (n=255, convenience sample of US undergraduate students): Participants who were informed about surveillance and held a minority opinion expressed it <strong>significantly less frequently</strong>. Even surveillance supporters adjusted their behavior. The sample limits generalizability, but the mechanism is consistent with broader surveillance literature.<sup><a href="#fn-14" id="fnref-14">14</a></sup></p>
+
+    <p><strong>B&uuml;chi, Festic &amp; Latzer (2022):</strong> Perceived data surveillance leads to restricted digital communication &mdash; mediated by awareness, perceived intrusiveness, and resignation.<sup><a href="#fn-15" id="fnref-15">15</a></sup></p>
+
+    <h4>Connection to Democratic Theory</h4>
+    <p>Chilling effects matter not merely as individual privacy harms but as structural threats to democratic deliberation. Democratic legitimacy depends on the inclusion of diverse viewpoints, including dissenting and minority opinions (Habermas, 2006; Sunstein, 2017). Stoycheff&rsquo;s (2016) finding that surveillance awareness suppresses minority opinion expression is an empirical instantiation of the &ldquo;spiral of silence&rdquo; (Noelle-Neumann, 1974) &mdash; intensified by the permanence and traceability of digital identity. Mandatory identification does not merely chill individual expression; it structurally degrades the epistemic conditions for democratic self-governance.<sup><a href="#fn-32" id="fnref-32">32</a></sup></p>
+    <blockquote>
+      <p>Habermas, J. (2006). &ldquo;Political Communication in Media Society.&rdquo; <em>Communication Theory</em>, 16(4), 411&ndash;426. DOI: 10.1111/j.1468-2885.2006.00280.x.</p>
+      <p>Sunstein, C.R. (2017). <em>#Republic: Divided Democracy in the Age of Social Media.</em> Princeton University Press.</p>
+    </blockquote>
+
+    <h4>Applicability to Age Verification: A Necessary Qualification</h4>
+    <p>The studies cited above document chilling effects under conditions of <em>general surveillance perception</em> (post-Snowden mass surveillance, government monitoring programs), not specifically under age verification. The transferability rests on a plausible but empirically untested mechanism: that awareness of identifiability &mdash; regardless of the stated purpose &mdash; alters behavior. This mechanism is consistent with the theoretical framework (Nissenbaum&rsquo;s contextual integrity, Lyon&rsquo;s surveillance culture), but a direct empirical test of chilling effects from age verification systems does not yet exist. The hypothesis is: <em>mandatory age verification, by requiring identity attestation as a precondition for accessing public digital spaces, creates an identifiability awareness that produces chilling effects structurally similar to those documented in surveillance contexts &mdash; though likely attenuated in magnitude.</em> This hypothesis awaits empirical testing.</p>
+  </section>
+
+  <section id="s2-4">
+    <h3>2.4 Function Creep (<em>Zweckentfremdung</em>) &mdash; Recurring Patterns</h3>
+
+    <p>Once identity infrastructure exists, behavioral profiling becomes technically trivial &mdash; the same data linkages that enable age verification can support scoring, classification, and surveillance of user behavior across contexts. The Dutch SyRI system illustrates this trajectory: it linked 17 government data categories (tax, social benefits, immigration) and was deployed exclusively in low-income, immigrant-majority neighborhoods before being declared incompatible with Art. 8 ECHR (Rechtbank Den Haag, 05.02.2020, ECLI:NL:RBDHA:2020:1878).</p>
+
+    <blockquote>
+      <p>&ldquo;Function creep is an imperceptibly transformative and therewith contestable change in a data-processing system&rsquo;s proper activity.&rdquo;</p>
+      <cite>&mdash; Koops, B.-J. (2021). &ldquo;The concept of function creep.&rdquo; <em>Law, Innovation and Technology</em>, 13(1), 29&ndash;56.<sup><a href="#fn-16" id="fnref-16">16</a></sup></cite>
+    </blockquote>
+
+    <p>Function creep is not inevitable &mdash; but it is structurally favored by institutional incentives (bureaucratic expansion, political pressure during crises, exploitation of sunk costs). The burden of proof should lie with proponents of new identification infrastructure: What structural safeguards prevent the function creep that has regularly occurred in comparable systems?</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>Original Purpose</th>
+          <th>Documented Expansion</th>
+          <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EU COVID Certificate (Regulation (EU) 2021/953)</td>
+          <td>Cross-border travel</td>
+          <td>Restaurants, sports, workplaces; in Italy, workplace access withdrawn for unvaccinated persons over 50. <em>Note:</em> The EU COVID Certificate Regulation expired on 30 June 2023, and the infrastructure was sunset &mdash; a positive precedent for time-limited function creep. The EUDI Wallet, however, is designed as permanent infrastructure without a sunset clause.</td>
+          <td>Sunset June 2023 (positive precedent)</td>
+        </tr>
+        <tr>
+          <td>Schengen Information System</td>
+          <td>Information exchange</td>
+          <td>Supranational identification and investigation tool</td>
+          <td>Expanded, operational</td>
+        </tr>
+        <tr>
+          <td>India&rsquo;s Aadhaar</td>
+          <td>Social benefits</td>
+          <td>Bank accounts, SIM cards, taxes; biometric error rate 49% in Jharkhand<sup><a href="#fn-17" id="fnref-17">17</a></sup></td>
+          <td>Expanded despite documented harms</td>
+        </tr>
+        <tr>
+          <td>EU Interoperability Framework (Regulations 2019/817, 2019/818)</td>
+          <td>Border/migration management</td>
+          <td>Police access to EES, VIS, ETIAS, Eurodac via &ldquo;hit/no-hit&rdquo; mechanism</td>
+          <td>Expanded, operational</td>
+        </tr>
+        <tr>
+          <td>EU CSAM Regulation (COM/2022/209, proposed)</td>
+          <td>Detection of child sexual abuse material</td>
+          <td>Client-side scanning of private messages; scope expanded from known CSAM to &ldquo;unknown&rdquo; material and grooming detection via AI classification<sup><a href="#fn-60" id="fnref-60">60</a></sup></td>
+          <td>Contested; partially rolled back by EP LIBE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>A fair counterpoint: the EU COVID Certificate&rsquo;s sunset in June 2023 demonstrates that function creep is not inevitable in democratic systems &mdash; time-limited infrastructure can be dismantled. The critical difference with the EUDI Wallet is structural: the COVID Certificate was designed as a temporary, crisis-specific instrument with a built-in expiration date. The EUDI Wallet is permanent general-purpose identity infrastructure with no sunset clause, mandated across all 27 member states. Once identity credentials are normalized for content access, the political cost of removing that requirement exceeds the cost of extending it to new use cases.</p>
+
+    <blockquote>
+      <p>Blasi Casagran, C. (2021). &ldquo;Fundamental Rights Implications of Interconnecting Migration and Policing Databases in the EU.&rdquo; <em>Human Rights Law Review</em>, 21(2), 433&ndash;457.<sup><a href="#fn-18" id="fnref-18">18</a></sup></p>
+    </blockquote>
+
+    <h4>The EU CSAM Regulation: Function Creep in Real Time</h4>
+    <p>The proposed EU Regulation on Child Sexual Abuse (COM/2022/209) &mdash; widely known as &ldquo;Chat Control&rdquo; &mdash; is the most instructive current example of function creep in the child protection domain. The original stated objective is the detection of known CSAM (child sexual abuse material) using perceptual hash matching. However, the proposal as introduced extends far beyond this: it includes detection of <em>previously unknown</em> CSAM and <em>grooming detection</em> via AI-based text classification of private messages &mdash; a qualitative expansion from matching known illegal images to surveilling the content of private communications.<sup><a href="#fn-61" id="fnref-61">61</a></sup></p>
+
+    <p>The institutional response has been unambiguous in its concern:</p>
+    <ul>
+      <li><strong>EDPS Opinion 4/2022:</strong> The European Data Protection Supervisor concluded that the proposal &ldquo;would constitute a disproportionate interference with the fundamental rights&rdquo; to privacy and data protection, specifically warning against the &ldquo;general monitoring of the content of interpersonal communications.&rdquo;<sup><a href="#fn-62" id="fnref-62">62</a></sup></li>
+      <li><strong>German government position:</strong> Germany has consistently opposed the mandatory scanning provisions, with the Federal Government stating that &ldquo;client-side scanning is incompatible with the confidentiality of communications&rdquo; (<em>Vertraulichkeit der Kommunikation</em>). The Bundestag has issued formal objections.</li>
+      <li><strong>European Parliament LIBE Committee:</strong> The Committee on Civil Liberties, Justice and Home Affairs voted in November 2023 to exclude end-to-end encrypted communications from scanning obligations and to limit detection orders to known CSAM &mdash; effectively rejecting the AI-based grooming detection component.</li>
+    </ul>
+
+    <p>The CSAM Regulation proposal demonstrates the precise mechanism this section documents: a legitimate child protection objective serves as the entry point for an infrastructure that, once built, expands beyond its original scope. The progression from &ldquo;detect known illegal images&rdquo; to &ldquo;classify private text conversations using AI&rdquo; occurred <em>within a single legislative proposal</em> &mdash; before the system was even deployed. This is function creep not as a gradual institutional drift but as a design choice embedded in the initial architecture.</p>
+
+    <p>The relevance to age verification is direct: the CSAM Regulation and the SPD&rsquo;s age verification proposal share the same policy-ratchet logic. Child protection establishes the normative justification; a technical infrastructure is built; the infrastructure&rsquo;s capabilities exceed its stated purpose; and the gap between capability and mandate narrows over time as new use cases emerge.<sup><a href="#fn-63" id="fnref-63">63</a></sup></p>
+  </section>
+
+  <section id="s2-5">
+    <h3>2.5 Fundamental Rights Classification</h3>
+
+    <p><strong>CJEU, Digital Rights Ireland (C-293/12, C-594/12, 08.04.2014):</strong> The CJEU annulled the Data Retention Directive &mdash; due to <em>indiscriminate, generalized</em> collection of all persons without cause. A blanket identification requirement for <em>all</em> social media users &mdash; including adults &mdash; exhibits a structural parallel in scope: it indiscriminately captures the entire user base in order to enforce a norm that applies only to a subset (minors). The analogy has limits: Digital Rights Ireland concerned continuous mass retention of communications metadata over 6&ndash;24 months, not one-time attribute verification. The parallel lies in the indiscriminate scope, not in the nature or duration of data processing.</p>
+
+    <p><strong>CJEU, Tele2 Sverige / Watson (C-203/15, C-698/15, 21.12.2016) and La Quadrature du Net (C-511/18, C-512/18, C-520/18, 06.10.2020):</strong> The CJEU held that national measures requiring general and indiscriminate retention of traffic and location data are incompatible with Art. 15(1) of the e-Privacy Directive read in light of Arts. 7, 8, 11, and 52(1) of the Charter. The Grand Chamber in La Quadrature du Net &mdash; now the controlling framework &mdash; refined this into a tiered system: general retention is permissible only for threats to national security; targeted retention for serious crime; and &ldquo;quick freeze&rdquo; orders for ordinary crime. The CJEU has to date recognized only the fight against serious crime and threats to national security as justifications for general, indiscriminate data measures. Whether child protection could reach this threshold has not been directly addressed, though the existing tiered framework suggests a high bar.<sup><a href="#fn-33" id="fnref-33">33</a></sup></p>
+
+    <p><strong>CJEU, Opinion 1/15 (PNR Agreement, 26.07.2017):</strong> The CJEU required that even legitimate bulk data collection be strictly purpose-limited and accompanied by precise criteria limiting subsequent processing (paras. 187, 204&ndash;209). The analogy in scope is clear &mdash; mandatory age verification captures data from <em>all users</em> to protect a <em>subset</em> (minors) &mdash; though the volume and sensitivity of data differ: PNR involved 39 data elements per passenger, while a properly implemented ZKP-based age attestation would transmit a single boolean attribute (see Section 2b.4 for this qualification).<sup><a href="#fn-34" id="fnref-34">34</a></sup></p>
+
+    <p><strong>ECtHR, S. and Marper v. United Kingdom [GC], Nos. 30562/04, 30566/04, 04.12.2008:</strong> Blanket retention of biometric data of unconvicted persons violated Art. 8 ECHR due to its &ldquo;blanket and indiscriminate nature&rdquo; (para. 125). This case is arguably more directly relevant than Art. 10 cases because mandatory identification interferes with informational privacy regardless of whether the user speaks.<sup><a href="#fn-35" id="fnref-35">35</a></sup></p>
+
+    <p><strong>EDPB Statement 1/2025 on Age Assurance (15 January 2025):</strong> Europe&rsquo;s data protection authorities explicitly state that age verification mechanisms must comply with the data minimisation principle (Art. 5(1)(c) GDPR) and should not lead to &ldquo;excessive processing of personal data of all users, including adults.&rdquo; The EDPB distinguishes between age <em>verification</em> (precise age determination) and age <em>assurance</em> (reasonable confidence about age group), recommending the latter where possible. Importantly, the EDPB does not categorically oppose age verification: it acknowledges that verification may be <em>necessary</em> for services where access is legally restricted to adults (gambling, alcohol, pornography). This paper&rsquo;s critique is directed at <em>universal</em> age verification for general social media access, not at age verification for specifically regulated content.<sup><a href="#fn-36" id="fnref-36">36</a></sup></p>
+
+    <p><strong>BVerfGE 65, 1 &mdash; Census Ruling (<em>Volkszahlungsurteil</em>, 15.12.1983):</strong> Those who do not know what information about their behavior is being stored will preemptively adjust their behavior. This panoptic effect is incompatible with a free democratic order. A blanket identification requirement without specific cause (<em>Anlassbezogenheit</em>) raises significant constitutional concerns under this doctrine. The BVerfG has reinforced this principle in the context of automated data analysis: in its ruling of 16.02.2023 (1 BvR 1547/19), the court held that automated data analysis generating new insights constitutes an <em>independent interference with fundamental rights</em> beyond the original data collection, with a particularly aggravating effect where threat assessment is &ldquo;conducted by machine in the sense of predictive policing.&rdquo;</p>
+
+    <p><strong>BVerfGE 120, 274 &mdash; IT Fundamental Right (<em>IT-Grundrecht</em>, 27.02.2008):</strong> The fundamental right to the confidentiality and integrity of information technology systems (<em>Grundrecht auf Vertraulichkeit und Integrit&auml;t informationstechnischer Systeme</em>) was created to protect against <em>covert state infiltration</em> of IT systems (specifically, the secret installation of surveillance software). Its direct applicability to the EUDI Wallet &mdash; a voluntarily installed application &mdash; is doctrinally uncertain. However, if wallet adoption becomes effectively mandatory (through age verification requirements) and the wallet&rsquo;s architecture permits state or provider access to transaction data, the IT-Grundrecht&rsquo;s protective scope may be engaged. The more directly applicable constitutional basis is the right to informational self-determination (BVerfGE 65, 1, above).</p>
+
+    <p><strong>UN Special Rapporteur David Kaye, A/HRC/29/32 (2015):</strong></p>
+    <blockquote>
+      <p>&ldquo;Encryption and anonymity, separately or together, create a zone of privacy to protect opinion and belief.&rdquo; (Para. 12)</p>
+      <p>&ldquo;States should not restrict encryption and anonymity, which facilitate and often enable the rights to freedom of opinion and expression. Blanket prohibitions fail to be necessary and proportionate.&rdquo; (Para. 60)</p>
+    </blockquote>
+
+    <p><strong>ECtHR, Standard Verlagsgesellschaft v. Austria (No. 3), No. 39378/15, 07.12.2021:</strong> Violation of Art. 10 ECHR because the Austrian legal framework lacked adequate procedural safeguards &mdash; specifically, no prior judicial review &mdash; for orders requiring disclosure of anonymous commenters&rsquo; identity. The ECtHR&rsquo;s holding was primarily procedural (unmasking requires independent review), not a broad endorsement of absolute online anonymity, but it confirms that anonymity is a protected interest that requires procedural protections before it can be overridden.</p>
+
+    <p><strong>Council of Europe, Declaration of 28.05.2003, Principle 7:</strong> <em>&ldquo;Member states should respect the will of users of the Internet not to disclose their identity.&rdquo;</em></p>
+
+    <p><strong>Art. 8 EU Charter &mdash; Data Protection as Autonomous Right:</strong> Art. 8 of the EU Charter of Fundamental Rights protects personal data independently from Art. 7 (private life), requiring purpose limitation, a lawful basis, and independent oversight. The CJEU has increasingly treated Art. 8 as a self-standing right with its own requirements. Mandatory age verification must satisfy Art. 8&rsquo;s specific demands &mdash; including purpose limitation and independent supervisory control &mdash; in addition to the broader proportionality test under Art. 52(1).</p>
+
+    <p><strong>CJEU, Prokuratuur (C-746/18, 02.03.2021):</strong> The CJEU held that access to retained data requires prior review by a court or independent administrative authority. This is directly relevant to the Pseudonym Provider (Section 1.4): if the Provider can disclose real identity upon law enforcement request, Prokuratuur requires prior judicial authorization &mdash; a safeguard not specified in the ARF.</p>
+
+    <h4>Digital Exclusion and Accessibility</h4>
+    <p>Mandatory age verification via digital identity systems raises a distinct accessibility concern. Globally, an estimated 850 million people lack any form of legal identification (World Bank ID4D, 2024). Within the EU, populations disproportionately affected by digital exclusion include older adults, persons with disabilities, undocumented residents, and economically marginalized communities. The EU Accessibility Act (Directive (EU) 2019/882) requires that digital services be accessible to persons with disabilities &mdash; an obligation that extends to any age verification interface. The EDPB&rsquo;s Statement 1/2025 on Age Assurance explicitly notes that age verification mechanisms &ldquo;should not lead to the exclusion of users from services&rdquo; &mdash; a concern that applies with particular force to populations already at the margins of digital participation. The UN Convention on the Rights of Persons with Disabilities (CRPD, Art. 9) further requires that barriers to accessing information and communication technologies be identified and eliminated. A universal age verification mandate risks converting a digital inclusion gap into a digital exclusion wall.<sup><a href="#fn-64" id="fnref-64">64</a></sup></p>
+
+    <h4>Note on the ECtHR Margin of Appreciation</h4>
+    <p>Under ECHR law, states enjoy a margin of appreciation in determining how to protect competing rights, particularly in areas where there is no European consensus. Child protection on the internet is precisely such an area &mdash; different states are adopting dramatically different approaches (France: mandatory verification; UK: design codes; Australia: age verification legislation). The ECtHR would likely grant a wide margin of appreciation for measures aimed at child protection, which is a relevant consideration in assessing ECHR-based objections to age verification.</p>
+  </section>
+
+  <section id="s2-6">
+    <h3>2.6 eIDAS 2.0: Internal Contradictions</h3>
+    <p>The eIDAS 2.0 Regulation itself contains provisions that tension with mandatory wallet-based age verification:<sup><a href="#fn-37" id="fnref-37">37</a></sup></p>
+    <ul>
+      <li><strong>Art. 5a(1):</strong> &ldquo;The use of European Digital Identity Wallets shall be voluntary.&rdquo; If social media access is contingent on EUDI Wallet-based age verification, this effectively compels wallet adoption &mdash; converting a voluntary tool into a mandatory one.</li>
+      <li><strong>Art. 5a(16):</strong> &ldquo;The use of European Digital Identity Wallets shall not be a precondition for accessing public or private services.&rdquo; Social media platforms are private services.</li>
+      <li><strong>Art. 5b(3):</strong> Relying parties &ldquo;shall not request users to provide any personal data beyond what is strictly necessary for the purpose of the online service.&rdquo; Platforms requesting full identity credentials when age attestation alone suffices would violate this provision.</li>
+      <li><strong>Art. 5a(4)(e) and Recital (11c):</strong> Pseudonyms should be &ldquo;generated and used locally&rdquo; by the wallet &mdash; directly contradicting the ARF&rsquo;s centralized Pseudonym Provider (Section 1.4).</li>
+    </ul>
+  </section>
+  </div>
+</section>

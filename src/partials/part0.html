@@ -1,0 +1,31 @@
+<section id="part-0" x-data="collapsible">
+  <h2 @click="toggle" class="collapsible-heading">Part 0: The SPD Proposal &mdash; Policy Trigger and Analytical Scope <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+  <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
+
+  <p>In February 2026, senior SPD politicians &mdash; including the party&rsquo;s digital policy spokesperson &mdash; published a policy paper proposing a comprehensive framework for social media age verification. The proposal contains three core elements:<sup><a href="#fn-74" id="fnref-74">74</a></sup></p>
+
+  <ol>
+    <li><strong>Under-14 ban:</strong> Children under 14 should be prohibited from using social media platforms entirely.</li>
+    <li><strong>Youth version (14&ndash;15):</strong> Adolescents aged 14&ndash;15 should access a restricted &ldquo;youth version&rdquo; of social media platforms, with reduced algorithmic personalization and content restrictions.</li>
+    <li><strong>Universal age verification via EUDI Wallet:</strong> All users &mdash; including adults &mdash; must verify their age using the European Digital Identity Wallet. The proposal explicitly names the EUDI Wallet as the technical mechanism.</li>
+  </ol>
+
+  <p>The proposal&rsquo;s scope is expansive: it applies to <em>all social media platforms</em>, not merely to services hosting age-restricted content (pornography, gambling). Enforcement would operate through platform liability &mdash; platforms that fail to implement age verification face regulatory consequences under national and EU law.</p>
+
+  <h4>What the SPD Proposal Does Not Specify</h4>
+
+  <p>The policy paper leaves critical implementation questions unanswered. It does not specify: (1) the technical mechanism by which the EUDI Wallet would transmit age attestations &mdash; whether via full credential presentation, selective disclosure, or zero-knowledge proof; (2) how the &ldquo;youth version&rdquo; for 14&ndash;15-year-olds would differ technically from the adult version, and who would define and audit the content restrictions; (3) what data retention obligations would apply to platforms receiving age attestations; (4) how enforcement would operate across jurisdictions for platforms headquartered outside the EU; or (5) what oversight mechanisms would prevent function creep beyond age verification. These gaps are not mere implementation details &mdash; they determine whether the proposal can satisfy the proportionality requirements analyzed in the Interim section.</p>
+
+  <h4>The European Context</h4>
+
+  <p>The SPD proposal does not exist in isolation. France enacted the <em>Loi SREN</em> (2024) requiring age verification for pornographic websites. Australia legislated a minimum age of 16 for social media in November 2024. The UK&rsquo;s Online Safety Act (2023) combines design regulation with age assurance requirements. Spain announced plans for a state-developed age verification app in 2024. The European Commission&rsquo;s expected Digital Fairness Act (Q3 2026) will address addictive design and special protection for minors. These parallel developments reflect a shared policy impulse &mdash; but they adopt fundamentally different technical approaches, ranging from age estimation (Australia) to architectural role separation (France) to technology-neutral frameworks (UK). The SPD proposal is distinctive in its reliance on a <em>specific EU infrastructure</em> (the EUDI Wallet), which ties a national child protection policy to a continent-wide identity system.</p>
+
+  <h4>Analytical Reframing</h4>
+
+  <p>This analysis uses the SPD proposal as its <em>policy trigger</em> but examines EUDI-based age verification more broadly. The SPD paper is representative of a wider European trend, and the technical architecture (the EUDI Wallet) is an EU-wide infrastructure whose implications extend beyond any single national proposal.</p>
+
+  <p>A critical reframing is necessary regarding the EUDI Wallet itself. The Wallet is mandated by Regulation (EU) 2024/1183 (eIDAS 2.0) regardless of whether it is used for age verification. Member states must offer EUDI Wallets to all citizens by 2026. The infrastructure will exist whether or not the SPD proposal is adopted. The danger identified in this analysis is therefore not the creation of the EUDI Wallet &mdash; that decision has been made &mdash; but the <em>normalization of identity credentials for content access</em>. Each new use case that requires presenting a Wallet credential lowers the political and psychological threshold for the next. Age verification for social media transforms a voluntary government identity tool into a de facto mandatory precondition for participation in digital public life.<sup><a href="#fn-75" id="fnref-75">75</a></sup></p>
+
+  <p>The analysis proceeds as follows: Part 1 examines the technical architecture of the EUDI Wallet and its privacy deficiencies. Part 2 documents the societal and fundamental rights implications of mandatory digital identification. Part 2b presents the strongest case <em>for</em> age verification. The Interim section conducts a structured proportionality analysis under Art. 52(1) EU Charter. Part 3 analyzes the root causes of online harms and evaluates alternative regulatory approaches. The Conclusion synthesizes findings and states the paper&rsquo;s position.</p>
+  </div>
+</section>

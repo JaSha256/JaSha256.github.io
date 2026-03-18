@@ -1,0 +1,99 @@
+<section id="part-1" x-data="collapsible">
+  <h2 @click="toggle" class="collapsible-heading">Part 1: Technical Analysis of the EUDI Wallet Architecture <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+  <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
+
+  <section id="s1-1">
+    <h3>1.1 EUDI Wallet &mdash; Pseudonymous, Not Anonymous</h3>
+
+    <p><strong>Note on ARF versioning:</strong> This analysis is based on the Architecture Reference Framework (ARF) version 1.4 (published February 2024). ARF v1.5 was released in December 2024. While v1.5 introduces editorial clarifications and expanded implementation guidance, it does <em>not</em> resolve the core privacy deficiencies identified below: the credential format remains SD-JWT/mdoc with static issuer signatures; BBS-based unlinkable proofs remain optional, not mandatory; the Pseudonym Provider architecture is retained; and wallet instance attestation continues to function as a potential linking vector. The cryptographers&rsquo; joint statement (June 2024) and the epicenter.works analysis (2024) were directed at v1.4 but their structural criticisms remain applicable to v1.5. Where v1.5 introduces substantive changes relevant to specific points, these are noted inline.<sup><a href="#fn-71" id="fnref-71">71</a></sup></p>
+
+    <p>The SPD calls for age verification via EUDI Wallet and promises &ldquo;no restriction of anonymity.&rdquo; The technical reality fundamentally contradicts this promise.</p>
+
+    <h4>The Problem: Signed Credentials</h4>
+    <p>Germany relies on the so-called <em>signed credentials</em> model: identity data is cryptographically signed &mdash; i.e., digitally certified &mdash; by a government authority and then transmitted to the respective recipient. Since the signature remains valid beyond the original transaction context (as long as the credential is unrevoked and the cryptographic primitives hold), any recipient can pass the signed data on to third parties unchanged &mdash; it remains verifiable without the holder being able to detect or prevent this. Cryptographers and data protection authorities have explicitly warned against this model.</p>
+    <blockquote>
+      <p>&ldquo;An issue with any digital credential is that it can easily be copied and thus illegally distributed.&rdquo;</p>
+      <cite>&mdash; Slamanig, D. (2025). &ldquo;Privacy-Preserving Authentication: Theory vs. Practice.&rdquo;<sup><a href="#fn-1" id="fnref-1">1</a></sup></cite>
+    </blockquote>
+
+    <h4>Unlinkability (<em>Nichtverkettbarkeit</em>) Is Not Guaranteed in the Current Design</h4>
+    <p>Both data formats specified in the Architecture Reference Framework (ARF, version 1.4, the version analyzed throughout this paper unless otherwise noted) &mdash; SD-JWT and ISO 18013-5/mdoc &mdash; use static, issuer-generated digital signatures over the (hashed) identity attributes of the user. This signature functions as a persistent identifier &mdash; it remains identical with each presentation. Any two service providers (so-called Relying Parties) can therefore link transactions of the same user with minimal effort.</p>
+    <blockquote>
+      <p>&ldquo;the signature as well as (h<sub>1</sub>,...,h<sub>n</sub>) are always revealed and thus can be trivially linked by any RP.&rdquo;</p>
+      <cite>&mdash; Slamanig, D. (2025).<sup><a href="#fn-1" id="fnref-1b">1</a></sup> Keynote, 19th IFIP Summer School on Privacy and Identity Management.</cite>
+    </blockquote>
+
+    <h4>Joint Statement by International Cryptographers</h4>
+    <p>In June 2024, 16 internationally renowned cryptographers published a joint statement documenting the fundamental deficiencies of the ARF.<sup><a href="#fn-2" id="fnref-2">2</a></sup> Signatories include, among others:</p>
+    <ul>
+      <li><strong>Anna Lysyanskaya</strong> (Brown University) &mdash; co-inventor of CL signatures (Camenisch-Lysyanskaya, CRYPTO 2001/2004)</li>
+      <li><strong>Jan Camenisch</strong> (Dfinity) &mdash; co-inventor of CL signatures, IBM Idemix</li>
+      <li><strong>Bart Preneel</strong> (KU Leuven) &mdash; one of the most cited cryptographers worldwide</li>
+      <li><strong>Carmela Troncoso</strong> (EPFL) &mdash; led the DP-3T protocol for COVID contact tracing</li>
+      <li><strong>Anja Lehmann</strong> (Hasso Plattner Institute, University of Potsdam)</li>
+      <li><strong>Daniel Slamanig</strong> (Universit&auml;t der Bundeswehr M&uuml;nchen)</li>
+    </ul>
+    <p>Their core criticism: The technology to ensure anonymity has existed for over 20 years (BBS signatures, CL signatures, U-Prove). The ARF architects deliberately chose against it. BBS (as being standardized by IRTF CFRG) enables <em>unlinkable proof of knowledge of a valid signature</em> &mdash; the holder derives a cryptographically fresh, unlinkable zero-knowledge proof per presentation rather than revealing the issuer&rsquo;s static signature &mdash; combined with <em>zero-knowledge selective disclosure</em>. The current ARF architecture cannot do this. Notably, U-Prove (Microsoft Research) operates on standard elliptic curves (including P-256) without requiring pairings, demonstrating that anonymous credentials are not inherently incompatible with existing hardware &mdash; though U-Prove offers more limited selective disclosure than BBS and its development has been largely discontinued.<sup><a href="#fn-59" id="fnref-59">59</a></sup></p>
+
+    <h4>Batch Issuance: A Proposed but Insufficient Workaround</h4>
+    <p>The ARF acknowledges the linkability problem and proposes <em>batch issuance</em> as a mitigation: the issuer provides the holder with multiple copies of the same credential, each bearing a distinct signature. The holder uses a different copy per presentation, preventing cross-verifier correlation. However, cryptographers consider this an inadequate substitute for proper unlinkable proof schemes: the number of unlinkable presentations is bounded by batch size, re-issuance creates new tracking vectors, and revocation checking can re-link batched credentials &mdash; specifically, if each credential in a batch has a unique index in the OAuth Status List (draft-ietf-oauth-status-list), the revocation infrastructure can correlate presentations across verifiers by observing which index is checked, completely defeating batch issuance&rsquo;s unlinkability goal. Privacy-preserving revocation mechanisms exist (e.g., accumulator-based revocation as in CL credentials) but were not adopted. Notably, several EU-funded research projects (OLYMPUS, IMPULSE) have developed and tested privacy-preserving credential systems &mdash; yet their results were not integrated into the ARF.<sup><a href="#fn-30" id="fnref-30">30</a></sup></p>
+
+    <p><strong>Additional Hardware Constraint:</strong> BBS signatures require pairing-friendly elliptic curves (primarily BLS12-381, as specified in the IETF draft). Mass-market secure elements in smartphones lack support for pairing-based cryptography &mdash; while they support curves beyond P-256 (including P-384, P-521, and in some cases Ed25519), none support the pairing operations BBS requires. The bottleneck is the pairing computation itself, not merely curve support. However, hybrid approaches that delegate pairing operations to software while using the secure element for key storage are being actively developed (cf. IACR ePrint 2025/619, &ldquo;Making BBS Anonymous Credentials eIDAS 2.0 Compliant,&rdquo; already cited in this paper&rsquo;s references but not incorporated into the ARF).<sup><a href="#fn-3" id="fnref-3">3</a></sup></p>
+
+    <p><strong>Wallet Instance Attestation as a Further Linking Vector:</strong> The ARF requires wallet instances to be attested &mdash; proving they are genuine, unmodified wallet apps running on secure hardware. This attestation can itself function as a persistent identifier if not carefully designed, providing wallet providers and OS platform vendors (Google, Apple) with an additional mechanism to correlate transactions across verifiers.</p>
+  </section>
+
+  <section id="s1-2">
+    <h3>1.2 Zero-Knowledge Proofs Are Not Mandatory</h3>
+    <p>Zero-knowledge proofs (ZKP) are mentioned in the eIDAS 2.0 Regulation (Regulation (EU) 2024/1183) only in the recitals &mdash; <em>not</em> as a binding requirement in the implementing acts. The European Commission has systematically ignored the relevant data protection provisions in the technical implementing specifications.</p>
+    <blockquote>
+      <p>&ldquo;The ARF simply ignores this paragraph completely.&rdquo;</p>
+      <cite>&mdash; epicenter.works (2024). Data Protection Analysis: eIDAS Architecture Reference Framework 1.4.<sup><a href="#fn-4" id="fnref-4">4</a></sup></cite>
+    </blockquote>
+  </section>
+
+  <section id="s1-3">
+    <h3>1.3 Lack of Protection Against Tracking by Wallet Providers</h3>
+    <p>The ARF (v1.4) does not mandate an architecture that prevents wallet providers &mdash; or the underlying OS platform (Android/iOS) &mdash; from observing transaction metadata. Several implementation paths would expose transactions: cloud-based key storage, wallet instance attestation requiring backend communication, and OS-level telemetry that can observe wallet activity independently of the wallet app itself.</p>
+    <blockquote>
+      <p>&ldquo;Every use of the wallet could be monitored by the state.&rdquo;</p>
+      <cite>&mdash; Thomas Lohninger, epicenter.works.<sup><a href="#fn-5" id="fnref-5">5</a></sup></cite>
+    </blockquote>
+  </section>
+
+  <section id="s1-4">
+    <h3>1.4 The Pseudonym Provider &mdash; A Central De-Anonymization Risk</h3>
+    <p>The ARF introduces a &ldquo;Pseudonym Provider&rdquo; &mdash; a centralized entity that:</p>
+    <ol>
+      <li>verifies the user&rsquo;s real identity,</li>
+      <li>issues pseudonyms,</li>
+      <li>maintains a mapping table,</li>
+      <li>discloses the true identity upon request from law enforcement authorities.</li>
+    </ol>
+    <p>This entity is inconsistent with the eIDAS Regulation&rsquo;s stated intent. Art. 5a(4)(e) and Recital (11c) envision local pseudonym generation on the end device &mdash; not a centralized de-anonymization service. The Regulation does not explicitly prohibit a Pseudonym Provider, but the ARF&rsquo;s interpretation takes a permissive reading where the Regulation envisioned a more restrictive one.</p>
+    <blockquote>
+      <p>&ldquo;The eID Wallet risks becoming a tool of surveillance and control rather than a tool that empowers users.&rdquo;</p>
+      <cite>&mdash; EDRi, &ldquo;The eID Wallet still doesn&rsquo;t deserve your full trust&rdquo;, 10.03.2026.<sup><a href="#fn-6" id="fnref-6">6</a></sup></cite>
+    </blockquote>
+  </section>
+
+  <section id="s1-5">
+    <h3>1.5 Article 45 &mdash; Mandatory Trust in State Certification Authorities</h3>
+    <p>Article 45 of the eIDAS 2.0 Regulation requires browser manufacturers (Mozilla, Google, Apple) to recognize Qualified Website Authentication Certificates (QWACs) issued by EU member states. The final text (Regulation (EU) 2024/1183) includes a compromise: browsers may continue to apply their own security policies (including CA/Browser Forum Baseline Requirements) in addition to recognizing QWACs, provided they do not discriminate against QWACs compared to other certificates meeting the same standards. Whether this compromise is sufficient remains contested. Over 500 cybersecurity researchers warned in an open letter (November 2023):<sup><a href="#fn-7" id="fnref-7">7</a></sup></p>
+    <blockquote>
+      <p>&ldquo;The current proposal radically expands the ability of governments to surveil both their own citizens and residents across the EU by providing them with the technical means to intercept encrypted web traffic.&rdquo;</p>
+      <cite>&mdash; <a href="https://eidas-open-letter.org">eidas-open-letter.org</a> (over 500 signatories, including EFF, EDRi, Internet Society, Mozilla, Linux Foundation)</cite>
+    </blockquote>
+    <h4>Partial Mitigation Through Certificate Transparency</h4>
+    <p>The EU implementing acts (Commission Implementing Regulations (EU) 2024/3144 and 2024/3145, December 2024) require QWACs to be logged in publicly accessible Certificate Transparency (CT) logs. This significantly raises the bar for covert, large-scale TLS interception &mdash; a rogue certificate for gmail.com would appear in public logs and could be detected within hours. However, targeted, short-duration interception (e.g., of a specific journalist&rsquo;s traffic) remains possible before CT monitors flag the anomaly. The structural concern &mdash; that Article 45 undermines browser vendors&rsquo; ability to enforce their own security standards &mdash; remains valid regardless of CT mitigations.<sup><a href="#fn-31" id="fnref-31">31</a></sup></p>
+
+    <p>Reference: Wazan, A.S. et al. (2024). &ldquo;Article 45 of the eIDAS Directive Unveils the need to implement the X.509 4-cornered trust model for the WebPKI.&rdquo; ARES&nbsp;&rsquo;24.<sup><a href="#fn-8" id="fnref-8">8</a></sup></p>
+  </section>
+
+  <section id="s1-6">
+    <h3>1.6 Google&rsquo;s Role in the German Prototype Development</h3>
+    <p>In the SPRIND &ldquo;Funke&rdquo; competition, Google was admitted to the German wallet prototype development &mdash; despite documented data protection concerns within the jury. Google developed the &ldquo;Android German EUDI Open Source Wallet Prototype&rdquo; (GitHub: google/funke-eudi-wallet-prototype, since archived).</p>
+    <p>The involvement raises specific, documented concerns: (1) Google&rsquo;s production identity stack (Android Credential Manager, Google Identity Services) remains proprietary and closed-source, creating a dependency on a platform whose business model is surveillance advertising; (2) the prototype uses Android&rsquo;s StrongBox secure element for key storage, which is controlled by Google&rsquo;s hardware security module &mdash; an opaque trust anchor for a European sovereignty infrastructure; (3) Google is simultaneously a Relying Party (as a platform that would verify age) and an infrastructure provider (as the wallet developer), creating a structural conflict of interest that the ARF does not address.<sup><a href="#fn-52" id="fnref-52">52</a></sup></p>
+  </section>
+  </div>
+</section>

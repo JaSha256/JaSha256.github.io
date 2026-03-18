@@ -1,12 +1,12 @@
-<section id="revision-history" style="margin-top: 2.5rem;">
+<section id="revision-history">
   <h2>Revision History</h2>
   <p>In accordance with academic transparency standards, substantive changes to this analysis are documented below. Minor typographical corrections and formatting changes are not listed.</p>
 
   <table>
     <thead>
       <tr>
-        <th style="width: 8em;">Date</th>
-        <th style="width: 6em;">Version</th>
+        <th class="rev-date">Date</th>
+        <th class="rev-version">Version</th>
         <th>Description of Changes</th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@
         <td>2.0</td>
         <td>
           <strong>Comprehensive revision: structural overhaul, peer review integration, gap analysis, proportionality framework, and fact-check corrections.</strong>
-          <ul style="margin-top: 0.4rem; margin-bottom: 0;">
+          <ul class="rev-changes">
             <li><strong>Structural changes:</strong> Part 2b (steel-man case for age verification) repositioned before Interim section. New Part 0 (&ldquo;The SPD Proposal&rdquo;) added as policy trigger. Interim section restructured around Art. 52(1) four-step proportionality test. Conclusion rewritten as five-paragraph synthesis. ~5,000 words cut (behavioral scoring, AI surveillance sections removed; Part 3 sections merged). Technical migration to Vite + Handlebars partials.</li>
             <li><strong>Cryptographic corrections:</strong> BBS+ terminology updated to BBS per IETF CFRG. Hardware curve claim corrected (BLS12-381, pairing computation bottleneck). U-Prove added as P-256-compatible alternative. CNIL model corrected from ZKP to cryptographic blinding. On-device attestation trilemma documented. ARF versions (1.4, 1.5) specified throughout.</li>
             <li><strong>Legal corrections:</strong> La Quadrature du Net (2020) added as controlling framework. Digital Rights Ireland analogy qualified. BVerfGE 120,274 doctrinal fit qualified. Art. 8 EU Charter and CJEU Prokuratuur added. ECtHR margin of appreciation noted. EDPB Statement 1/2025 integrated.</li>
@@ -30,6 +30,36 @@
             <li><strong>Fact-check corrections:</strong> Hancock et al. (2022) meta-analysis effect size corrected from erroneous <em>d</em>&nbsp;=&nbsp;&minus;0.10 to <em>r</em>&nbsp;=&nbsp;0.01 (n.s.) overall, with subdimension correlations (depression <em>r</em>&nbsp;=&nbsp;.12, anxiety <em>r</em>&nbsp;=&nbsp;.13, social well-being <em>r</em>&nbsp;=&nbsp;.20). Apple ATT rejection rate corrected from 90&ndash;96% to 54&ndash;96%. IWF self-generated CSAM corrected from 92% to 93%. NCMEC/Thorn statistics replaced with verified data. Meta internal research precision improved (Instagram statistics clarified as referring to teens with pre-existing issues).</li>
             <li><strong>Balance improvements:</strong> Art. 24 EU Charter given more weight. Proportionality analysis qualified as policy assessment. Moral licensing acknowledged as cutting both ways. Nordic positive cases added. Enforcement deficit self-undermining tension addressed. Paper explicitly characterized as critical policy analysis with argumentative thesis.</li>
             <li><strong>Footnotes:</strong> Reorganized from 61 to 75 total (additions, removals, renumbering). ~25 new reference entries across three new categories.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>2026-03-18</td>
+        <td>2.1</td>
+        <td>
+          <strong>Argumentative corrections: logical consistency, symmetric evidence standards, and qualification of unsupported claims.</strong>
+          <ul class="rev-changes">
+            <li><strong>Suitability test:</strong> Reclassified from &ldquo;Contested&rdquo; to &ldquo;Conceded with Reservations&rdquo; &mdash; juridically correct (low threshold met), strengthens credibility of necessity/proportionality arguments.</li>
+            <li><strong>Proportionality costs:</strong> Differentiated into documented costs and projected risks. Chilling effects and function creep qualified as empirically grounded but untested for age verification specifically.</li>
+            <li><strong>&ldquo;Do both&rdquo; objection:</strong> UK OSA evidence qualified as preliminary. Moral licensing transfer to institutional dynamics acknowledged as unestablished. &ldquo;Do both&rdquo; treated as theoretically possible, contingent on least-invasive AV form.</li>
+            <li><strong>Root cause claim:</strong> &ldquo;Root cause&rdquo; replaced with &ldquo;primary structural driver.&rdquo; Counterfactual limitation acknowledged; Milli et al. evidence integrated.</li>
+            <li><strong>Evidence symmetry:</strong> AADC&rsquo;s 91 changes explicitly qualified as platform-reported and unaudited, paralleling SK&rsquo;s measured outcomes.</li>
+            <li><strong>Conclusion:</strong> &ldquo;Category error&rdquo; replaced with &ldquo;misallocates regulatory priority&rdquo; &mdash; avoids false dichotomy.</li>
+            <li><strong>Function creep table:</strong> Added &ldquo;Outcome&rdquo; column showing non-deterministic trajectories (sunset, expansion, judicial rollback).</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>2026-03-18</td>
+        <td>2.2</td>
+        <td>
+          <strong>Peer review fixes and Alpine.js interactive features.</strong>
+          <ul class="rev-changes">
+            <li><strong>Critical fix:</strong> Duplicate <code>id="fnref-36"</code> across part2.html and interim.html resolved.</li>
+            <li><strong>Accessibility:</strong> ARIA attributes added (TOC nav, footnotes section). Heading hierarchy h1&rarr;h3 skip fixed in method-box. Back-link for <code>fnref-1b</code> added.</li>
+            <li><strong>CSS:</strong> Dead code removed (padding override). Inline styles extracted to CSS classes (header, footer, revision-history). <code>color-scheme</code> meta tag added. Smooth scrolling enabled.</li>
+            <li><strong>Build:</strong> <code>base: './'</code> added for portable deployment. Part 2b subsection numbering (2b.1&ndash;2b.5) aligned with Part 1/2/3 convention.</li>
+            <li><strong>Alpine.js integration:</strong> Scroll-spy TOC with active section highlighting. Footnote tooltips (hover/click inline preview). Collapsible sections for all main parts. Dark/light/system theme toggle with localStorage persistence. Back-to-top button. Mobile TOC sidebar with slide-in navigation.</li>
           </ul>
         </td>
       </tr>

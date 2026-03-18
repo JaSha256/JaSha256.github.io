@@ -1,0 +1,88 @@
+<section id="part-3" x-data="collapsible">
+  <h2 @click="toggle" class="collapsible-heading">Part 3: Root Cause Analysis and Alternative Regulatory Approaches <span class="collapse-icon" :class="{ 'collapsed': collapsed }">&lsaquo;</span></h2>
+  <div x-show="!collapsed" x-transition:enter.duration.200ms x-transition:leave.duration.150ms>
+
+  <section id="s3-1">
+    <h3>3.1 The Causal Chain</h3>
+    <p>The business model of platforms is the primary structural driver of the harms that age verification is supposed to combat:</p>
+    <p><strong>Surveillance advertising model</strong> (Zuboff, 2019)<sup><a href="#fn-19" id="fnref-19">19</a></sup> &rarr; <strong>Engagement maximization</strong> &rarr; <strong>Algorithmic amplification</strong> of outrage and polarization &rarr; <strong>Addictive design</strong> &rarr; <strong>Harms to all users, especially minors</strong></p>
+    <p>Age verification intervenes at the <em>endpoint</em> (who is allowed to use the platform) rather than at the <em>root cause</em> (how the platform is designed and what business model drives it).</p>
+  </section>
+
+  <section id="s3-2">
+    <h3>3.2 The Surveillance Advertising Model and Its Downstream Harms</h3>
+
+    <p>The surveillance advertising model (Zuboff, 2019) generates its harms through a specific mechanism: engagement maximization drives algorithmic amplification of emotionally charged content, which produces measurable downstream effects across democratic integrity, public health, and epistemic quality. At the content level, Brady et al. (2017) found that each moral-emotional word in a social media post increased its diffusion by <strong>20%</strong>, demonstrating how engagement algorithms systematically reward emotionally charged content. Milli et al. (2025) provide the strongest experimental evidence at the system level: engagement algorithms amplify partisan content (+0.24 SD), anger (+0.47 SD), and anxiety (+0.23 SD) &mdash; while users actually <em>prefer</em> chronological feeds.<sup><a href="#fn-20" id="fnref-20">20</a></sup> Meta generates <strong>97.3%</strong> of its revenue from advertising; when users are given a choice, <strong>54&ndash;96%</strong> reject personalized tracking (Apple ATT data; initial opt-in rates of 4% rose to ~46% globally over time). The model functions only under conditions of limited transparency and manipulative consent designs.<sup><a href="#fn-23" id="fnref-23">23</a></sup></p>
+
+    <p>According to Meta&rsquo;s own internal research (disclosed by Frances Haugen, 2021; not independently peer-reviewed), Facebook&rsquo;s Responsible AI team was structurally prevented from addressing algorithmic amplification of disinformation because it would have impacted growth metrics.<sup><a href="#fn-21" id="fnref-21">21</a></sup> The Cambridge Analytica scandal (2018) demonstrated the trajectory from data infrastructure to political weaponization: Facebook&rsquo;s Graph API allowed a researcher&rsquo;s app installed by ~270,000 users to harvest data from up to 87 million profiles (Facebook&rsquo;s worst-case estimate), which was then used for psychographic voter targeting. This was not a system failure but the <em>intended functionality</em> of the platform&rsquo;s data infrastructure, repurposed for political manipulation &mdash; resulting in a $5 billion FTC settlement.<sup><a href="#fn-53" id="fnref-53">53</a></sup></p>
+
+    <p><strong>Democratic harms:</strong> The Myanmar genocide (2017&ndash;2018) demonstrated lethal consequences when engagement optimization operates without adequate moderation &mdash; the UN concluded Facebook played a &ldquo;determining role&rdquo; in spreading hate speech against the Rohingya.<sup><a href="#fn-55" id="fnref-55">55</a></sup> Users over 65 share nearly seven times more fake news than younger users (Guess et al., 2019), underscoring that platform harms are age-independent.<sup><a href="#fn-54" id="fnref-54">54</a></sup></p>
+
+    <p><strong>Public health and epistemic harms:</strong> Loomba et al. (2021) found that exposure to online vaccine misinformation reduced vaccination intent by ~6 percentage points.<sup><a href="#fn-56" id="fnref-56">56</a></sup> Benkler, Faris &amp; Roberts (2018) document how the attention economy systematically degrades epistemic quality &mdash; sensationalism outcompetes accuracy because the business model rewards engagement regardless of truth value.<sup><a href="#fn-57" id="fnref-57">57</a></sup></p>
+
+    <p><strong>Addictive design:</strong> Social media replicates the variable reinforcement mechanisms documented in gambling design (Schull, 2012): infinite scroll, pull-to-refresh, autoplay, notification systems.<sup><a href="#fn-22" id="fnref-22">22</a></sup> The European Parliament&rsquo;s Resolution on Addictive Design (12.12.2023, TA-9-2023-0459) called for regulatory measures against these mechanisms and a &ldquo;digital right not to be disturbed.&rdquo;</p>
+
+    <p><strong>The structural conclusion:</strong> These harms are consequences of the surveillance advertising business model. They affect adults and minors alike. They cannot be addressed by regulating who accesses the platform &mdash; an age-verified Facebook would have been equally vulnerable to every harm documented above. They can only be addressed by regulating what the platform does. A fair qualification: the counterfactual &mdash; whether subscription-based platforms without engagement optimization would produce the same harms &mdash; has not been empirically tested. However, Milli et al.&rsquo;s (2025) finding that users prefer chronological feeds over algorithmic recommendations suggests that engagement optimization is model-driven rather than user-driven, strengthening the inference that the business model, not the medium itself, is the primary causal factor.</p>
+  </section>
+
+  <section id="s3-3">
+    <h3>3.3 Regulatory Approaches That Address Root Causes</h3>
+
+    <h4>Design Regulation Instead of Identity Regulation</h4>
+    <p>This distinction maps onto Lessig&rsquo;s (2006) four modalities of regulation: age verification is regulation by <em>law</em> (commanding identification); design regulation is regulation by <em>architecture</em> (changing what the system does). In regulatory theory terms, design codes represent a lower rung on the &ldquo;enforcement pyramid&rdquo; (Ayres &amp; Braithwaite, 1992) &mdash; less coercive, more responsive, and demonstrably effective (as the UK AADC shows) before escalation to identity-based measures becomes necessary.<sup><a href="#fn-41" id="fnref-41">41</a></sup></p>
+    <blockquote>
+      <p>Ayres, I. &amp; Braithwaite, J. (1992). <em>Responsive Regulation: Transcending the Deregulation Debate.</em> Oxford University Press.</p>
+    </blockquote>
+    <p>The fundamental difference: Age verification regulates <em>who</em> may use a platform. Design regulation changes <em>what the platform does to all users</em>. The former leaves the business model intact. The latter addresses the root cause.</p>
+    <blockquote>
+      <p>&ldquo;The systemic design choices at platform level are the root cause for these harms, affecting children and adults alike.&rdquo; Age-based exclusion, EDRi argues, does not solve these root causes but merely delays exposure to harm.</p>
+      <cite>&mdash; EDRi (2025). &ldquo;Age Verification Gains Traction: The EU Risks Failing to Address the Root Causes of Online Harm.&rdquo;<sup><a href="#fn-24" id="fnref-24">24</a></sup></cite>
+    </blockquote>
+
+    <h4>UK Age Appropriate Design Code &mdash; Demonstrable Effectiveness</h4>
+    <p>The British Children&rsquo;s Code (15 standards, in effect since September 2021) regulates <em>the design of the service</em>, not the <em>identity of the user</em>. Result: <strong>91 significant design changes</strong> on major platforms (5Rights Foundation / Children and Screens, 2024):</p>
+    <ul>
+      <li>Instagram set all under-16 accounts to private (July 2021)</li>
+      <li>TikTok stopped nighttime push notifications for all under-18s</li>
+      <li>YouTube disabled video autoplay for children and introduced break/bedtime reminders</li>
+      <li>Google made SafeSearch the default for all children</li>
+    </ul>
+    <p>ICO Interim Impact Review (November 2025): Improvements affect over 3 million children. The Code has already been adopted in Indonesia, Vermont, and Nebraska. A symmetric evidence standard requires noting that these 91 changes are platform-reported and have not been independently audited for substantive user impact &mdash; just as age verification&rsquo;s measured 0.9% effectiveness in South Korea reflects actual outcomes rather than formal compliance. The comparative case for design regulation rests on plausibility and design logic, not on equivalent outcome evidence.</p>
+    <blockquote>
+      <p>&ldquo;Always says the digital world, not social media, and always says by design not don&rsquo;t do this and don&rsquo;t do that.&rdquo;</p>
+      <cite>&mdash; Baroness Beeban Kidron, 5Rights Foundation.</cite>
+    </blockquote>
+
+    <p><strong>Honest limitations of design regulation:</strong> The AADC&rsquo;s success should not obscure structural weaknesses in the design regulation model. First, GDPR Art. 25 (&ldquo;data protection by design and by default&rdquo;) has been in force since 2018, yet enforcement actions specifically targeting design failures remain rare &mdash; the EDPB has issued guidance but no binding decisions specifically on Art. 25 compliance. Second, the US COPPA (Children&rsquo;s Online Privacy Protection Act, 1998) has demonstrably failed to prevent platforms from collecting children&rsquo;s data &mdash; the FTC has imposed over $400 million in COPPA penalties since 2019, yet structural compliance remains poor. Third, the AADC&rsquo;s claimed 91 platform design changes have not been independently audited for substantive impact: a platform changing a default setting may satisfy formal compliance without meaningfully altering user experience. These failures do not invalidate design regulation as an approach, but they demonstrate that design codes face the same enforcement gap this paper identifies for age verification &mdash; an honest assessment must acknowledge this symmetry.<sup><a href="#fn-72" id="fnref-72">72</a></sup></p>
+
+    <h4>DSA &mdash; The Enforcement Reality</h4>
+    <p>The Digital Services Act (Regulation (EU) 2022/2065) already contains a comprehensive toolkit:</p>
+    <ul>
+      <li><strong>Art. 25:</strong> Prohibition of deceptive or manipulative interface design (commonly referred to as &ldquo;dark patterns&rdquo;)</li>
+      <li><strong>Art. 27:</strong> Algorithmic transparency &mdash; users must be able to modify recommendation parameters</li>
+      <li><strong>Art. 28(2):</strong> Prohibition of profile-based advertising for known minors</li>
+      <li><strong>Art. 34/35:</strong> Systemic risk assessments and mitigation measures for VLOPs</li>
+      <li><strong>Art. 28(3):</strong> Platforms should <em>not</em> be incentivized to collect additional personal data in order to determine whether a user is a minor</li>
+    </ul>
+    <p>The problem is less a regulatory deficit than an enforcement deficit. But this raises a critical question that the paper must address head-on: <em>why</em> have these tools not been effectively enforced?</p>
+
+    <p><strong>Structural causes of the enforcement deficit:</strong></p>
+    <ul>
+      <li><strong>Resource asymmetry:</strong> The European Commission&rsquo;s DSA enforcement unit comprises approximately 100 staff for overseeing 19 designated VLOPs and VLOSEs. By comparison, Meta alone employs over 40,000 content moderation personnel and spends more on lobbying in Brussels (EUR 8 million in 2023) than the Commission&rsquo;s entire DSA enforcement budget.</li>
+      <li><strong>Technical opacity:</strong> DSA Art. 40 grants vetted researchers access to platform data, but platforms have systematically delayed and restricted access. As of March 2026, no independent researcher has received full algorithmic audit access under Art. 40(12). Without this access, systemic risk assessments (Art. 34) rely on platform self-reporting &mdash; a structural conflict of interest.</li>
+      <li><strong>Political economy:</strong> The same governments proposing age verification have not allocated the resources necessary for DSA enforcement. Germany&rsquo;s Digital Services Coordinator (Bundesnetzagentur) received EUR 15 million for DSA enforcement in 2025 &mdash; for a jurisdiction with 67 million internet users. This suggests that the push for age verification may, in part, reflect a preference for measures that shift costs to platforms and users rather than to the public budget.</li>
+      <li><strong>Jurisdictional complexity:</strong> Ireland hosts the European headquarters of Meta, Google, TikTok, Apple, and Microsoft. The Irish DPC&rsquo;s well-documented delays in GDPR enforcement (7+ years for some cases) illustrate how regulatory bottlenecks in a single member state can compromise EU-wide enforcement.</li>
+    </ul>
+    <p>A critic could rightly object that this analysis is self-undermining: if the enforcement deficit is as structural as described, design regulation faces the same obstacles, and &ldquo;better enforcement&rdquo; is a wish rather than a policy proposal. This objection has force. The response is twofold: (1) design regulation has a lower enforcement burden than age verification &mdash; once a platform changes its default settings (as the UK AADC demonstrated), the change applies to all users without per-user verification; (2) enforcement capacity is demonstrably building, even if slowly. The EDPB&rsquo;s binding decision on Meta&rsquo;s legal basis for behavioral advertising (January 2023), which forced Meta to offer consent-based advertising in the EU, shows that existing tools can change platform behavior when applied. The European Commission&rsquo;s first formal proceedings under the DSA (against X/Twitter in December 2023 and TikTok in February 2024) confirm this trajectory. The appropriate response is to address the structural causes: dedicated funding, binding researcher access timelines, sanctions for non-compliance with data access requests, and redistribution of enforcement authority away from single national bottlenecks &mdash; not to introduce additional instruments subject to the same constraints.<sup><a href="#fn-58" id="fnref-58">58</a></sup></p>
+
+    <h4>Digital Markets Act &mdash; Addressing Market Power</h4>
+    <p>The DMA (Regulation (EU) 2022/1925) addresses the monopoly structure: interoperability requirements for messaging (Art. 7), prohibition of cross-service data combination without consent (Art. 5(2)), data portability (Art. 6(9)). First fines: EUR 500 million (Apple) and EUR 200 million (Meta), April 2025.<sup><a href="#fn-25" id="fnref-25">25</a></sup></p>
+
+    <h4>Restricting Surveillance Advertising</h4>
+    <p>Norway banned Meta&rsquo;s behavioral advertising in 2023; the EDPB extended the ban EU-wide. Context-based advertising (based on the content of the page, not the user&rsquo;s profile) is demonstrably <strong>comparable or more efficient</strong> in cost-per-click metrics.<sup><a href="#fn-26" id="fnref-26">26</a></sup></p>
+
+    <h4>Digital Fairness Act &mdash; The Next Step</h4>
+    <p>Expected legislative proposal Q3 2026. Intended to address: manipulative interface design, addictive design, misleading influencer marketing, unfair personalization practices, special protection for minors. This would be design regulation &mdash; an approach that addresses causes rather than symptoms.</p>
+  </section>
+  </div>
+</section>

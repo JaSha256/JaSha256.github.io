@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="A critical analysis of mandatory online age verification via EUDI Wallet, examining technical risks, societal consequences, and alternative regulatory approaches.">
+  <title>Age Verification via EUDI Wallet: Technical Risks, Societal Consequences, and Alternative Regulatory Approaches</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body x-data="scrollSpy">
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" x-data="themeToggle">
+    <button @click="cycle" :aria-label="'Theme: ' + label">
+      <span x-text="icon"></span>
+      <span class="theme-label" x-text="label"></span>
+    </button>
+  </div>
+
+  <!-- Mobile TOC Sidebar -->
+  <div class="toc-sidebar-wrapper" x-data="tocSidebar">
+    <button class="toc-sidebar-toggle" @click="toggle" aria-label="Table of Contents">
+      <span x-show="!open">&#9776;</span>
+      <span x-show="open">&times;</span>
+    </button>
+    <div class="toc-sidebar-overlay" x-show="open" x-transition.opacity @click="close"></div>
+    <nav class="toc-sidebar" x-show="open" x-transition:enter="toc-slide-enter" x-transition:enter-start="toc-slide-start" x-transition:enter-end="toc-slide-end" x-transition:leave="toc-slide-enter" x-transition:leave-start="toc-slide-end" x-transition:leave-end="toc-slide-start" aria-label="Mobile Table of Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a @click.prevent="navigateTo('#part-0')" href="#part-0" :class="{ 'toc-active': activeId === 'part-0' }">Part 0: The SPD Proposal</a></li>
+        <li><a @click.prevent="navigateTo('#part-1')" href="#part-1" :class="{ 'toc-active': activeId === 'part-1' }">Part 1: Technical Analysis</a></li>
+        <li><a @click.prevent="navigateTo('#part-2')" href="#part-2" :class="{ 'toc-active': activeId === 'part-2' }">Part 2: Societal Implications</a></li>
+        <li><a @click.prevent="navigateTo('#part-2b')" href="#part-2b" :class="{ 'toc-active': activeId === 'part-2b' }">Part 2b: Case For AV</a></li>
+        <li><a @click.prevent="navigateTo('#interim')" href="#interim" :class="{ 'toc-active': activeId === 'interim' }">Interim: Proportionality</a></li>
+        <li><a @click.prevent="navigateTo('#part-3')" href="#part-3" :class="{ 'toc-active': activeId === 'part-3' }">Part 3: Alternatives</a></li>
+        <li><a @click.prevent="navigateTo('#conclusion')" href="#conclusion" :class="{ 'toc-active': activeId === 'conclusion' }">Conclusion</a></li>
+        <li><a @click.prevent="navigateTo('#footnotes-section')" href="#footnotes-section" :class="{ 'toc-active': activeId === 'footnotes-section' }">Footnotes</a></li>
+        <li><a @click.prevent="navigateTo('#references')" href="#references" :class="{ 'toc-active': activeId === 'references' }">References</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <article x-data="footnoteTooltip">
+    {{> header}}
+    {{> abstract}}
+    {{> toc}}
+    {{> framework}}
+    {{> part0}}
+    {{> part1}}
+    {{> part2}}
+    {{> part2b}}
+    {{> interim}}
+    {{> part3}}
+    {{> conclusion}}
+    {{> footnotes}}
+    {{> references}}
+    {{> revision-history}}
+    {{> footer}}
+
+    <!-- Footnote Tooltip -->
+    <div class="fn-tooltip" x-show="visible" x-transition.opacity :style="`left: ${x}px; top: ${y}px;`" @click.outside="dismiss">
+      <div class="fn-tooltip-content" x-html="content"></div>
+      <button class="fn-tooltip-close" x-show="pinned" @click="dismiss" aria-label="Close">&times;</button>
+    </div>
+  </article>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" x-data="backToTop" x-show="visible" x-transition.opacity @click="scrollTop" aria-label="Back to top">
+    &uarr;
+  </button>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
